@@ -69,12 +69,12 @@
       <div style="padding:20px 22px;border-radius:18px;color:#fff;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.14);box-shadow:0 16px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);animation:fadein .6s ease .2s both;">
         <div style="font-family:'Doto';font-weight:900;font-size:14px;letter-spacing:.2em;margin-bottom:16px;">NOW</div>
         <div style="display:flex;flex-direction:column;gap:12px;">
-          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">ESCUCHANDO</span><span style="font:400 13px 'Geist Mono';flex:1;">Inferno — Boards of Canada</span></div>
-          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">LEYENDO</span><span style="font:400 13px 'Geist Mono';flex:1;">Arte — Yasmina Reza</span></div>
-          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">VIENDO</span><span style="font:400 13px 'Geist Mono';flex:1;">Agon</span></div>
-          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">TRABAJANDO</span><span style="font:400 13px 'Geist Mono';flex:1;opacity:.8;">Desarrollo + producción musical</span></div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">ESCUCHANDO</span><span style="font:400 13px 'Geist Mono';flex:1;">{{ now.escuchando }}</span></div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">LEYENDO</span><span style="font:400 13px 'Geist Mono';flex:1;">{{ now.leyendo }}</span></div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">VIENDO</span><span style="font:400 13px 'Geist Mono';flex:1;">{{ now.viendo }}</span></div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">TRABAJANDO</span><span style="font:400 13px 'Geist Mono';flex:1;opacity:.8;">{{ now.trabajando }}</span></div>
         </div>
-        <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);font:400 10px 'Geist Mono';opacity:.4;letter-spacing:.12em;">ACTUALIZADO · JUNIO 2026</div>
+        <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);font:400 10px 'Geist Mono';opacity:.4;letter-spacing:.12em;">ACTUALIZADO · {{ now.actualizado }}</div>
       </div>
 
       </div>
@@ -102,7 +102,21 @@
 class Component extends DCLogic {
   state = { tick: 0 };
 
+  // Sección "NOW" del home. Editable desde content/home.json (CMS). Estos valores
+  // son el respaldo por si el archivo no cargara.
+  now = {
+    escuchando: 'Inferno — Boards of Canada',
+    leyendo: 'Arte — Yasmina Reza',
+    viendo: 'Agon',
+    trabajando: 'Desarrollo + producción musical',
+    actualizado: 'JUNIO 2026',
+  };
+
   componentDidMount() {
+    fetch('content/home.json', { cache: 'no-store' })
+      .then((r) => r.json())
+      .then((d) => { if (d && d.now) { this.now = Object.assign({}, this.now, d.now); this.forceUpdate(); } })
+      .catch(() => {});
     const attach = (r) => {
       this.radio = r;
       this.unsub = r.subscribe(() => this.setState(s => ({ tick: s.tick + 1 })));
@@ -165,6 +179,7 @@ class Component extends DCLogic {
     const grid = (this.props.gridLines ?? true) ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0)';
 
     return {
+      now: this.now,
       rows, wave, playing,
       posLabel: this.fmt(pos), durLabel: this.fmt(dur),
       progress: Math.min(100, dur ? (pos / dur) * 100 : 0) + '%',

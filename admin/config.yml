@@ -16,6 +16,26 @@ media_folder: assets/img
 public_folder: assets/img
 
 collections:
+  # ============ HOME (sección NOW) ============
+  - name: home
+    label: Home
+    icon: home
+    files:
+      - name: now
+        label: Sección NOW
+        file: content/home.json
+        description: "El bloque «NOW» de la página de inicio (escuchando, leyendo, viendo, trabajando)."
+        fields:
+          - name: now
+            label: NOW
+            widget: object
+            fields:
+              - { name: escuchando, label: Escuchando, widget: string }
+              - { name: leyendo, label: Leyendo, widget: string }
+              - { name: viendo, label: Viendo, widget: string }
+              - { name: trabajando, label: Trabajando, widget: string }
+              - { name: actualizado, label: "Actualizado (etiqueta)", widget: string, hint: "p.ej. JUNIO 2026 — se muestra tras «ACTUALIZADO · »" }
+
   # ============ BLOG ============
   - name: blog
     label: Blog
