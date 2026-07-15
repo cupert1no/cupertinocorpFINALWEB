@@ -2,8 +2,8 @@ backend:
   name: github
   repo: cupert1no/cupertinocorpFINALWEB
   branch: main
-  # URL del Worker de OAuth (Cloudflare). Reemplaza por tu dominio real del worker.
-  base_url: https://cupertino-cms-auth.TU-SUBDOMINIO.workers.dev
+  # URL del Worker de OAuth (Cloudflare).
+  base_url: https://cupertino-cms-auth.jderojas15.workers.dev
 
 # Permite editar en local con: npx @sveltia/cms-proxy-server
 local_backend: true
