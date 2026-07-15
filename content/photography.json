@@ -1,0 +1,400 @@
+{
+  "projects": [
+    {
+      "key": "business",
+      "label": "Business Opportunities",
+      "description": "Una exploración visual del espacio entre el trabajo y la identidad. Imágenes tomadas en entornos corporativos y laborales que cuestionan qué significa producir, mostrar y pertenecer.",
+      "order": 1
+    },
+    {
+      "key": "vectoralist",
+      "label": "The Vectoralist",
+      "description": "Serie inspirada en el concepto de McKenzie Wark: el vectoralista como nueva clase dominante que controla el flujo de información. Las imágenes buscan representar la abstracción del poder contemporáneo.",
+      "order": 2
+    },
+    {
+      "key": "device",
+      "label": "Device",
+      "description": "Objetos, pantallas, superficies. Una mirada cercana a los dispositivos que median nuestra experiencia cotidiana — no como herramientas sino como extensiones del cuerpo y la mente.",
+      "order": 3
+    },
+    {
+      "key": "elsewhere",
+      "label": "Elsewhere",
+      "description": "Imágenes tomadas fuera. Lugares que no son el tuyo pero en los que algo reconoces. Londres, París, cualquier ciudad que te devuelve una mirada.",
+      "order": 4
+    },
+    {
+      "key": "print",
+      "label": "Print",
+      "description": "Trabajo gráfico e impreso. Carteles, piezas visuales y objetos de diseño capturados como fotografía — donde la imagen habla sobre otra imagen.",
+      "order": 5
+    }
+  ],
+  "images": [
+    {
+      "src": "assets/img/business/blue.jpg",
+      "project": "business",
+      "title": "Blue",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/business/entrance.jpg",
+      "project": "business",
+      "title": "Entrance",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/business/foto1.jpg",
+      "project": "business",
+      "title": "Open Floor",
+      "date": "2025",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/business/foto2.jpg",
+      "project": "business",
+      "title": "Meeting Room 4",
+      "date": "2025",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/business/interior.jpg",
+      "project": "business",
+      "title": "Interior",
+      "date": "2025",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/business/maindoor.jpg",
+      "project": "business",
+      "title": "Main Door",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/business/moqueta.jpg",
+      "project": "business",
+      "title": "Carpet",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/business/office.jpg",
+      "project": "business",
+      "title": "Office",
+      "date": "2025",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/business/room.jpg",
+      "project": "business",
+      "title": "Room",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/vectoralist/bill.jpg",
+      "project": "vectoralist",
+      "title": "Billboard",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/vectoralist/foto3.jpg",
+      "project": "vectoralist",
+      "title": "Signal I",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/vectoralist/foto4.jpg",
+      "project": "vectoralist",
+      "title": "Signal II",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/vectoralist/parking.jpg",
+      "project": "vectoralist",
+      "title": "Parking I",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/vectoralist/parking2.jpg",
+      "project": "vectoralist",
+      "title": "Parking II",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/vectoralist/parking3.jpg",
+      "project": "vectoralist",
+      "title": "Parking III",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/vectoralist/parking5.jpg",
+      "project": "vectoralist",
+      "title": "Parking V",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/vectoralist/pillar.jpg",
+      "project": "vectoralist",
+      "title": "Pillar",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/vectoralist/steel.jpg",
+      "project": "vectoralist",
+      "title": "Steel",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/vectoralist/truck.jpg",
+      "project": "vectoralist",
+      "title": "Truck I",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/vectoralist/truck2.jpg",
+      "project": "vectoralist",
+      "title": "Truck II",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/vectoralist/wall.jpg",
+      "project": "vectoralist",
+      "title": "Wall",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/vectoralist/xarc.jpg",
+      "project": "vectoralist",
+      "title": "Arc",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/device/dscf0471.jpg",
+      "project": "device",
+      "title": "DSCF 0471",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/device/dscf0533.jpg",
+      "project": "device",
+      "title": "DSCF 0533",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/device/dscf0594.jpg",
+      "project": "device",
+      "title": "DSCF 0594",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/device/dscf0920.jpg",
+      "project": "device",
+      "title": "DSCF 0920",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/device/dscf0927.jpg",
+      "project": "device",
+      "title": "DSCF 0927",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/device/dscf6553.jpg",
+      "project": "device",
+      "title": "DSCF 6553",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/device/dscf6582.jpg",
+      "project": "device",
+      "title": "DSCF 6582",
+      "date": "2024",
+      "aspect": 0.8
+    },
+    {
+      "src": "assets/img/device/dscf6609.jpg",
+      "project": "device",
+      "title": "DSCF 6609",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/device/dscf7128.jpg",
+      "project": "device",
+      "title": "DSCF 7128",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/device/eyes.jpg",
+      "project": "device",
+      "title": "Eyes",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/device/f8.jpg",
+      "project": "device",
+      "title": "F8",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/device/foto5.jpg",
+      "project": "device",
+      "title": "Screen Burn",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/device/foto6.jpg",
+      "project": "device",
+      "title": "Standby",
+      "date": "2023",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/device/medicine.jpg",
+      "project": "device",
+      "title": "Medicine",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/device/shoes.jpg",
+      "project": "device",
+      "title": "Shoes",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/device/tv.jpg",
+      "project": "device",
+      "title": "TV",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/elsewhere/javierderojas.jpg",
+      "project": "elsewhere",
+      "title": "Self",
+      "date": "2024",
+      "aspect": 0.6667
+    },
+    {
+      "src": "assets/img/elsewhere/london.jpg",
+      "project": "elsewhere",
+      "title": "London",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/elsewhere/meinlondon.jpg",
+      "project": "elsewhere",
+      "title": "Me in London",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/elsewhere/paris.jpg",
+      "project": "elsewhere",
+      "title": "Paris",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/print/colon.jpg",
+      "project": "print",
+      "title": "Colón",
+      "date": "2026",
+      "aspect": 1.25
+    },
+    {
+      "src": "assets/img/print/escalera.jpg",
+      "project": "print",
+      "title": "Escalera",
+      "date": "2024",
+      "aspect": 1.25
+    },
+    {
+      "src": "assets/img/print/flexa.jpg",
+      "project": "print",
+      "title": "Flex A",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/print/og2.jpg",
+      "project": "print",
+      "title": "OG II",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/print/og3.jpg",
+      "project": "print",
+      "title": "OG III",
+      "date": "2024",
+      "aspect": 1.5
+    },
+    {
+      "src": "assets/img/print/poster_back.jpg",
+      "project": "print",
+      "title": "Poster Back",
+      "date": "2024",
+      "aspect": 1.7778
+    },
+    {
+      "src": "assets/img/print/postlap.jpg",
+      "project": "print",
+      "title": "Lap",
+      "date": "2024",
+      "aspect": 0.8
+    },
+    {
+      "src": "assets/img/print/postpil.jpg",
+      "project": "print",
+      "title": "Pill",
+      "date": "2024",
+      "aspect": 0.8
+    },
+    {
+      "src": "assets/img/print/poststar.jpg",
+      "project": "print",
+      "title": "Star",
+      "date": "2024",
+      "aspect": 0.8
+    },
+    {
+      "src": "assets/img/print/postttucrtu.jpg",
+      "project": "print",
+      "title": "Ttucrtu",
+      "date": "2024",
+      "aspect": 0.8
+    }
+  ]
+}

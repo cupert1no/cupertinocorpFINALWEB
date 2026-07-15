@@ -1,0 +1,128 @@
+backend:
+  name: github
+  repo: cupert1no/cupertinocorpFINALWEB
+  branch: main
+  # URL del Worker de OAuth (Cloudflare). Reemplaza por tu dominio real del worker.
+  base_url: https://cupertino-cms-auth.TU-SUBDOMINIO.workers.dev
+
+# Permite editar en local con: npx @sveltia/cms-proxy-server
+local_backend: true
+
+# Idioma de la interfaz
+locale: es
+
+# Carpeta donde se suben las imágenes nuevas
+media_folder: assets/img
+public_folder: assets/img
+
+collections:
+  # ============ BLOG ============
+  - name: blog
+    label: Blog
+    icon: article
+    files:
+      - name: posts
+        label: Entradas del blog
+        file: content/blog.json
+        description: Entradas del blog. Se muestran de la más reciente a la más antigua según la fecha.
+        fields:
+          - name: posts
+            label: Entradas
+            label_singular: Entrada
+            widget: list
+            summary: "{{fields.date}} — {{fields.title}}"
+            fields:
+              - { name: date, label: Fecha, widget: date, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD" }
+              - { name: title, label: Título, widget: string }
+              - { name: img, label: Imagen de portada, widget: image, required: false, hint: "Opcional. Déjalo vacío para una entrada sin imagen." }
+              - { name: body, label: Texto, widget: text, hint: "Separa los párrafos dejando una línea en blanco entre ellos." }
+
+  # ============ FEED ============
+  - name: feed
+    label: Feed
+    icon: dynamic_feed
+    files:
+      - name: posts
+        label: Publicaciones del feed
+        file: content/feed.json
+        description: Publicaciones cortas tipo red social. El orden del listado es el orden de aparición (arriba = más reciente).
+        fields:
+          - name: posts
+            label: Publicaciones
+            label_singular: Publicación
+            widget: list
+            summary: "{{fields.date}} {{fields.time}} · {{fields.kind}} — {{fields.caption}}"
+            fields:
+              - { name: id, label: ID, widget: string, hint: "Identificador único, p.ej. p13" }
+              - { name: kind, label: Tipo, widget: select, options: ["text", "image", "video"], default: "text" }
+              - { name: date, label: Fecha (etiqueta), widget: string, hint: "Texto libre, p.ej. 08 JUL 2026" }
+              - { name: time, label: Hora, widget: string, hint: "p.ej. 23:41" }
+              - { name: caption, label: Texto, widget: text }
+              - { name: image, label: Imagen, widget: image, required: false, hint: "Solo si el tipo es 'image'." }
+              - { name: poster, label: Póster del vídeo, widget: image, required: false, hint: "Solo si el tipo es 'video'." }
+              - { name: video, label: Archivo de vídeo (.mp4), widget: file, required: false, media_folder: "/assets/img", public_folder: "assets/img", hint: "Opcional. Solo si el tipo es 'video'." }
+              - { name: aspect, label: Proporción, widget: string, required: false, default: "3 / 2", hint: "p.ej. 3 / 2, 16 / 9, 2 / 3" }
+              - { name: location, label: Ubicación, widget: string, required: false }
+
+  # ============ PHOTOGRAPHY ============
+  - name: photography
+    label: Photography
+    icon: photo_camera
+    files:
+      - name: gallery
+        label: Galería de fotografía
+        file: content/photography.json
+        description: "Proyectos e imágenes de la galería. Cada imagen se asigna a un proyecto por su clave (key)."
+        fields:
+          - name: projects
+            label: Proyectos
+            label_singular: Proyecto
+            widget: list
+            summary: "{{fields.order}} · {{fields.label}}"
+            fields:
+              - { name: key, label: Clave (slug), widget: string, hint: "minúsculas, sin espacios. Enlaza con las imágenes, p.ej. business" }
+              - { name: label, label: Nombre visible, widget: string }
+              - { name: description, label: Descripción, widget: text }
+              - { name: order, label: Orden, widget: number, value_type: int, default: 1 }
+          - name: images
+            label: Imágenes
+            label_singular: Imagen
+            widget: list
+            summary: "{{fields.title}} · {{fields.project}}"
+            fields:
+              - { name: src, label: Imagen, widget: image }
+              - { name: project, label: Proyecto (clave), widget: string, hint: "debe coincidir con la clave (key) de un proyecto de arriba" }
+              - { name: title, label: Título, widget: string }
+              - { name: date, label: Año, widget: string, hint: "p.ej. 2024" }
+              - { name: aspect, label: Proporción, widget: number, value_type: float, default: 1.5, hint: "1.5 = horizontal · 0.6667 = vertical · 1 = cuadrada" }
+
+  # ============ AUDIO ============
+  - name: audio
+    label: Audio
+    icon: library_music
+    files:
+      - name: catalog
+        label: Catálogo de audio
+        file: content/audio.json
+        description: "Lanzamientos (radio, EPs...) y sus pistas. El reproductor comparte estado entre todas las páginas."
+        fields:
+          - name: releases
+            label: Lanzamientos
+            label_singular: Lanzamiento
+            widget: list
+            summary: "{{fields.type}} · {{fields.title}} ({{fields.year}})"
+            fields:
+              - { name: id, label: ID, widget: string, hint: "identificador único, p.ej. costa-sur" }
+              - { name: type, label: Tipo, widget: select, options: ["RADIO", "EP", "LP", "SINGLE"], default: "EP" }
+              - { name: title, label: Título, widget: string }
+              - { name: year, label: Año, widget: string }
+              - { name: art, label: Portada, widget: image }
+              - name: tracks
+                label: Pistas
+                label_singular: Pista
+                widget: list
+                summary: "{{fields.title}} — {{fields.artist}}"
+                fields:
+                  - { name: title, label: Título, widget: string }
+                  - { name: artist, label: Artista, widget: string }
+                  - { name: src, label: Archivo de audio (.mp3), widget: file, media_folder: "/assets/audio", public_folder: "assets/audio" }

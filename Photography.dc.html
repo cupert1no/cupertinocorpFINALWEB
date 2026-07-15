@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html style="background:#0b0b0d">
+<head>
+<meta charset="utf-8">
+<style>html,body{background:#0b0b0d;margin:0;}@view-transition{navigation:auto;}::view-transition-old(root),::view-transition-new(root){animation-duration:.34s;}</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;600;900&family=Geist+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:#0b0b0d;}
+  ::-webkit-scrollbar{width:0;height:0;}
+  @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+  @keyframes fadein{from{opacity:0}to{opacity:1}}
+  @keyframes mpeq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+  @keyframes mppulse{0%,100%{opacity:.45}50%{opacity:1}}
+  .gcol{break-inside:avoid;}
+</style>
+<script src="assets/radio.js"></script>
+<script src="assets/page-transition.js"></script>
+</helmet>
+
+<div style="position:relative;min-height:100dvh;background:#0b0b0d;font-family:'Geist Mono',ui-monospace,monospace;color:#fff;overflow-x:hidden;">
+
+  <!-- ambient grid + glow -->
+  <div style="position:fixed;top:0;left:0;width:100%;height:100lvh;z-index:0;pointer-events:none;">
+    <img src="assets/img/bg-audio-poster.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+    <div style="position:absolute;inset:0;background:radial-gradient(130% 100% at 30% -10%,rgba(0,0,0,.2),rgba(0,0,0,.82) 80%);"></div>
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:clamp(34px,4vw,48px) clamp(34px,4vw,48px);"></div>
+  </div>
+  <div style="position:fixed;top:-20%;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(closest-side,rgba(255,255,255,.06),transparent);pointer-events:none;z-index:0;"></div>
+
+  <!-- ===== NAV ===== -->
+  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);">
+    <div style="display:flex;flex-wrap:nowrap;gap:6px;flex:none;white-space:nowrap;">
+      <a href="Cupertinocorp Home.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">HOME</a>
+      <a href="Feed.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">FEED</a>
+      <a href="Photography.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:#0b0b0c;text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;background:var(--accent,#d0d0d2);">IMAGES</a>
+      <a href="Audio.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">SOUNDS</a>
+      <a href="Blog.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">BLOG</a>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <div style="position:relative;z-index:1;padding:108px clamp(18px,5vw,64px) 0;">
+    <div style="display:flex;align-items:baseline;gap:16px;">
+      <h1 style="margin:0;font:300 16px 'Geist Mono';letter-spacing:.38em;opacity:.82;">IMAGES</h1>
+      <span style="flex:1;height:1px;background:rgba(255,255,255,.12);"></span>
+      <span style="font:400 10px 'Geist Mono';letter-spacing:.2em;opacity:.34;">{{ countLabel }}</span>
+    </div>
+  </div>
+
+  <!-- ===== FILTER BAR ===== -->
+  <div style="position:sticky;top:80px;z-index:40;padding:26px clamp(18px,5vw,64px) 14px;">
+    <div style="display:inline-flex;flex-wrap:nowrap;align-items:center;gap:6px;padding:7px;border-radius:15px;background:rgba(20,20,24,.5);backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.13);box-shadow:0 10px 40px rgba(0,0,0,.45);max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;vertical-align:top;">
+      <sc-for list="{{ chips }}" as="c" hint-placeholder-count="6">
+        <button onClick="{{ c.onSel }}" style="position:relative;flex:none;background:none;border:none;cursor:pointer;font:500 11px 'Geist Mono';letter-spacing:.13em;padding:9px 15px;border-radius:9px;white-space:nowrap;color:{{ c.color }};background:{{ c.bg }};">{{ c.label }}</button>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ===== GALLERY (masonry) ===== -->
+  <div style="position:relative;z-index:1;padding:8px clamp(18px,5vw,64px) 90px;">
+    <div style="columns:clamp(160px,22vw,300px);column-gap:clamp(10px,1.4vw,18px);">
+      <sc-for list="{{ shown }}" as="g" hint-placeholder-count="12">
+        <div class="gcol" onClick="{{ g.onOpen }}" style="margin-bottom:clamp(10px,1.4vw,18px);border-radius:6px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,255,255,.08);position:relative;background:#141417;">
+          <img src="{{ g.src }}" alt="{{ g.title }}" loading="lazy" onLoad="{{ g.onLoad }}" ref="{{ g.ref }}" style="display:block;width:100%;aspect-ratio:{{ g.aspect }};object-fit:cover;background:#141417;transition:opacity .55s ease,transform .5s cubic-bezier(.2,.7,.2,1);" style-hover="transform:scale(1.04);">
+          <div style="position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 11px;background:linear-gradient(transparent,rgba(0,0,0,.72));opacity:0;transition:opacity .2s;" style-hover="opacity:1;">
+            <span style="font:500 10px 'Geist Mono';letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ g.title }}</span>
+            <span style="font:400 9px 'Geist Mono';opacity:.6;letter-spacing:.1em;flex:none;">{{ g.code }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ===== FULLSCREEN VIEWER ===== -->
+  <sc-if value="{{ viewerOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;background:rgba(8,8,10,.78);backdrop-filter:blur(30px) saturate(130%);-webkit-backdrop-filter:blur(30px) saturate(130%);animation:fadein .25s ease both;">
+      <!-- viewer top bar -->
+      <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px clamp(16px,4vw,40px);border-bottom:1px solid rgba(255,255,255,.1);">
+        <div style="flex:1;font:500 11px 'Geist Mono';letter-spacing:.16em;opacity:.6;">{{ vProject }}</div>
+        <div style="flex:none;display:flex;align-items:center;gap:14px;">
+          <button onClick="{{ vPrev }}" style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);color:#fff;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;">◀</button>
+          <div style="font:400 11px 'Geist Mono';letter-spacing:.1em;opacity:.5;min-width:64px;text-align:center;">{{ vCounter }}</div>
+          <button onClick="{{ vNext }}" style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);color:#fff;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;">▶</button>
+        </div>
+        <div style="flex:1;display:flex;justify-content:flex-end;">
+          <button onClick="{{ close }}" style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);color:#fff;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;">✕</button>
+        </div>
+      </div>
+      <!-- viewer image -->
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;min-height:0;padding:clamp(14px,3vw,40px);">
+{{ vImg }}
+      </div>
+      <!-- viewer info -->
+      <div style="flex:none;display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline;padding:16px clamp(16px,4vw,40px) max(20px,env(safe-area-inset-bottom));border-top:1px solid rgba(255,255,255,.1);background:rgba(12,12,14,.5);">
+        <span style="font-family:'Doto';font-weight:600;font-size:20px;letter-spacing:.03em;">{{ vTitle }}</span>
+        <span style="font:400 11px 'Geist Mono';opacity:.5;letter-spacing:.1em;">{{ vDate }}</span>
+        <span style="flex:1;min-width:200px;font:300 12px/1.6 'Geist Mono';opacity:.55;max-width:680px;">{{ vDesc }}</span>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+<dc-import name="MiniPlayer" hint-size="0,0"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;accent&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;Silver&quot;, &quot;options&quot;: [&quot;Silver&quot;, &quot;Nothing red&quot;, &quot;None&quot;], &quot;tsType&quot;: &quot;string&quot; }
+}">
+class Component extends DCLogic {
+  state = { filter: 'all', projects: null, images: [], viewerOpen: false, vIdx: 0 };
+
+  async componentDidMount() {
+    try {
+      // El contenido se carga desde content/photography.json (editable con el CMS).
+      const res = await fetch('content/photography.json', { cache: 'no-store' });
+      const d = await res.json();
+      const projects = {};
+      (d.projects || []).slice()
+        .sort((a, b) => (a.order || 0) - (b.order || 0))
+        .forEach(p => { projects[p.key] = { label: p.label, description: p.description, order: p.order }; });
+      const images = (d.images || []).map(i => ({ ...i, aspect: Number(i.aspect) || 1.5 }));
+      this.setState({ projects, images });
+    } catch (e) { console.warn('data load failed', e); }
+    this._key = (e) => {
+      if (!this.state.viewerOpen) return;
+      if (e.key === 'Escape') this.close();
+      else if (e.key === 'ArrowRight') this.vNext();
+      else if (e.key === 'ArrowLeft') this.vPrev();
+    };
+    window.addEventListener('keydown', this._key);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this._key); }
+
+  get shownList() {
+    const { filter, images } = this.state;
+    return filter === 'all' ? images : images.filter(i => i.project === filter);
+  }
+
+  setFilter = (f) => this.setState({ filter: f });
+  // Dissolve each photo in once it has decoded, driven entirely on the DOM node so
+  // it never loops and is never reset by a re-render (opening the viewer, filtering).
+  imgReveal = (node) => {
+    if (!node || node.dataset.seen) return;
+    node.dataset.seen = '1';
+    // Cached/already-decoded images appear instantly; the rest fade in on load.
+    node.style.opacity = (node.complete && node.naturalWidth > 0) ? '1' : '0';
+  };
+  imgLoaded = (e) => { e.currentTarget.style.opacity = '1'; };
+  open = (i) => { this.setState({ viewerOpen: true, vIdx: i }); document.body.style.overflow = 'hidden'; };
+  close = () => { this.setState({ viewerOpen: false }); document.body.style.overflow = ''; };
+  vNext = () => this.setState(s => ({ vIdx: (s.vIdx + 1) % this.shownList.length }));
+  vPrev = () => this.setState(s => ({ vIdx: (s.vIdx - 1 + this.shownList.length) % this.shownList.length }));
+
+  renderVals() {
+    const accentMap = { 'Silver': '#d0d0d2', 'Nothing red': '#ff3b30', 'None': 'rgba(255,255,255,0.88)' };
+    const accent = accentMap[this.props.accent] ?? '#d0d0d2';
+    const { filter, projects, viewerOpen, vIdx } = this.state;
+    const shown = this.shownList;
+
+    const projEntries = projects ? Object.entries(projects).sort((a, b) => a[1].order - b[1].order) : [];
+    const chips = [{ key: 'all', label: 'ALL' }, ...projEntries.map(([k, p]) => ({ key: k, label: p.label.toUpperCase() }))]
+      .map(c => ({
+        label: c.label,
+        onSel: () => this.setFilter(c.key),
+        color: filter === c.key ? '#0b0b0c' : 'rgba(255,255,255,.55)',
+        bg: filter === c.key ? accent : 'transparent',
+      }));
+
+    const shownVals = shown.map((g, i) => ({
+      src: g.src, title: g.title, code: g.date,
+      aspect: g.aspect || 1,
+      onLoad: this.imgLoaded,
+      ref: this.imgReveal,
+      onOpen: () => this.open(i),
+    }));
+
+    const cur = shown[vIdx] || {};
+    const curProj = projects && cur.project ? projects[cur.project] : null;
+
+    return {
+      accent,
+      chips,
+      shown: shownVals,
+      countLabel: this.state.images.length ? String(this.state.images.length).padStart(2, '0') + ' FRAMES' : '— FRAMES',
+      viewerOpen,
+      vImg: (viewerOpen && cur.src) ? React.createElement('img', { src: cur.src, alt: cur.title || '', style: { maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '4px', boxShadow: '0 30px 80px rgba(0,0,0,.6)' } }) : null,
+      vTitle: cur.title, vDate: cur.date,
+      vProject: curProj ? curProj.label.toUpperCase() : '',
+      vDesc: curProj ? curProj.description : '',
+      vCounter: shown.length ? String(vIdx + 1).padStart(2, '0') + ' / ' + String(shown.length).padStart(2, '0') : '',
+      close: this.close, vNext: this.vNext, vPrev: this.vPrev,
+    };
+  }
+}
+</script>
+</body>
+</html>

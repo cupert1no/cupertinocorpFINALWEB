@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;600;900&family=Geist+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+</style>
+</helmet>
+
+<div style="font-family:'Geist Mono',ui-monospace,monospace;color:#fff;border-radius:16px;overflow:hidden;background:rgba(20,20,24,.5);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%);border:1px solid rgba(255,255,255,.12);box-shadow:0 14px 44px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.06);">
+
+  <!-- meta header: date · hour + type -->
+  <div style="display:flex;align-items:baseline;gap:12px;padding:15px 16px 13px;">
+    <span style="font:500 11px 'Geist Mono';letter-spacing:.14em;opacity:.62;">{{ data.stamp }}</span>
+    <span style="flex:1;height:1px;background:rgba(255,255,255,.1);align-self:center;"></span>
+    <span style="font:500 9px 'Geist Mono';letter-spacing:.2em;opacity:.42;flex:none;">{{ data.tag }}</span>
+  </div>
+
+  <!-- text body -->
+  <sc-if value="{{ data.isText }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:2px 16px 17px;font:300 16px/1.65 'Geist Mono';letter-spacing:.01em;color:rgba(255,255,255,.9);text-wrap:pretty;">{{ data.caption }}</div>
+  </sc-if>
+
+  <!-- media -->
+  <sc-if value="{{ data.hasMedia }}" hint-placeholder-val="{{ false }}">
+    <div style="position:relative;overflow:hidden;background:#0e0e11;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);">
+      <sc-if value="{{ data.isImage }}" hint-placeholder-val="{{ true }}">
+        <img src="{{ data.image }}" alt="" loading="lazy" style="display:block;width:100%;aspect-ratio:{{ data.aspect }};object-fit:cover;background:#141417;">
+      </sc-if>
+      <sc-if value="{{ data.isVideo }}" hint-placeholder-val="{{ false }}">
+        <sc-if value="{{ data.playing }}" hint-placeholder-val="{{ false }}">
+          <video src="{{ data.videoSrc }}" autoplay="{{ true }}" playsinline="{{ true }}" onClick="{{ data.onToggle }}" style="display:block;width:100%;aspect-ratio:{{ data.aspect }};object-fit:cover;background:#000;cursor:pointer;"></video>
+          <button onClick="{{ data.onPause }}" aria-label="Pause video" style="position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.32);background:rgba(15,15,19,.55);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);color:#fff;cursor:pointer;font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.5);z-index:2;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block;"><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg></button>
+        </sc-if>
+        <sc-if value="{{ data.notPlaying }}" hint-placeholder-val="{{ true }}">
+          <img src="{{ data.poster }}" alt="" loading="lazy" style="display:block;width:100%;aspect-ratio:{{ data.aspect }};object-fit:cover;background:#141417;">
+          <button onClick="{{ data.onPlay }}" aria-label="Play video" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;border:1px solid rgba(255,255,255,.32);background:rgba(15,15,19,.5);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);color:#fff;cursor:pointer;font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 40px rgba(0,0,0,.55);"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:block;margin-left:2px;"><path d="M8 5v14l11-7z"></path></svg></button>
+          <span style="position:absolute;left:12px;bottom:12px;font:500 9px 'Geist Mono';letter-spacing:.2em;padding:5px 9px;border-radius:7px;background:rgba(15,15,19,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14);">VIDEO · TAP TO PLAY</span>
+        </sc-if>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <!-- caption (image / video) -->
+  <sc-if value="{{ data.hasCaption }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:14px 16px 4px;font:300 14px/1.62 'Geist Mono';color:rgba(255,255,255,.74);text-wrap:pretty;">{{ data.caption }}</div>
+  </sc-if>
+
+  <!-- location -->
+  <sc-if value="{{ data.hasLocation }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:8px 16px 16px;font:400 9.5px 'Geist Mono';letter-spacing:.16em;text-transform:uppercase;opacity:.4;">◦ {{ data.location }}</div>
+  </sc-if>
+
+  <!-- breathing room where there is no location line -->
+  <sc-if value="{{ data.padBottom }}" hint-placeholder-val="{{ true }}">
+    <div style="height:16px;"></div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{ &quot;$preview&quot;: { &quot;width&quot;: 480, &quot;height&quot;: 420 }, &quot;data&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;object&quot; } }"></script>
+</body>
+</html>

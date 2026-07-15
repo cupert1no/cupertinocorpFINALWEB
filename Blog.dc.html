@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html style="background:#0b0b0d">
+<head>
+<meta charset="utf-8">
+<style>html,body{background:#0b0b0d;margin:0;}@view-transition{navigation:auto;}::view-transition-old(root),::view-transition-new(root){animation-duration:.34s;}</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;600;900&family=Geist+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:#0b0b0d;}
+  ::-webkit-scrollbar{width:0;height:0;}
+  @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+  @keyframes fadein{from{opacity:0}to{opacity:1}}
+  @keyframes slideup{from{transform:translateY(22px)}to{transform:translateY(0)}}
+  @keyframes mpeq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+  @keyframes mppulse{0%,100%{opacity:.45}50%{opacity:1}}
+</style>
+<script src="assets/radio.js"></script>
+<script src="assets/page-transition.js"></script>
+</helmet>
+
+<div style="position:relative;min-height:100dvh;background:#0b0b0d;font-family:'Geist Mono',ui-monospace,monospace;color:#fff;overflow-x:hidden;">
+
+  <div style="position:fixed;top:0;left:0;width:100%;height:100lvh;z-index:0;pointer-events:none;">
+    <img src="assets/img/bg-audio-poster.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+    <div style="position:absolute;inset:0;background:radial-gradient(130% 100% at 30% -10%,rgba(0,0,0,.2),rgba(0,0,0,.82) 80%);"></div>
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:clamp(34px,4vw,48px) clamp(34px,4vw,48px);"></div>
+  </div>
+  <div style="position:fixed;top:-20%;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(closest-side,rgba(255,255,255,.06),transparent);pointer-events:none;z-index:0;"></div>
+
+  <!-- ===== NAV ===== -->
+  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);">
+    <div style="display:flex;flex-wrap:nowrap;gap:6px;flex:none;white-space:nowrap;">
+      <a href="Cupertinocorp Home.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">HOME</a>
+      <a href="Feed.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">FEED</a>
+      <a href="Photography.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">IMAGES</a>
+      <a href="Audio.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">SOUNDS</a>
+      <a href="Blog.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:#0b0b0c;text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;background:var(--accent,#d0d0d2);">BLOG</a>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <div style="position:relative;z-index:1;padding:108px clamp(18px,5vw,64px) 0;">
+    <div style="display:flex;align-items:baseline;gap:16px;">
+      <h1 style="margin:0;font:300 16px 'Geist Mono';letter-spacing:.38em;opacity:.82;">BLOG</h1>
+      <span style="flex:1;height:1px;background:rgba(255,255,255,.12);"></span>
+      <span style="font:400 10px 'Geist Mono';letter-spacing:.2em;opacity:.34;">{{ countLabel }}</span>
+    </div>
+  </div>
+
+  <!-- ===== ENTRY LIST ===== -->
+  <div style="position:relative;z-index:1;padding:40px clamp(18px,5vw,64px) 90px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:clamp(12px,1.6vw,18px);">
+      <sc-for list="{{ posts }}" as="p" hint-placeholder-count="8">
+        <div onClick="{{ p.onOpen }}" style="display:flex;flex-direction:column;border-radius:14px;overflow:hidden;cursor:pointer;background:rgba(20,20,24,.5);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 40px rgba(0,0,0,.4);transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .3s;" style-hover="transform:translateY(-4px);border-color:rgba(255,255,255,.26);">
+          <sc-if value="{{ p.img }}" hint-placeholder-val="{{ true }}">
+            <div style="position:relative;height:172px;overflow:hidden;">
+              <img src="{{ p.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <div style="position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(20,20,24,.6));"></div>
+            </div>
+          </sc-if>
+          <div style="padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;font:400 10px 'Geist Mono';letter-spacing:.14em;opacity:.5;">
+              <span>{{ p.dateLabel }}</span><span>{{ p.code }}</span>
+            </div>
+            <div style="font:300 12px/1.5 'Geist Mono';letter-spacing:.18em;text-transform:uppercase;opacity:.88;">{{ p.title }}</div>
+            <div style="font:300 12.5px/1.7 'Geist Mono';opacity:.6;">{{ p.excerpt }}</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:4px;font:500 10px 'Geist Mono';letter-spacing:.14em;opacity:.7;">LEER <span style="opacity:.6;">→</span></div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ===== READER OVERLAY ===== -->
+  <sc-if value="{{ readerOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:100;background:rgba(8,8,10,.82);backdrop-filter:blur(30px) saturate(130%);-webkit-backdrop-filter:blur(30px) saturate(130%);overflow-y:auto;">
+      <div style="position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(16px,4vw,40px);background:rgba(12,12,14,.5);border-bottom:1px solid rgba(255,255,255,.1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);">
+        <span style="font:500 11px 'Geist Mono';letter-spacing:.16em;opacity:.6;">{{ rDate }}</span>
+        <button onClick="{{ close }}" style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);color:#fff;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;">✕</button>
+      </div>
+      <div style="max-width:720px;margin:0 auto;padding:clamp(28px,6vw,72px) clamp(20px,5vw,32px) 100px;animation:slideup .4s cubic-bezier(.2,.7,.2,1) both;">
+        <div style="font:400 11px 'Geist Mono';letter-spacing:.2em;opacity:.45;margin-bottom:16px;">CUPERTINO.CORP — DIARIO</div>
+        <h1 style="font:300 clamp(15px,2vw,19px)/1.4 'Geist Mono';letter-spacing:.22em;text-transform:uppercase;opacity:.88;margin:0 0 28px;">{{ rTitle }}</h1>
+        {{ rImgEl }}
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <sc-for list="{{ rParas }}" as="para" hint-placeholder-count="2">
+            <p style="margin:0;font:300 15px/1.55 'Geist Mono';letter-spacing:.01em;color:rgba(255,255,255,.55);">{{ para.text }}</p>
+          </sc-for>
+        </div>
+        <div style="margin-top:44px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;align-items:center;gap:12px;">
+          <button onClick="{{ prevPost }}" aria-label="Anterior" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;background:none;border:1px solid rgba(255,255,255,.2);color:#fff;cursor:pointer;font:400 14px 'Geist Mono';border-radius:50%;">←</button>
+          <button onClick="{{ nextPost }}" aria-label="Siguiente" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;background:none;border:1px solid rgba(255,255,255,.2);color:#fff;cursor:pointer;font:400 14px 'Geist Mono';border-radius:50%;">→</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+<dc-import name="MiniPlayer" hint-size="0,0"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = { readerOpen: false, idx: 0 };
+
+  // El contenido se carga desde content/blog.json (editable con el CMS).
+  posts = [];
+
+  MONTHS = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+
+  async componentDidMount() {
+    try {
+      const res = await fetch('content/blog.json', { cache: 'no-store' });
+      const data = await res.json();
+      this.posts = (data.posts || []).map(p => ({
+        date: p.date,
+        title: p.title,
+        img: p.img || null,
+        paras: String(p.body || '').split(/\n\n+/).map(s => s.trim()).filter(Boolean),
+      }));
+      this.forceUpdate();
+    } catch (e) { console.warn('blog data load failed', e); }
+    this._key = (e) => { if (this.state.readerOpen && e.key === 'Escape') this.close(); };
+    window.addEventListener('keydown', this._key);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this._key); }
+
+  fmtDate(d) {
+    const [y, m, day] = d.split('-');
+    return parseInt(day, 10) + ' ' + this.MONTHS[parseInt(m, 10) - 1] + ' ' + y;
+  }
+  open = (i) => { this.setState({ readerOpen: true, idx: i }); document.body.style.overflow = 'hidden'; };
+  close = () => { this.setState({ readerOpen: false }); document.body.style.overflow = ''; };
+  nextPost = () => { this.setState(s => ({ idx: (s.idx + 1) % this.posts.length })); window.scrollTo({ top: 0 }); };
+  prevPost = () => { this.setState(s => ({ idx: (s.idx - 1 + this.posts.length) % this.posts.length })); window.scrollTo({ top: 0 }); };
+
+  renderVals() {
+    const { readerOpen, idx } = this.state;
+    const posts = this.posts.map((p, i) => ({
+      title: p.title, img: p.img, dateLabel: this.fmtDate(p.date),
+      code: 'N' + String(this.posts.length - i).padStart(2, '0'),
+      excerpt: p.paras[0].slice(0, 116) + (p.paras[0].length > 116 ? '…' : ''),
+      onOpen: () => this.open(i),
+    }));
+    const cur = this.posts[idx];
+    return {
+      posts,
+      countLabel: String(this.posts.length).padStart(2, '0') + ' ENTRADAS',
+      readerOpen,
+      rTitle: cur.title, rDate: this.fmtDate(cur.date),
+      rImgEl: (readerOpen && cur.img) ? React.createElement('img', { src: cur.img, alt: '', style: { width: '100%', borderRadius: '8px', border: '1px solid rgba(255,255,255,.1)', marginBottom: '30px', display: 'block' } }) : null,
+      rParas: cur.paras.map(t => ({ text: t })),
+      close: this.close, nextPost: this.nextPost, prevPost: this.prevPost,
+    };
+  }
+}
+</script>
+</body>
+</html>

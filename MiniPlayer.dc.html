@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;600;900&family=Geist+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @keyframes mpeq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+  @keyframes mppulse{0%,100%{opacity:.45}50%{opacity:1}}
+</style>
+<script src="assets/radio.js"></script>
+</helmet>
+
+<div style="display:contents;font-family:'Geist Mono',ui-monospace,monospace;">
+
+  <!-- ===== BACKDROP ===== -->
+  <div onClick="{{ close }}" style="position:fixed;inset:0;z-index:88;background:rgba(0,0,0,.5);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);transition:opacity .4s ease;opacity:{{ backdropOpacity }};pointer-events:{{ backdropPE }};"></div>
+
+  <!-- ===== FLOATING RADIO BUTTON ===== -->
+  <button onClick="{{ toggleOpen }}" aria-label="Cupertino Radio" style="position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(56px,9vh,96px);z-index:90;width:60px;height:60px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(20,20,24,.62);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%);box-shadow:0 14px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .25s cubic-bezier(.2,.7,.2,1);" style-hover="transform:translateY(-2px) scale(1.04);">
+    <sc-if value="{{ playing }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-items:flex-end;gap:3px;height:22px;">
+        <div style="width:3.5px;height:22px;border-radius:2px;background:{{ accent }};transform-origin:bottom;animation:mpeq .9s ease-in-out infinite;animation-play-state:{{ eqPlay }};"></div>
+        <div style="width:3.5px;height:22px;border-radius:2px;background:{{ accent }};transform-origin:bottom;animation:mpeq .9s ease-in-out infinite .18s;animation-play-state:{{ eqPlay }};"></div>
+        <div style="width:3.5px;height:22px;border-radius:2px;background:{{ accent }};transform-origin:bottom;animation:mpeq .9s ease-in-out infinite .36s;animation-play-state:{{ eqPlay }};"></div>
+        <div style="width:3.5px;height:22px;border-radius:2px;background:{{ accent }};transform-origin:bottom;animation:mpeq .9s ease-in-out infinite .54s;animation-play-state:{{ eqPlay }};"></div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ paused }}" hint-placeholder-val="{{ false }}">
+      <span style="font-size:19px;color:#fff;opacity:.92;line-height:1;">♪</span>
+    </sc-if>
+  </button>
+
+  <!-- ===== SLIDE-UP SHEET ===== -->
+  <div style="position:fixed;z-index:91;right:clamp(12px,3vw,28px);bottom:0;width:min(440px,calc(100vw - 24px));max-height:min(84vh,760px);display:flex;flex-direction:column;border-radius:24px 24px 0 0;background:rgba(15,15,19,.74);backdrop-filter:blur(36px) saturate(150%);-webkit-backdrop-filter:blur(36px) saturate(150%);border:1px solid rgba(255,255,255,.14);border-bottom:none;box-shadow:0 -24px 80px rgba(0,0,0,.62),inset 0 1px 0 rgba(255,255,255,.1);color:#fff;transform:translateY({{ sheetY }});transition:transform .44s cubic-bezier(.22,.61,.27,1);overflow:hidden;">
+
+    <!-- handle -->
+    <div onClick="{{ close }}" style="flex:none;display:flex;justify-content:center;padding:11px 0 4px;cursor:pointer;">
+      <div style="width:38px;height:4px;border-radius:2px;background:rgba(255,255,255,.28);"></div>
+    </div>
+
+    <!-- header -->
+    <div style="flex:none;display:flex;align-items:center;justify-content:space-between;padding:6px 20px 14px;">
+      <span style="font:500 11px 'Geist Mono';letter-spacing:.2em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px;">{{ releaseTitle }}</span>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="display:flex;align-items:center;gap:6px;font:400 10px 'Geist Mono';letter-spacing:.14em;opacity:.7;">
+          <sc-if value="{{ playing }}" hint-placeholder-val="{{ true }}"><span style="width:7px;height:7px;border-radius:50%;background:{{ accent }};animation:mppulse 1.4s infinite;"></span></sc-if>
+          {{ statusLabel }}
+        </span>
+        <button onClick="{{ close }}" aria-label="Close" style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;">✕</button>
+      </div>
+    </div>
+
+    <!-- now playing -->
+    <div style="flex:none;display:flex;align-items:center;gap:16px;padding:2px 20px 16px;">
+      <div style="width:72px;height:72px;border-radius:14px;overflow:hidden;flex:none;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);box-shadow:0 14px 34px rgba(0,0,0,.5);">
+        <img src="{{ artSrc }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div style="flex:1;min-width:0;">
+        <div style="font:500 18px 'Geist Mono';letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ trackTitle }}</div>
+        <div style="font:400 12px 'Geist Mono';opacity:.55;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ trackArtist }}</div>
+      </div>
+    </div>
+
+    <!-- progress -->
+    <div style="flex:none;padding:0 20px;">
+      <div onClick="{{ seek }}" style="position:relative;height:5px;border-radius:3px;background:rgba(255,255,255,.16);cursor:pointer;">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:{{ progress }};background:{{ accent }};border-radius:3px;transition:width .15s linear;"></div>
+        <div style="position:absolute;top:50%;left:{{ progress }};width:12px;height:12px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 3px rgba(0,0,0,.3);transition:left .15s linear;"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px;font:400 10px 'Geist Mono';opacity:.55;">
+        <span>{{ posLabel }}</span><span>{{ durLabel }}</span>
+      </div>
+    </div>
+
+    <!-- transport -->
+    <div style="flex:none;display:flex;align-items:center;justify-content:center;gap:30px;padding:14px 20px 16px;">
+      <button onClick="{{ prev }}" style="background:none;border:none;color:#fff;font-size:15px;cursor:pointer;opacity:.85;">◀◀</button>
+      <button onClick="{{ toggle }}" style="width:58px;height:58px;border-radius:50%;background:linear-gradient(145deg,#f2f2f4,#c4c4c8 48%,#9a9a9e);color:#0b0b0c;border:1px solid rgba(255,255,255,.5);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,.45),inset 0 1px 1px rgba(255,255,255,.7);">{{ playGlyph }}</button>
+      <button onClick="{{ next }}" style="background:none;border:none;color:#fff;font-size:15px;cursor:pointer;opacity:.85;">▶▶</button>
+    </div>
+
+    <!-- volume -->
+    <div style="flex:none;display:flex;align-items:center;gap:12px;padding:0 20px 16px;">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="opacity:.45;flex:none;"><path d="M4 9v6h4l5 4V5L8 9H4z"></path><path d="M16.5 8.5a5 5 0 0 1 0 7"></path></svg>
+      <div onPointerDown="{{ volDown }}" style="position:relative;flex:1;height:16px;display:flex;align-items:center;cursor:pointer;touch-action:none;">
+        <div style="position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:4px;border-radius:2px;background:rgba(255,255,255,.18);"></div>
+        <div style="position:absolute;left:0;top:50%;transform:translateY(-50%);height:4px;width:{{ volPct }};background:rgba(255,255,255,.7);border-radius:2px;"></div>
+        <div style="position:absolute;top:50%;left:{{ volPct }};width:14px;height:14px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 1px 4px rgba(0,0,0,.4);"></div>
+      </div>
+      <span style="font:400 10px 'Geist Mono';opacity:.45;width:30px;text-align:right;">{{ volLabel }}</span>
+    </div>
+
+    <!-- library -->
+    <div style="flex:1;min-height:0;overflow-y:auto;border-top:1px solid rgba(255,255,255,.1);padding:14px 14px 4px;">
+      <div style="font:500 10px 'Geist Mono';letter-spacing:.18em;opacity:.45;padding:0 6px 8px;">{{ libLabel }}</div>
+      <div style="display:flex;flex-direction:column;gap:1px;">
+        <sc-for list="{{ songs }}" as="s" hint-placeholder-count="3">
+          <div onClick="{{ s.onSel }}" style="position:relative;display:flex;align-items:center;gap:13px;padding:11px 12px;border-radius:11px;cursor:pointer;">
+            <sc-if value="{{ s.active }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;inset:0;border-radius:11px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);"></div>
+            </sc-if>
+            <span style="position:relative;width:16px;text-align:center;font:500 11px 'Geist Mono';opacity:.4;">{{ s.glyph }}</span>
+            <div style="position:relative;flex:1;min-width:0;">
+              <div style="font:500 13px 'Geist Mono';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ s.title }}</div>
+              <div style="font:400 10.5px 'Geist Mono';opacity:.5;margin-top:3px;">{{ s.artist }}</div>
+            </div>
+            <span style="position:relative;font:400 10px 'Geist Mono';opacity:.45;">{{ s.durLabel }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{ &quot;$preview&quot;: { &quot;width&quot;: 460, &quot;height&quot;: 820 }, &quot;autoSheetOnPlay&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; } }">
+class Component extends DCLogic {
+  state = { open: false, tick: 0 };
+
+  componentDidMount() {
+    var self = this;
+    function attach(r) {
+      self.radio = r;
+      self._seenOpenReq = r.getState().openReq;
+      self.unsub = r.subscribe(function () {
+        var st = r.getState();
+        // A release was picked from a catalog → slide the sheet up on mobile (where the
+        // inline player is hidden). openReq is a monotonic counter bumped on every pick.
+        // Flag it here, then actually flip `open` in componentDidUpdate: the pick fires
+        // inside the host page's React click batch, where a synchronous open from this
+        // child subscription can be coalesced away before it commits.
+        if (st.openReq > self._seenOpenReq) {
+          self._seenOpenReq = st.openReq;
+          if (window.innerWidth <= 760) self._pendingOpen = true;
+        }
+        self.setState(function (s) { return { tick: s.tick + 1 }; });
+      });
+      self.forceUpdate();
+    }
+    if (window.__ccRadio) attach(window.__ccRadio);
+    else this._iv = setInterval(function () {
+      if (window.__ccRadio) { clearInterval(self._iv); self._iv = null; attach(window.__ccRadio); }
+    }, 60);
+    this._key = function (e) { if (e.key === 'Escape' && self.state.open) self.setState({ open: false }); };
+    window.addEventListener('keydown', this._key);
+  }
+  componentDidUpdate() {
+    // A catalog pick asked to surface the sheet (mobile). Committing this in a fresh
+    // render — after the host's click batch has flushed — makes the open reliable.
+    if (this._pendingOpen) {
+      this._pendingOpen = false;
+      if (!this.state.open) this.setState({ open: true });
+    }
+  }
+  componentWillUnmount() {
+    if (this.unsub) this.unsub();
+    if (this._iv) clearInterval(this._iv);
+    window.removeEventListener('keydown', this._key);
+  }
+
+  fmt(s) { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+
+  toggleOpen = () => this.setState(s => ({ open: !s.open }));
+  close = () => this.setState({ open: false });
+
+  fracFrom(e) {
+    var r = e.currentTarget.getBoundingClientRect();
+    return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+  }
+
+  // Pointer-drag volume: works for mouse AND touch (touch-action:none on the track
+  // stops the sheet from scrolling instead of adjusting volume).
+  volDown = (e) => {
+    var r = this.radio; if (!r) return;
+    var rect = e.currentTarget.getBoundingClientRect();
+    var apply = (x) => r.setVol(Math.min(1, Math.max(0, (x - rect.left) / rect.width)));
+    apply(e.clientX);
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (err) {}
+    var move = (ev) => { ev.preventDefault(); apply(ev.clientX); };
+    var up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+      window.removeEventListener('pointercancel', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+    window.addEventListener('pointercancel', up);
+  };
+
+  renderVals() {
+    var r = this.radio;
+    var st = r ? r.getState()
+                : { idx: 0, track: { title: 'First Iota', artist: 'Purelink', art: 'assets/img/device/dscf0594.jpg' }, playing: false, pos: 0, dur: 0, vol: 0.8, accent: 'Silver', durs: {}, release: { title: 'Cupertino Radio · Vol. 001', type: 'RADIO', count: 3 } };
+    var rel = st.release || { title: 'Cupertino Radio', type: 'RADIO', count: 0 };
+    var accent = r ? r.accentHex() : '#d0d0d2';
+    var cat = r ? r.catalog : [st.track];
+
+    var songs = cat.map((t, i) => ({
+      title: t.title, artist: t.artist,
+      durLabel: st.durs[i] ? this.fmt(st.durs[i]) : (i === st.idx ? this.fmt(st.dur) : '—:—'),
+      active: i === st.idx,
+      glyph: (i === st.idx && st.playing) ? '▮' : String(i + 1).padStart(2, '0'),
+      onSel: () => r && r.select(i, true),
+    }));
+
+    var accentOpts = (r ? r.accents : ['Silver', 'Nothing red', 'None']).map(name => ({
+      name: name,
+      color: r ? r.accentHexOf(name) : '#d0d0d2',
+      ring: name === st.accent ? '#ffffff' : 'rgba(255,255,255,0.18)',
+      onSel: () => r && r.setAccent(name),
+    }));
+
+    return {
+      open: this.state.open,
+      releaseTitle: rel.title.toUpperCase(),
+      libLabel: rel.type + ' · ' + rel.count + (rel.count === 1 ? ' PISTA' : ' PISTAS'),
+      playing: st.playing, paused: !st.playing,
+      eqPlay: st.playing ? 'running' : 'paused',
+      accent: accent,
+      statusLabel: st.playing ? 'ON AIR' : 'EN PAUSA',
+      artSrc: st.track.art,
+      trackTitle: st.track.title, trackArtist: st.track.artist,
+      posLabel: this.fmt(st.pos), durLabel: this.fmt(st.dur),
+      progress: (st.dur ? Math.min(100, st.pos / st.dur * 100) : 0) + '%',
+      playGlyph: st.playing ? '❚❚' : '▶',
+      vol: st.vol, volPct: Math.round(st.vol * 100) + '%', volLabel: Math.round(st.vol * 100) + '',
+      songs: songs, accentOpts: accentOpts,
+      sheetY: this.state.open ? '0%' : '108%',
+      backdropOpacity: this.state.open ? 1 : 0,
+      backdropPE: this.state.open ? 'auto' : 'none',
+      toggleOpen: this.toggleOpen, close: this.close,
+      toggle: () => r && r.toggle(),
+      next: () => r && r.next(true),
+      prev: () => r && r.prev(true),
+      seek: (e) => r && r.seekFraction(this.fracFrom(e)),
+      volDown: this.volDown,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html style="background:#0b0b0d">
+<head>
+<meta charset="utf-8">
+<style>html,body{background:#0b0b0d;margin:0;}@view-transition{navigation:auto;}::view-transition-old(root),::view-transition-new(root){animation-duration:.34s;}</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;600;900&family=Geist+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:#0b0b0d;}
+  @supports(height:100dvh){body{min-height:100dvh;}}
+  ::-webkit-scrollbar{width:0;height:0;}
+  @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+  @keyframes fadein{from{opacity:0}to{opacity:1}}
+  @keyframes mpeq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+  @keyframes mppulse{0%,100%{opacity:.45}50%{opacity:1}}
+  @media(max-width:640px){.wordmark{text-align:center;}.wordmark>img{margin-left:auto;margin-right:auto;}.wordmark>div{margin-left:auto;margin-right:auto;}}
+  .bg-video{display:none;}
+  .bg-video-mobile{display:block;}
+  @media(min-width:641px){.bg-video{display:block;}.bg-video-mobile{display:none;}}
+</style>
+<script src="assets/radio.js"></script>
+<script src="assets/page-transition.js"></script>
+</helmet>
+
+<div style="--accent:{{ accent }};--glass:{{ glass }};--grid:{{ grid }};position:relative;min-height:100dvh;display:flex;flex-direction:column;background:#0b0b0d;font-family:'Geist Mono',ui-monospace,monospace;color:#fff;overflow-x:hidden;">
+
+  <!-- fixed photographic backdrop -->
+  <div style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;background:#0b0b0d url('assets/img/bg-life-mobile-poster.jpg') center/cover no-repeat;">
+    <video ref="{{ mobileVidRef }}" class="bg-video-mobile" poster="assets/img/bg-life-mobile-poster.jpg" muted loop playsinline preload="none" onEnded="{{ replayBg }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;background:#0b0b0d url('assets/img/bg-life-mobile-poster.jpg') center/cover no-repeat;"></video>
+    <video ref="{{ desktopVidRef }}" class="bg-video" poster="assets/img/bg-index-poster.jpg" muted loop playsinline preload="none" onEnded="{{ replayBg }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;background:transparent;"></video>
+    <div style="position:absolute;inset:0;background:radial-gradient(130% 100% at 70% -10%,rgba(0,0,0,.1),rgba(0,0,0,.72) 80%);"></div>
+    <div style="position:absolute;inset:0;background-image:linear-gradient(var(--grid,rgba(255,255,255,.05)) 1px,transparent 1px),linear-gradient(90deg,var(--grid,rgba(255,255,255,.05)) 1px,transparent 1px);background-size:clamp(34px,4vw,48px) clamp(34px,4vw,48px);"></div>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);">
+    <div style="display:flex;flex-wrap:nowrap;gap:6px;flex:none;white-space:nowrap;">
+      <a href="Cupertinocorp Home.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:#0b0b0c;text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;background:var(--accent,#d0d0d2);">HOME</a>
+      <a href="Feed.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">FEED</a>
+      <a href="Photography.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">IMAGES</a>
+      <a href="Audio.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">SOUNDS</a>
+      <a href="Blog.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">BLOG</a>
+    </div>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <div style="position:relative;z-index:1;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center;padding:clamp(96px,12vh,128px) clamp(18px,5vw,64px) clamp(40px,7vh,72px);">
+
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,56px);align-items:flex-start;justify-content:space-between;">
+
+      <!-- wordmark + intro -->
+      <div class="wordmark" style="flex:1 1 440px;min-width:min(100%,440px);align-self:center;animation:fadein .6s ease both;">
+        <img src="assets/img/logo-trim.png" alt="Cupertino Corp" style="display:block;width:clamp(230px,42vw,400px);height:auto;filter:drop-shadow(0 14px 40px rgba(0,0,0,.55));">
+        <div style="width:clamp(230px,42vw,400px);font:400 clamp(11px,2.6vw,13px) 'Geist Mono';letter-spacing:.18em;opacity:.6;margin-top:clamp(14px,2vh,22px);line-height:1.5;">CUPERTINOCORP, AN ALIAS BY JAVIER DE ROJAS</div>
+      </div>
+
+      <!-- radio + NOW column -->
+      <div style="flex:0 1 360px;min-width:min(100%,320px);align-self:center;display:flex;flex-direction:column;gap:clamp(12px,1.6vw,20px);">
+
+      <!-- NOW -->
+      <div style="padding:20px 22px;border-radius:18px;color:#fff;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.14);box-shadow:0 16px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);animation:fadein .6s ease .2s both;">
+        <div style="font-family:'Doto';font-weight:900;font-size:14px;letter-spacing:.2em;margin-bottom:16px;">NOW</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">ESCUCHANDO</span><span style="font:400 13px 'Geist Mono';flex:1;">Inferno — Boards of Canada</span></div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">LEYENDO</span><span style="font:400 13px 'Geist Mono';flex:1;">Arte — Yasmina Reza</span></div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">VIENDO</span><span style="font:400 13px 'Geist Mono';flex:1;">Agon</span></div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">TRABAJANDO</span><span style="font:400 13px 'Geist Mono';flex:1;opacity:.8;">Desarrollo + producción musical</span></div>
+        </div>
+        <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);font:400 10px 'Geist Mono';opacity:.4;letter-spacing:.12em;">ACTUALIZADO · JUNIO 2026</div>
+      </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div style="position:relative;z-index:1;margin-top:auto;padding:0 clamp(18px,5vw,64px) clamp(28px,4vh,40px);">
+    <!-- footer -->
+    <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:flex-start;align-items:center;margin-top:clamp(36px,6vh,64px);padding-top:22px;border-top:1px solid rgba(255,255,255,.12);">
+      <span style="font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">I AM <a href="Lab.dc.html" title="" style="color:inherit;text-decoration:none;cursor:default;transition:color .5s ease,text-shadow .5s ease;" onMouseOver="this.style.color='#ff3b30';this.style.textShadow='0 0 12px rgba(255,59,48,.7)';" onMouseOut="this.style.color='inherit';this.style.textShadow='none';">NOTHING</a> AND EVERYTHING</span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1400, &quot;height&quot;: 900 },
+  &quot;accent&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;Silver&quot;, &quot;options&quot;: [&quot;Silver&quot;, &quot;Nothing red&quot;, &quot;None&quot;], &quot;tsType&quot;: &quot;string&quot; },
+  &quot;glassTint&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;Smoke&quot;, &quot;options&quot;: [&quot;Smoke&quot;, &quot;Clear&quot;, &quot;Ink&quot;], &quot;tsType&quot;: &quot;string&quot; },
+  &quot;gridLines&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  state = { tick: 0 };
+
+  componentDidMount() {
+    const attach = (r) => {
+      this.radio = r;
+      this.unsub = r.subscribe(() => this.setState(s => ({ tick: s.tick + 1 })));
+      this.forceUpdate();
+    };
+    if (window.__ccRadio) attach(window.__ccRadio);
+    else this._iv = setInterval(() => { if (window.__ccRadio) { clearInterval(this._iv); this._iv = null; attach(window.__ccRadio); } }, 60);
+  }
+  componentWillUnmount() {
+    if (this.unsub) this.unsub();
+    if (this._iv) clearInterval(this._iv);
+    if (this._mq && this._mqHandler) this._mq.removeEventListener('change', this._mqHandler);
+  }
+
+  // Load ONLY the video that matches the current viewport, so a phone never
+  // downloads the heavy desktop clip (and vice-versa). Poster shows instantly.
+  _maybeLoad(el, src, isMobile) {
+    if (!el || el.dataset.ccLoaded) return;
+    const wantMobile = !window.matchMedia('(min-width:641px)').matches;
+    if (isMobile !== wantMobile) return;
+    el.dataset.ccLoaded = '1';
+    el.src = src;
+    try { el.load(); } catch (e) {}
+    el.play().catch(() => {});
+  }
+
+  _watchViewport() {
+    if (this._mq) return;
+    this._mq = window.matchMedia('(min-width:641px)');
+    this._mqHandler = () => {
+      this._maybeLoad(this.mobileVid, 'assets/img/bg-life-mobile-c.mp4', true);
+      this._maybeLoad(this.desktopVid, 'assets/img/bg-index.mp4', false);
+    };
+    this._mq.addEventListener('change', this._mqHandler);
+  }
+
+  fmt(s) {
+    s = Math.max(0, Math.floor(s || 0));
+    return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+  }
+
+  renderVals() {
+    const r = this.radio;
+    const st = r ? r.getState() : { idx: 0, playing: false, pos: 0, dur: 0, durs: {} };
+    const cat = r ? r.catalog : [];
+    const { idx, playing, pos, dur } = st;
+    const rows = cat.map((t, i) => ({
+      n: String(i + 1).padStart(2, '0'), title: t.title, artist: t.artist,
+      durLabel: st.durs[i] ? this.fmt(st.durs[i]) : (i === idx ? this.fmt(dur) : '—:—'), active: i === idx,
+      onSel: () => r && r.select(i, true),
+    }));
+    const wave = Array.from({ length: 40 }, (_, i) => ({
+      h: 6 + Math.round((Math.sin(i * 0.9) * 0.5 + 0.5) * 50),
+    }));
+
+    const accentMap = { 'Silver': '#d0d0d2', 'Nothing red': '#ff3b30', 'None': 'rgba(255,255,255,0.88)' };
+    const tintMap = { 'Smoke': 'rgba(20,20,24,0.5)', 'Clear': 'rgba(32,32,38,0.32)', 'Ink': 'rgba(8,8,10,0.62)' };
+    const accent = accentMap[this.props.accent] ?? '#d0d0d2';
+    const glass = tintMap[this.props.glassTint] ?? 'rgba(20,20,24,0.5)';
+    const grid = (this.props.gridLines ?? true) ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0)';
+
+    return {
+      rows, wave, playing,
+      posLabel: this.fmt(pos), durLabel: this.fmt(dur),
+      progress: Math.min(100, dur ? (pos / dur) * 100 : 0) + '%',
+      playGlyph: playing ? '❚❚' : '▶',
+      toggle: () => r && r.toggle(),
+      next: () => r && r.next(true),
+      prev: () => r && r.prev(true),
+      seek: (e) => { if (!r) return; const b = e.currentTarget.getBoundingClientRect(); r.seekFraction((e.clientX - b.left) / b.width); },
+      accent, glass, grid,
+      replayBg: (e) => { const v = e.currentTarget; v.currentTime = 0; v.play(); },
+      mobileVidRef: (el) => {
+        if (!el) return;
+        el.muted = true; el.defaultMuted = true; el.volume = 0;
+        this.mobileVid = el; this._watchViewport();
+        this._maybeLoad(el, 'assets/img/bg-life-mobile-c.mp4', true);
+      },
+      desktopVidRef: (el) => {
+        if (!el) return;
+        el.muted = true; el.defaultMuted = true; el.volume = 0;
+        this.desktopVid = el; this._watchViewport();
+        this._maybeLoad(el, 'assets/img/bg-index.mp4', false);
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

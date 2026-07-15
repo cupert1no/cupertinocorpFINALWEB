@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;600;900&amp;family=Geist+Mono:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:#0b0b0d;overscroll-behavior:none;}
+  ::-webkit-scrollbar{width:0;height:0;}
+  a{color:#d0d0d2;}a:hover{color:#fff;}
+  @keyframes fadein{from{opacity:0}to{opacity:1}}
+  @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+  @keyframes ccflicker{0%,91%,100%{opacity:.55}92%{opacity:.85}94%{opacity:.4}96%{opacity:.75}}
+  @media(max-width:840px){.lab-side{display:none !important;}}
+</style>
+<script src="assets/page-transition.js"></script>
+</helmet>
+
+<div data-screen-label="Lab" onPointerMove="{{ onMove }}" onPointerDown="{{ onDown }}" onPointerLeave="{{ onLeave }}" style="--lab:{{ lab }};position:fixed;inset:0;overflow:hidden;background:#0b0b0d;color:#fff;font-family:'Geist Mono',ui-monospace,monospace;touch-action:none;">
+
+  <!-- render surface -->
+  <canvas ref="{{ canvasRef }}" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></canvas>
+
+  <!-- ===== CRT scanlines ===== -->
+  <sc-if value="{{ scan }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;inset:0;z-index:30;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.32) 0px,rgba(0,0,0,.32) 1px,transparent 1px,transparent 3px);animation:ccflicker 7s infinite;"></div>
+    <div style="position:absolute;inset:0;z-index:30;pointer-events:none;background:radial-gradient(120% 90% at 50% 42%,transparent 58%,rgba(0,0,0,.5) 100%);"></div>
+  </sc-if>
+
+  <!-- corner labels -->
+  <div class="lab-side" style="position:fixed;top:24px;left:24px;z-index:40;animation:fadein .6s ease both;">
+    
+    
+  </div>
+  
+  
+  
+
+  <!-- ===== NAV ===== -->
+  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:rgba(20,20,24,.5);backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);">
+    <div style="display:flex;flex-wrap:nowrap;gap:6px;flex:none;white-space:nowrap;">
+      <a href="Cupertinocorp Home.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">HOME</a>
+      <a href="Feed.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">FEED</a>
+      <a href="Photography.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">IMAGES</a>
+      <a href="Audio.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">SOUNDS</a>
+      <a href="Blog.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">BLOG</a>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1400, &quot;height&quot;: 900 },
+  &quot;labAccent&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;Nothing red&quot;, &quot;options&quot;: [&quot;Nothing red&quot;, &quot;Silver&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Lab&quot; },
+  &quot;scanlines&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Lab&quot; }
+}">
+class Component extends DCLogic {
+  componentDidMount() {
+    this._onResize = () => this._resize();
+    window.addEventListener('resize', this._onResize);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { this._maskDirty = true; });
+    this._raf = requestAnimationFrame((t) => this._loop(t));
+  }
+
+  componentWillUnmount() {
+    cancelAnimationFrame(this._raf);
+    window.removeEventListener('resize', this._onResize);
+  }
+
+  _labAccent() {
+    return this.props.labAccent === 'Silver' ? '#d0d0d2' : '#ff3b30';
+  }
+
+  // ---------- canvas ----------
+  _canvasRef = (el) => {
+    if (!el || this.cv === el) return;
+    this.cv = el; this.cx = el.getContext('2d');
+    this._resize();
+  };
+
+  _resize() {
+    const el = this.cv; if (!el) return;
+    const w = el.clientWidth, h = el.clientHeight;
+    if (!w || !h) return;
+    const d = Math.min(2, window.devicePixelRatio || 1);
+    el.width = Math.round(w * d); el.height = Math.round(h * d);
+    this.cx.setTransform(d, 0, 0, d, 0, 0);
+    this.W = w; this.H = h;
+    if (this.resRef) this.resRef.textContent = w + '×' + h;
+    this._buildField();
+    this._maskDirty = true;
+  }
+
+  _loop(t) {
+    this._raf = requestAnimationFrame((tt) => this._loop(tt));
+    const dt = Math.min(50, t - (this._pt || t)); this._pt = t;
+    this._fc = (this._fc || 0) + 1; this._ft = (this._ft || 0) + dt;
+    if (this._ft >= 1000) { if (this.fpsRef) this.fpsRef.textContent = String(this._fc); this._fc = 0; this._ft = 0; }
+    if (!this.cx || !this.W) return;
+    this._drawField(t);
+  }
+
+  // ---------- particle field ----------
+  _buildField() {
+    const w = this.W, h = this.H; if (!w) return;
+    const s = Math.max(13, Math.sqrt((w * h) / 4200));
+    const cols = Math.floor(w / s), rows = Math.floor(h / s);
+    const ox = (w - (cols - 1) * s) / 2, oy = (h - (rows - 1) * s) / 2;
+    const ps = [];
+    for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+      const x = ox + i * s, y = oy + j * s;
+      ps.push({ hx: x, hy: y, x: x, y: y, vx: 0, vy: 0, lit: 0, la: 0 });
+    }
+    this.ps = ps;
+  }
+
+  _fieldWord() {
+    const words = ['I', 'AM', 'NOTHING', 'AND', 'EVERYTHING'];
+    return words[(this._wi || 0) % words.length];
+  }
+
+  _sampleMask() {
+    if (!this.ps || !this.W) return;
+    const w = this.W, h = this.H;
+    const oc = this._oc || (this._oc = document.createElement('canvas'));
+    oc.width = w; oc.height = h;
+    const c = oc.getContext('2d', { willReadFrequently: true });
+    c.clearRect(0, 0, w, h);
+    const word = this._fieldWord();
+    let fs = Math.min(h * 0.42, 300);
+    c.font = '900 ' + fs + "px 'Doto','Geist Mono',monospace";
+    let tw = c.measureText(word).width;
+    const maxW = w * 0.86;
+    if (tw > maxW) { fs = fs * maxW / tw; c.font = '900 ' + fs + "px 'Doto','Geist Mono',monospace"; }
+    c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#fff';
+    c.fillText(word, w / 2, h / 2);
+    const data = c.getImageData(0, 0, w, h).data;
+    for (const p of this.ps) {
+      const ix = (Math.min(h - 1, Math.round(p.hy)) * w + Math.min(w - 1, Math.round(p.hx))) * 4 + 3;
+      p.lit = data[ix] > 100 ? 1 : 0;
+    }
+    this._maskDirty = false;
+  }
+
+  _drawField(t) {
+    const cx = this.cx, w = this.W, h = this.H;
+    if (this._maskDirty) this._sampleMask();
+    if (!this._wt) this._wt = t;
+    if (t - this._wt > 3800) { this._wt = t; this._wi = (this._wi || 0) + 1; this._maskDirty = true; }
+    cx.fillStyle = '#0b0b0d'; cx.fillRect(0, 0, w, h);
+    const ps = this.ps || [];
+    const k = 0.045, damp = 0.88;
+    const px = this._px, py = this._py, hasPtr = px != null;
+    const R = Math.max(110, Math.min(170, w * 0.12));
+    const sh = this._shock;
+    const accent = this._labAccent();
+    const tt = t * 0.001;
+    for (const p of ps) {
+      p.vx += (p.hx - p.x) * k; p.vy += (p.hy - p.y) * k;
+      if (hasPtr) {
+        const dx = p.x - px, dy = p.y - py, d2 = dx * dx + dy * dy;
+        if (d2 < R * R && d2 > 0.01) { const d = Math.sqrt(d2), f = (1 - d / R) * 2.4; p.vx += dx / d * f; p.vy += dy / d * f; }
+      }
+      if (sh) {
+        const age = t - sh.t;
+        if (age < 900) {
+          const r = age * 0.55, dx = p.x - sh.x, dy = p.y - sh.y, d = Math.sqrt(dx * dx + dy * dy) || 1;
+          if (Math.abs(d - r) < 34) { const f = (1 - age / 900) * 7; p.vx += dx / d * f; p.vy += dy / d * f; }
+        } else this._shock = null;
+      }
+      p.vx *= damp; p.vy *= damp; p.x += p.vx; p.y += p.vy;
+      p.la += (p.lit - p.la) * 0.07;
+      const wob = Math.sin(tt * 1.4 + p.hx * 0.011 + p.hy * 0.013);
+      const disp = Math.abs(p.x - p.hx) + Math.abs(p.y - p.hy);
+      const en = Math.min(1, disp * 0.06);
+      const sz = 1.6 + p.la * 1.9 + en * 1.6;
+      if (p.la > 0.45) cx.fillStyle = accent;
+      else {
+        const al = 0.10 + 0.10 * wob + p.la * 0.55 + en * 0.75;
+        cx.fillStyle = 'rgba(220,220,226,' + Math.min(0.95, Math.max(0.05, al)).toFixed(3) + ')';
+      }
+      cx.fillRect(p.x - sz / 2, (p.y + wob * 1.2) - sz / 2, sz, sz);
+    }
+  }
+
+  // ---------- pointer ----------
+  _onMove = (e) => {
+    this._px = e.clientX; this._py = e.clientY;
+    if (this.ptrRef) this.ptrRef.textContent = Math.round(e.clientX) + ',' + Math.round(e.clientY);
+  };
+  _onDown = (e) => {
+    this._px = e.clientX; this._py = e.clientY;
+    this._shock = { x: e.clientX, y: e.clientY, t: performance.now() };
+  };
+  _onLeave = () => { this._px = null; this._py = null; };
+
+  // ---------- render ----------
+  renderVals() {
+    return {
+      lab: this._labAccent(),
+      scan: this.props.scanlines ?? true,
+      canvasRef: this._canvasRef,
+      onMove: this._onMove, onDown: this._onDown, onLeave: this._onLeave,
+      hint: 'DRAG TO DISTURB · CLICK TO DETONATE',
+      fpsRef: (el) => { this.fpsRef = el; },
+      resRef: (el) => { this.resRef = el; if (el && this.W) el.textContent = this.W + '×' + this.H; },
+      ptrRef: (el) => { this.ptrRef = el; },
+    };
+  }
+}
+</script>
+</body>
+</html>

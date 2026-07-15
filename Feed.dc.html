@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;600;900&family=Geist+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:#0b0b0d;}
+  ::-webkit-scrollbar{width:0;height:0;}
+  @keyframes fadein{from{opacity:0}to{opacity:1}}
+</style>
+<script src="assets/radio.js"></script>
+<script src="assets/page-transition.js"></script>
+</helmet>
+
+<div style="--accent:{{ accent }};--grid:{{ grid }};position:relative;min-height:100dvh;background:#0b0b0d;font-family:'Geist Mono',ui-monospace,monospace;color:#fff;overflow-x:hidden;">
+
+  <!-- ambient backdrop -->
+  <div style="position:fixed;top:0;left:0;width:100%;height:100lvh;z-index:0;pointer-events:none;">
+    <video id="bgvid" src="assets/img/london.mp4" poster="assets/img/london-poster.jpg" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;"></video>
+    <div style="position:absolute;inset:0;background:radial-gradient(130% 100% at 30% -10%,rgba(0,0,0,.2),rgba(0,0,0,.82) 80%);"></div>
+    <div style="position:absolute;inset:0;background-image:linear-gradient(var(--grid,rgba(255,255,255,.05)) 1px,transparent 1px),linear-gradient(90deg,var(--grid,rgba(255,255,255,.05)) 1px,transparent 1px);background-size:clamp(34px,4vw,48px) clamp(34px,4vw,48px);"></div>
+  </div>
+  <div style="position:fixed;top:-20%;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(closest-side,rgba(255,255,255,.06),transparent);pointer-events:none;z-index:0;"></div>
+
+  <!-- ===== NAV ===== -->
+  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:rgba(20,20,24,.5);backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);">
+    <div style="display:flex;flex-wrap:nowrap;gap:6px;flex:none;white-space:nowrap;">
+      <a href="Cupertinocorp Home.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">HOME</a>
+      <a href="Feed.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:#0b0b0c;text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;background:var(--accent,#d0d0d2);">FEED</a>
+      <a href="Photography.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">IMAGES</a>
+      <a href="Audio.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">SOUNDS</a>
+      <a href="Blog.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">BLOG</a>
+    </div>
+  </div>
+
+  <!-- ===== HEADER (matches other pages) ===== -->
+  <div style="position:relative;z-index:1;padding:108px clamp(18px,5vw,64px) 0;">
+    <div style="display:flex;align-items:baseline;gap:16px;">
+      <h1 style="margin:0;font:300 16px 'Geist Mono';letter-spacing:.38em;opacity:.82;">FEED</h1>
+      <span style="flex:1;height:1px;background:rgba(255,255,255,.12);"></span>
+      <span style="font:400 10px 'Geist Mono';letter-spacing:.2em;opacity:.34;">{{ countLabel }}</span>
+    </div>
+  </div>
+
+  <!-- ===== FEED (single column) ===== -->
+  <div style="position:relative;z-index:1;max-width:560px;margin:0 auto;padding:clamp(22px,4vw,34px) clamp(14px,4vw,22px) 132px;display:flex;flex-direction:column;gap:clamp(16px,2.4vw,22px);">
+    <sc-for list="{{ posts }}" as="p" hint-placeholder-count="5">
+      <div style="animation:fadein .5s ease both;">
+        <dc-import name="FeedPost" data="{{ p }}" hint-size="100%,420px"></dc-import>
+      </div>
+    </sc-for>
+    <div style="text-align:center;padding-top:14px;font:400 9.5px 'Geist Mono';letter-spacing:.28em;opacity:.3;">— FIN DEL FEED —</div>
+  </div>
+
+</div>
+<dc-import name="MiniPlayer" hint-size="0,0"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1200, &quot;height&quot;: 900 },
+  &quot;accent&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;Silver&quot;, &quot;options&quot;: [&quot;Silver&quot;, &quot;Nothing red&quot;, &quot;None&quot;], &quot;tsType&quot;: &quot;string&quot; },
+  &quot;gridLines&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  state = { playingId: null };
+
+  // El contenido se carga desde content/feed.json (editable con el CMS).
+  posts = [];
+
+  async componentDidMount() {
+    try {
+      const res = await fetch('content/feed.json', { cache: 'no-store' });
+      const data = await res.json();
+      this.posts = data.posts || [];
+      this.forceUpdate();
+    } catch (e) { console.warn('feed data load failed', e); }
+    const v = document.getElementById('bgvid');
+    if (v) { v.muted = true; v.volume = 0; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+  }
+
+  play = (id, e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState({ playingId: id }); };
+  stop = (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState({ playingId: null }); };
+
+  renderVals() {
+    const accentMap = { 'Silver': '#d0d0d2', 'Nothing red': '#ff3b30', 'None': 'rgba(255,255,255,0.88)' };
+    const accent = accentMap[this.props.accent] ?? '#d0d0d2';
+    const grid = (this.props.gridLines ?? true) ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0)';
+    const N = this.posts.length;
+
+    const posts = this.posts.map((post) => {
+      const kind = post.kind;
+      const hasMedia = kind !== 'text';
+      return {
+        id: post.id,
+        stamp: post.date + ' · ' + post.time,
+        tag: kind === 'video' ? 'VIDEO' : (kind === 'image' ? 'PHOTO' : 'NOTE'),
+        accent,
+        isText: kind === 'text',
+        isImage: kind === 'image',
+        isVideo: kind === 'video',
+        hasMedia,
+        hasCaption: hasMedia,
+        caption: post.caption,
+        location: post.location || '',
+        hasLocation: !!post.location,
+        padBottom: !post.location,
+        image: post.image || '',
+        poster: post.poster || '',
+        videoSrc: post.video || 'assets/img/bg-index.mp4',
+        aspect: post.aspect || '3 / 2',
+        playing: this.state.playingId === post.id,
+        notPlaying: this.state.playingId !== post.id,
+        onPlay: (e) => this.play(post.id, e),
+        onStop: (e) => this.stop(e),
+        onToggle: (e) => { const v = e && e.currentTarget; if (v) { if (v.paused) v.play(); else v.pause(); } },
+        onPause: (e) => { if (e && e.stopPropagation) e.stopPropagation(); const btn = e && e.currentTarget; const v = btn && btn.parentElement && btn.parentElement.querySelector('video'); const svg = btn && btn.querySelector('svg path'); if (v) { if (v.paused) { v.play(); if (svg) svg.setAttribute('d', 'M6 5h4v14H6zM14 5h4v14h-4z'); } else { v.pause(); if (svg) svg.setAttribute('d', 'M8 5v14l11-7z'); } } },
+      };
+    });
+
+    return {
+      accent, grid, posts,
+      countLabel: String(N).padStart(2, '0') + ' POSTS',
+    };
+  }
+}
+</script>
+</body>
+</html>
