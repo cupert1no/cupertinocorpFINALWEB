@@ -32,7 +32,7 @@ collections:
             widget: list
             summary: "{{fields.date}} — {{fields.title}}"
             fields:
-              - { name: date, label: Fecha, widget: date, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD" }
+              - { name: date, label: Fecha, widget: datetime, type: date, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", picker_utc: true }
               - { name: title, label: Título, widget: string }
               - { name: img, label: Imagen de portada, widget: image, required: false, hint: "Opcional. Déjalo vacío para una entrada sin imagen." }
               - { name: body, label: Texto, widget: text, hint: "Separa los párrafos dejando una línea en blanco entre ellos." }
