@@ -122,6 +122,29 @@ Para probar el CMS en tu ordenador antes de publicar:
 
 ---
 
+## Solución de problemas
+
+### Error de deploy: "file ... .git/objects/pack/....pack ... size of 6X MiB" / límite 25 MiB
+Cloudflare intentaba subir la carpeta `.git` (que pesa ~180 MB por los audios y vídeos versionados) como si fuera parte de la web. Ningún archivo real de la web supera el límite; el problema es solo `.git`.
+
+**Solución (ya incluida):** el archivo `.assetsignore` en la raíz le dice a Cloudflare qué no subir (`.git`, `node_modules`, etc.). Solo tienes que asegurarte de que está subido al repo y volver a lanzar el deploy:
+
+```
+cd "/Volumes/Lexar/PERSONAL/mi web_claude/CUP_deploy"
+rm -f .git/index.lock .git/HEAD.lock          # limpia los bloqueos del disco Lexar
+git rm -r --cached "._*" "**/._*" 2>/dev/null # quita basura de macOS del repo
+git add -A
+git commit -m "Excluir .git del deploy (.assetsignore) + limpieza"
+git push origin main
+```
+
+Después, en el panel de Cloudflare, pulsa **Retry deployment** (o se relanza solo con el push). Ahora debería completar.
+
+### El deploy sigue fallando por tamaño
+Confirma que `.assetsignore` está en la raíz del proyecto y contiene `.git`. Si usas *Direct Upload* en vez de la integración con Git, despliega solo la carpeta del sitio (no incluyas `.git`).
+
+---
+
 ## Dominio propio (opcional)
 
 En Cloudflare Pages → tu proyecto → **Custom domains** → añade tu dominio y sigue los pasos DNS. Después añade ese dominio a `ALLOWED_DOMAINS` del Worker y actualiza las URLs de la OAuth App.

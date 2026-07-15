@@ -1,0 +1,15 @@
+# Archivos que Cloudflare NO debe subir como parte de la web.
+# Motivo principal: la carpeta .git contiene un pack > 25 MiB (límite de Cloudflare).
+.git
+.git/**
+node_modules
+node_modules/**
+.wrangler
+.gitignore
+.assetsignore
+DESPLIEGUE.md
+.DS_Store
+._*
+**/._*
+.Spotlight-V100
+.Trashes

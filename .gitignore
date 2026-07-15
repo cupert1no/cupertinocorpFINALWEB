@@ -2,3 +2,8 @@ node_modules/
 .DS_Store
 .wrangler/
 npm-debug.log*
+
+# macOS AppleDouble en discos exFAT/FAT
+._*
+.Spotlight-V100
+.Trashes
