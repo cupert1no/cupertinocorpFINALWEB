@@ -1,106 +1,16 @@
 {
   "posts": [
     {
-      "id": "p12",
-      "kind": "text",
-      "date": "08 JUL 2026",
-      "time": "23:41",
-      "caption": "Nuevo set casi terminado. Tres meses de tardes encerrado y por fin suena a algo que no me da vergüenza enseñar."
-    },
-    {
-      "id": "p11",
+      "id": "p1",
       "kind": "image",
-      "date": "08 JUL 2026",
-      "time": "20:12",
-      "image": "assets/img/device/tv.jpg",
+      "date": "15 JUL 2026",
+      "time": "16:16",
+      "caption": "ELX",
+      "image": "/assets/img/6BED83B0-B1F8-4FED-8297-A974C5B355CE_1_105_c.jpeg",
+      "poster": "",
+      "video": "",
       "aspect": "3 / 2",
-      "location": "Almoradí",
-      "caption": "La tele encendida a las tres de la mañana dice más que cualquier cuadro."
-    },
-    {
-      "id": "p10",
-      "kind": "video",
-      "date": "08 JUL 2026",
-      "time": "16:03",
-      "poster": "assets/img/print/poster_back.jpg",
-      "aspect": "16 / 9",
-      "caption": "Prueba de motion para el próximo lanzamiento. Súbele el volumen."
-    },
-    {
-      "id": "p09",
-      "kind": "text",
-      "date": "07 JUL 2026",
-      "time": "13:27",
-      "caption": "«No soy nada y lo soy todo.» Llevo toda la semana dándole vueltas a esta frase."
-    },
-    {
-      "id": "p08",
-      "kind": "image",
-      "date": "07 JUL 2026",
-      "time": "09:50",
-      "image": "assets/img/elsewhere/london.jpg",
-      "aspect": "3 / 2",
-      "caption": "Azotea en Londres. Alguien afinaba una guitarra mientras la ciudad entera se apagaba."
-    },
-    {
-      "id": "p07",
-      "kind": "image",
-      "date": "06 JUL 2026",
-      "time": "19:34",
-      "image": "assets/img/vectoralist/steel.jpg",
-      "aspect": "2 / 3",
-      "caption": "Serie nueva — The Vectoralist. Resulta que el poder tiene forma de superficie de acero."
-    },
-    {
-      "id": "p06",
-      "kind": "text",
-      "date": "05 JUL 2026",
-      "time": "02:18",
-      "caption": "Insomnio productivo otra vez. Las mejores ideas siempre llegan cuando deberías estar durmiendo."
-    },
-    {
-      "id": "p05",
-      "kind": "video",
-      "date": "04 JUL 2026",
-      "time": "18:05",
-      "poster": "assets/img/device/eyes.jpg",
-      "aspect": "3 / 2",
-      "caption": "Fragmento de la instalación. Cuatro pantallas, un solo ojo mirándote."
-    },
-    {
-      "id": "p04",
-      "kind": "image",
-      "date": "03 JUL 2026",
-      "time": "11:42",
-      "image": "assets/img/print/colon.jpg",
-      "aspect": "5 / 4",
-      "caption": "Print terminado. La tinta todavía huele a fresco."
-    },
-    {
-      "id": "p03",
-      "kind": "text",
-      "date": "02 JUL 2026",
-      "time": "23:10",
-      "caption": "Gracias a todos los que subisteis anoche. La azotea era pequeña; la noche, enorme."
-    },
-    {
-      "id": "p02",
-      "kind": "image",
-      "date": "01 JUL 2026",
-      "time": "15:26",
-      "image": "assets/img/business/entrance.jpg",
-      "aspect": "2 / 3",
-      "location": "Business Opportunities",
-      "caption": "Entre el trabajo y la identidad. ¿Qué significa producir, mostrar, pertenecer?"
-    },
-    {
-      "id": "p01",
-      "kind": "image",
-      "date": "30 JUN 2026",
-      "time": "08:03",
-      "image": "assets/img/elsewhere/paris.jpg",
-      "aspect": "3 / 2",
-      "caption": "París, sin rumbo. La cámara solo es la excusa para mirar más despacio."
+      "location": ""
     }
   ]
 }
