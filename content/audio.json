@@ -1,88 +1,25 @@
 {
   "releases": [
     {
-      "id": "radio",
+      "id": "costa-sur",
       "type": "RADIO",
-      "title": "Cupertino Radio · Vol. 001",
+      "title": "Costa Sur",
       "year": "2026",
-      "art": "assets/img/device/dscf0594.jpg",
+      "art": "/assets/img/cuprad1.jpg",
       "tracks": [
         {
-          "title": "First Iota",
-          "artist": "Purelink",
+          "title": "First lota",
+          "artist": "Purelink feat. Angelina Nonaj",
           "src": "assets/audio/purelink-first-iota.mp3"
         },
         {
           "title": "New ADHD",
-          "artist": "33",
+          "artist": "33, Astrid Sonne",
           "src": "assets/audio/33-new-adhd.mp3"
         },
         {
-          "title": "Age of Capricorn",
-          "artist": "Boards of Canada",
-          "src": "assets/audio/boards-of-canada-age-of-capricorn.mp3"
-        }
-      ]
-    },
-    {
-      "id": "costa-sur",
-      "type": "EP",
-      "title": "Costa Sur",
-      "year": "2026",
-      "art": "assets/img/device/dscf0920.jpg",
-      "tracks": [
-        {
-          "title": "Costa Sur",
-          "artist": "Cupertino Corp",
-          "src": "assets/audio/purelink-first-iota.mp3"
-        },
-        {
-          "title": "Neón en la Niebla",
-          "artist": "Cupertino Corp",
-          "src": "assets/audio/33-new-adhd.mp3"
-        },
-        {
-          "title": "Hora Azul",
-          "artist": "Cupertino Corp",
-          "src": "assets/audio/boards-of-canada-age-of-capricorn.mp3"
-        },
-        {
-          "title": "Reflejo",
-          "artist": "Cupertino Corp",
-          "src": "assets/audio/purelink-first-iota.mp3"
-        },
-        {
-          "title": "Costa Sur (Reprise)",
-          "artist": "Cupertino Corp",
-          "src": "assets/audio/33-new-adhd.mp3"
-        }
-      ]
-    },
-    {
-      "id": "noche-interior",
-      "type": "EP",
-      "title": "Noche Interior",
-      "year": "2025",
-      "art": "assets/img/device/dscf0533.jpg",
-      "tracks": [
-        {
-          "title": "Noche Interior",
-          "artist": "Cupertino Corp",
-          "src": "assets/audio/boards-of-canada-age-of-capricorn.mp3"
-        },
-        {
-          "title": "Luz de Sodio",
-          "artist": "Cupertino Corp",
-          "src": "assets/audio/purelink-first-iota.mp3"
-        },
-        {
-          "title": "Periférico",
-          "artist": "Cupertino Corp",
-          "src": "assets/audio/33-new-adhd.mp3"
-        },
-        {
-          "title": "Madrugada",
-          "artist": "Cupertino Corp",
+          "title": "Age Of Capricorn",
+          "artist": "Boards Of Canada",
           "src": "assets/audio/boards-of-canada-age-of-capricorn.mp3"
         }
       ]
