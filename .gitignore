@@ -7,3 +7,8 @@ npm-debug.log*
 ._*
 .Spotlight-V100
 .Trashes
+
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
