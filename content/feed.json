@@ -1,11 +1,23 @@
 {
   "posts": [
     {
+      "id": "p2",
+      "kind": "image",
+      "date": "17 JUL 2026",
+      "time": "8:38",
+      "caption": "New In",
+      "image": "/assets/img/IMG_6634.jpeg",
+      "poster": "",
+      "video": "",
+      "aspect": "3 / 2",
+      "location": ""
+    },
+    {
       "id": "p1",
       "kind": "image",
-      "date": "15 JUL 2026",
+      "date": "17 JUL 2026",
       "time": "16:16",
-      "caption": "ELX",
+      "caption": "elx",
       "image": "/assets/img/6BED83B0-B1F8-4FED-8297-A974C5B355CE_1_105_c.jpeg",
       "poster": "",
       "video": "",
