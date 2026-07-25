@@ -143,12 +143,26 @@ class Component extends DCLogic {
 
   renderVals() {
     const { readerOpen, idx } = this.state;
-    const posts = this.posts.map((p, i) => ({
-      title: p.title, img: p.img, dateLabel: this.fmtDate(p.date),
-      code: 'N' + String(this.posts.length - i).padStart(2, '0'),
-      excerpt: p.paras[0].slice(0, 116) + (p.paras[0].length > 116 ? '…' : ''),
-      onOpen: () => this.open(i),
-    }));
+    const posts = this.posts.map((p, i) => {
+      const first = p.paras[0] || '';
+      return {
+        title: p.title, img: p.img, dateLabel: this.fmtDate(p.date),
+        code: 'N' + String(this.posts.length - i).padStart(2, '0'),
+        excerpt: first.slice(0, 116) + (first.length > 116 ? '…' : ''),
+        onOpen: () => this.open(i),
+      };
+    });
+    // posts arrives async from content/blog.json, so renderVals runs at least
+    // once with an empty list before the fetch resolves.
+    if (!this.posts.length) {
+      return {
+        posts,
+        countLabel: '00 ENTRADAS',
+        readerOpen: false,
+        rTitle: '', rDate: '', rImgEl: null, rParas: [],
+        close: this.close, nextPost: this.nextPost, prevPost: this.prevPost,
+      };
+    }
     const cur = this.posts[idx];
     return {
       posts,
