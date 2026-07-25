@@ -33,7 +33,7 @@
 <script src="assets/page-transition.js"></script>
 </helmet>
 
-<div style="--accent:{{ accent }};--glass:{{ glass }};--grid:{{ grid }};position:relative;min-height:100dvh;background:#0b0b0d;font-family:'Geist Mono',ui-monospace,monospace;color:#fff;overflow-x:hidden;">
+<div style="--accent:{{ accent }};--glass:{{ glass }};--grid:{{ grid }};position:relative;min-height:100dvh;display:flex;flex-direction:column;background:#0b0b0d;font-family:'Geist Mono',ui-monospace,monospace;color:#fff;overflow-x:hidden;">
 
   <!-- fixed backdrop -->
   <div style="position:fixed;top:0;left:0;width:100%;height:100lvh;z-index:0;">
@@ -64,7 +64,7 @@
   </div>
 
   <!-- ===== BODY: catalog + player ===== -->
-  <div style="position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:clamp(32px,5vh,52px) clamp(18px,5vw,64px) clamp(56px,10vh,110px);">
+  <div style="position:relative;z-index:1;width:100%;max-width:1280px;margin:0 auto;padding:clamp(32px,5vh,52px) clamp(18px,5vw,64px) clamp(56px,10vh,110px);">
     <div style="display:flex;flex-wrap:wrap;gap:clamp(14px,2vw,24px);align-items:flex-start;">
 
       <!-- CATALOG -->
@@ -137,7 +137,7 @@
   </div>
 
   <!-- ===== FOOTER (full width) ===== -->
-  <div style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.12);margin-top:clamp(8px,2vh,24px);">
+  <div style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.12);margin-top:auto;">
     <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;padding:22px clamp(18px,5vw,64px) clamp(40px,7vh,72px);">
       <span style="font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">I AM <a href="Lab.dc.html" title="" style="color:inherit;text-decoration:none;cursor:default;transition:color .5s ease,text-shadow .5s ease;" onMouseOver="this.style.color='#ff3b30';this.style.textShadow='0 0 12px rgba(255,59,48,.7)';" onMouseOut="this.style.color='inherit';this.style.textShadow='none';">NOTHING</a> AND EVERYTHING</span>
     </div>
