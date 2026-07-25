@@ -23,8 +23,9 @@
   @keyframes mppulse{0%,100%{opacity:.45}50%{opacity:1}}
   @media(max-width:640px){.wordmark{text-align:center;}.wordmark>img{margin-left:auto;margin-right:auto;}.wordmark>div{margin-left:auto;margin-right:auto;}}
   .bg-video{display:none;}
-  .bg-video-mobile{display:block;}
-  @media(min-width:641px){.bg-video{display:block;}.bg-video-mobile{display:none;}}
+  .bg-video-mobile{display:none;}
+  @media(max-width:640px){.bg-video-mobile{display:block;}}
+  @media(min-width:641px){.bg-video{display:block;}}
 </style>
 <script src="assets/radio.js"></script>
 <script src="assets/page-transition.js"></script>
@@ -33,7 +34,7 @@
 <div style="--accent:{{ accent }};--glass:{{ glass }};--grid:{{ grid }};position:relative;min-height:100dvh;display:flex;flex-direction:column;background:#0b0b0d;font-family:'Geist Mono',ui-monospace,monospace;color:#fff;overflow-x:hidden;">
 
   <!-- fixed photographic backdrop -->
-  <div style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;background:#0b0b0d url('assets/img/bg-life-mobile-poster.jpg') center/cover no-repeat;">
+  <div style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;background:#0b0b0d;">
     <video ref="{{ mobileVidRef }}" class="bg-video-mobile" poster="assets/img/bg-life-mobile-poster.jpg" muted loop playsinline preload="none" onEnded="{{ replayBg }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;background:#0b0b0d url('assets/img/bg-life-mobile-poster.jpg') center/cover no-repeat;"></video>
     <video ref="{{ desktopVidRef }}" class="bg-video" poster="assets/img/bg-index-poster.jpg" muted loop playsinline preload="none" onEnded="{{ replayBg }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;background:transparent;"></video>
     <div style="position:absolute;inset:0;background:radial-gradient(130% 100% at 70% -10%,rgba(0,0,0,.1),rgba(0,0,0,.72) 80%);"></div>
