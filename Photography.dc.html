@@ -21,6 +21,8 @@
   @keyframes mpeq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
   @keyframes mppulse{0%,100%{opacity:.45}50%{opacity:1}}
   .gcol{break-inside:avoid;}
+  .gallery-cols{columns:clamp(200px,22vw,300px);}
+  @media (max-width:640px){.gallery-cols{columns:1;}}
 </style>
 <script src="assets/radio.js"></script>
 <script src="assets/page-transition.js"></script>
@@ -67,7 +69,7 @@
 
   <!-- ===== GALLERY (masonry) ===== -->
   <div style="position:relative;z-index:1;padding:8px clamp(18px,5vw,64px) 90px;">
-    <div style="columns:clamp(160px,22vw,300px);column-gap:clamp(10px,1.4vw,18px);">
+    <div class="gallery-cols" style="column-gap:clamp(10px,1.4vw,18px);">
       <sc-for list="{{ shown }}" as="g" hint-placeholder-count="12">
         <div class="gcol" onClick="{{ g.onOpen }}" style="margin-bottom:clamp(10px,1.4vw,18px);border-radius:6px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,255,255,.08);position:relative;background:#141417;">
           <img src="{{ g.src }}" alt="{{ g.title }}" loading="lazy" onLoad="{{ g.onLoad }}" ref="{{ g.ref }}" style="display:block;width:100%;aspect-ratio:{{ g.aspect }};object-fit:cover;background:#141417;transition:opacity .55s ease,transform .5s cubic-bezier(.2,.7,.2,1);" style-hover="transform:scale(1.04);">
