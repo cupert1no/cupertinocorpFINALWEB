@@ -183,14 +183,19 @@ class Component extends DCLogic {
     const glass = tintMap[this.props.glassTint] ?? 'rgba(20,20,24,0.5)';
     const grid = (this.props.gridLines ?? true) ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0)';
 
+    // Mientras el motor de radio (window.__ccRadio) aún no ha cargado, NO
+    // inventamos un release/imagen de relleno: eso es lo que producía el
+    // flash de una portada equivocada antes de que llegasen los datos reales
+    // de Sveltia. En su lugar dejamos curRel/cats vacíos y dejamos que los
+    // hint-placeholder-* del template muestren el esqueleto de carga.
     const eng = this.radio;
-    const st = eng ? eng.getState() : { relIdx: 0, idx: 0, playing: false, pos: 0, dur: 0, vol: 0.8, durs: {}, release: { type: 'RADIO', title: 'Cupertino Radio · Vol. 001', year: '2026', art: 'assets/img/device/dscf0594.jpg', count: 3 } };
-    const cats = eng ? eng.releases : [st.release];
+    const st = eng ? eng.getState() : null;
+    const cats = eng ? eng.releases : [];
     const tks = eng ? eng.catalog : [];
-    const { relIdx, idx, playing, pos, dur, vol, durs } = st;
-    const curRel = st.release || cats[relIdx] || cats[0];
+    const { relIdx = 0, idx = 0, playing = false, pos = 0, dur = 0, vol = 0.8, durs = {} } = st || {};
+    const curRel = (st && st.release) || cats[relIdx] || null;
 
-    const imgArt = (src, fontPx) => React.createElement('img', { src: src, alt: '', style: { width: '100%', height: '100%', objectFit: 'cover' } });
+    const imgArt = (src, fontPx) => src ? React.createElement('img', { src: src, alt: '', style: { width: '100%', height: '100%', objectFit: 'cover' } }) : null;
 
     const releases = cats.map((r, i) => ({
       type: r.type, title: r.title, year: r.year,
@@ -215,13 +220,13 @@ class Component extends DCLogic {
     return {
       accent, glass, grid,
       releases, trackRows,
-      countLabel: String(live).padStart(2, '0') + (live === 1 ? ' RELEASE' : ' RELEASES'),
+      countLabel: live ? (String(live).padStart(2, '0') + (live === 1 ? ' RELEASE' : ' RELEASES')) : '— RELEASES',
       statusLabel: playing ? 'ON AIR' : 'EN PAUSA',
       playing,
       panelLabel: playing ? 'REPRODUCIENDO' : 'EN COLA',
-      artEl: imgArt(curRel.art, 13),
-      relTitle: curRel.title,
-      relMeta: curRel.type + ' · ' + curRel.year,
+      artEl: curRel ? imgArt(curRel.art, 13) : null,
+      relTitle: curRel ? curRel.title : '',
+      relMeta: curRel ? (curRel.type + ' · ' + curRel.year) : '',
       posLabel: this.fmt(pos),
       durLabel: this.fmt(dur),
       progress: (Math.min(100, dur ? (pos / dur) * 100 : 0)) + '%',
