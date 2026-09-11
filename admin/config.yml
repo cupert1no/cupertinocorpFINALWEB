@@ -13,7 +13,7 @@ locale: es
 
 # Carpeta donde se suben las imágenes nuevas
 media_folder: assets/img
-public_folder: assets/img
+public_folder: /assets/img
 
 collections:
   # ============ HOME (sección NOW) ============
@@ -80,7 +80,7 @@ collections:
               - { name: caption, label: Texto, widget: text }
               - { name: image, label: Imagen, widget: image, required: false, hint: "Solo si el tipo es 'image'." }
               - { name: poster, label: Póster del vídeo, widget: image, required: false, hint: "Solo si el tipo es 'video'." }
-              - { name: video, label: Archivo de vídeo (.mp4), widget: file, required: false, media_folder: "/assets/img", public_folder: "assets/img", hint: "Opcional. Solo si el tipo es 'video'." }
+              - { name: video, label: Archivo de vídeo (.mp4), widget: file, required: false, media_folder: "/assets/img", public_folder: "/assets/img", hint: "Opcional. Solo si el tipo es 'video'." }
               - { name: aspect, label: Proporción, widget: string, required: false, default: "3 / 2", hint: "p.ej. 3 / 2, 16 / 9, 2 / 3" }
               - { name: location, label: Ubicación, widget: string, required: false }
 
@@ -145,4 +145,4 @@ collections:
                 fields:
                   - { name: title, label: Título, widget: string }
                   - { name: artist, label: Artista, widget: string }
-                  - { name: src, label: Archivo de audio (.mp3), widget: file, media_folder: "/assets/audio", public_folder: "assets/audio" }
+                  - { name: src, label: Archivo de audio (.mp3), widget: file, media_folder: "/assets/audio", public_folder: "/assets/audio" }
