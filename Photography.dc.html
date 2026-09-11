@@ -20,9 +20,6 @@
   @keyframes fadein{from{opacity:0}to{opacity:1}}
   @keyframes mpeq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
   @keyframes mppulse{0%,100%{opacity:.45}50%{opacity:1}}
-  .gcol{break-inside:avoid;}
-  .gallery-cols{columns:clamp(200px,22vw,300px);}
-  @media (max-width:640px){.gallery-cols{columns:1;}}
 </style>
 <script src="assets/radio.js"></script>
 <script src="assets/page-transition.js"></script>
@@ -69,14 +66,18 @@
 
   <!-- ===== GALLERY (masonry) ===== -->
   <div style="position:relative;z-index:1;padding:8px clamp(18px,5vw,64px) 90px;">
-    <div class="gallery-cols" style="column-gap:clamp(10px,1.4vw,18px);">
-      <sc-for list="{{ shown }}" as="g" hint-placeholder-count="12">
-        <div class="gcol" onClick="{{ g.onOpen }}" style="margin-bottom:clamp(10px,1.4vw,18px);border-radius:6px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,255,255,.08);position:relative;background:#141417;">
-          <img src="{{ g.src }}" alt="{{ g.title }}" loading="lazy" onLoad="{{ g.onLoad }}" ref="{{ g.ref }}" style="display:block;width:100%;aspect-ratio:{{ g.aspect }};object-fit:cover;background:#141417;transition:opacity .55s ease,transform .5s cubic-bezier(.2,.7,.2,1);" style-hover="transform:scale(1.04);">
-          <div style="position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 11px;background:linear-gradient(transparent,rgba(0,0,0,.72));opacity:0;transition:opacity .2s;" style-hover="opacity:1;">
-            <span style="font:500 10px 'Geist Mono';letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ g.title }}</span>
-            <span style="font:400 9px 'Geist Mono';opacity:.6;letter-spacing:.1em;flex:none;">{{ g.code }}</span>
-          </div>
+    <div ref="{{ galleryRef }}" style="display:flex;align-items:flex-start;gap:clamp(10px,1.4vw,18px);">
+      <sc-for list="{{ columns }}" as="col" hint-placeholder-count="3">
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:clamp(10px,1.4vw,18px);">
+          <sc-for list="{{ col }}" as="g" hint-placeholder-count="4">
+            <div onClick="{{ g.onOpen }}" style="border-radius:6px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,255,255,.08);position:relative;background:#141417;">
+              <img src="{{ g.src }}" alt="{{ g.title }}" loading="lazy" onLoad="{{ g.onLoad }}" ref="{{ g.ref }}" style="display:block;width:100%;aspect-ratio:{{ g.aspect }};object-fit:cover;background:#141417;transition:opacity .55s ease,transform .5s cubic-bezier(.2,.7,.2,1);" style-hover="transform:scale(1.04);">
+              <div style="position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 11px;background:linear-gradient(transparent,rgba(0,0,0,.72));opacity:0;transition:opacity .2s;" style-hover="opacity:1;">
+                <span style="font:500 10px 'Geist Mono';letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ g.title }}</span>
+                <span style="font:400 9px 'Geist Mono';opacity:.6;letter-spacing:.1em;flex:none;">{{ g.code }}</span>
+              </div>
+            </div>
+          </sc-for>
         </div>
       </sc-for>
     </div>
@@ -117,7 +118,7 @@
   &quot;accent&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;Silver&quot;, &quot;options&quot;: [&quot;Silver&quot;, &quot;Nothing red&quot;, &quot;None&quot;], &quot;tsType&quot;: &quot;string&quot; }
 }">
 class Component extends DCLogic {
-  state = { filter: 'all', projects: null, images: [], viewerOpen: false, vIdx: 0 };
+  state = { filter: 'all', projects: null, images: [], viewerOpen: false, vIdx: 0, colCount: 3 };
 
   async componentDidMount() {
     try {
@@ -139,7 +140,37 @@ class Component extends DCLogic {
     };
     window.addEventListener('keydown', this._key);
   }
-  componentWillUnmount() { window.removeEventListener('keydown', this._key); }
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this._key);
+    if (this._ro) this._ro.disconnect();
+  }
+
+  // Callback ref on the gallery container: measures its width with a
+  // ResizeObserver so the column count tracks the CSS clamp(200px,22vw,300px)
+  // that used to live in .gallery-cols, without relying on CSS `columns`
+  // (which was leaving one column visibly shorter than the rest).
+  galleryRef = (node) => {
+    if (this._galleryEl === node) return;
+    if (this._ro) this._ro.disconnect();
+    this._galleryEl = node;
+    if (!node) return;
+    this._ro = new ResizeObserver(() => this.recalcCols());
+    this._ro.observe(node);
+    this.recalcCols();
+  };
+
+  recalcCols = () => {
+    const el = this._galleryEl;
+    if (!el) return;
+    if (window.innerWidth <= 640) {
+      if (this.state.colCount !== 1) this.setState({ colCount: 1 });
+      return;
+    }
+    const target = Math.min(300, Math.max(200, window.innerWidth * 0.22));
+    const gap = Math.min(18, Math.max(10, window.innerWidth * 0.014));
+    const n = Math.max(1, Math.floor((el.clientWidth + gap) / (target + gap)));
+    if (n !== this.state.colCount) this.setState({ colCount: n });
+  };
 
   get shownList() {
     const { filter, images } = this.state;
@@ -184,13 +215,32 @@ class Component extends DCLogic {
       onOpen: () => this.open(i),
     }));
 
+    // Distribute the flat list into `colCount` real columns, each item going
+    // into the shortest column so far (true masonry, not CSS `columns`, which
+    // "balances" using an estimated target height and can leave one column
+    // clearly shorter than the rest once break-inside:avoid kicks in).
+    const colCount = this.state.colCount;
+    const gap = Math.min(18, Math.max(10, (typeof window !== 'undefined' ? window.innerWidth : 1200) * 0.014));
+    const colPx = this._galleryEl
+      ? (this._galleryEl.clientWidth - gap * (colCount - 1)) / colCount
+      : 300;
+    const colHeights = new Array(colCount).fill(0);
+    const columns = Array.from({ length: colCount }, () => []);
+    shownVals.forEach((g) => {
+      let idx = 0;
+      for (let i = 1; i < colHeights.length; i++) if (colHeights[i] < colHeights[idx]) idx = i;
+      columns[idx].push(g);
+      colHeights[idx] += (colPx / (g.aspect || 1)) + gap;
+    });
+
     const cur = shown[vIdx] || {};
     const curProj = projects && cur.project ? projects[cur.project] : null;
 
     return {
       accent,
       chips,
-      shown: shownVals,
+      galleryRef: this.galleryRef,
+      columns,
       countLabel: this.state.images.length ? String(this.state.images.length).padStart(2, '0') + ' FRAMES' : '— FRAMES',
       viewerOpen,
       vImg: (viewerOpen && cur.src) ? React.createElement('img', { src: cur.src, alt: cur.title || '', style: { maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '4px', boxShadow: '0 30px 80px rgba(0,0,0,.6)' } }) : null,
