@@ -5,12 +5,6 @@ backend:
   # URL del Worker de OAuth (Cloudflare).
   base_url: https://cupertino-cms-auth.jderojas15.workers.dev
 
-# Permite editar en local con: npx @sveltia/cms-proxy-server
-local_backend: true
-
-# Idioma de la interfaz
-locale: es
-
 # Carpeta donde se suben las imágenes nuevas
 media_folder: assets/img
 public_folder: /assets/img
