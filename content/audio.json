@@ -1,11 +1,11 @@
 {
   "releases": [
     {
-      "id": "costa-sur",
+      "id": "cup-radio",
       "type": "RADIO",
-      "title": "Costa Sur",
+      "title": "cupertino radio v1",
       "year": "2026",
-      "art": "/assets/img/cuprad1.jpg",
+      "art": "/assets/img/Untitled.jpg",
       "tracks": [
         {
           "title": "First lota",
