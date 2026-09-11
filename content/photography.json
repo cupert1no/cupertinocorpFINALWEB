@@ -14,42 +14,30 @@
     },
     {
       "key": "device",
-      "label": "Device",
+      "label": "Dispositivo",
       "description": "Objetos, pantallas, superficies. Una mirada cercana a los dispositivos que median nuestra experiencia cotidiana — no como herramientas sino como extensiones del cuerpo y la mente.",
       "order": 3
-    },
-    {
-      "key": "elsewhere",
-      "label": "Elsewhere",
-      "description": "Imágenes tomadas fuera. Lugares que no son el tuyo pero en los que algo reconoces. Londres, París, cualquier ciudad que te devuelve una mirada.",
-      "order": 4
-    },
-    {
-      "key": "print",
-      "label": "Print",
-      "description": "Trabajo gráfico e impreso. Carteles, piezas visuales y objetos de diseño capturados como fotografía — donde la imagen habla sobre otra imagen.",
-      "order": 5
     }
   ],
   "images": [
     {
       "src": "assets/img/business/blue.jpg",
       "project": "business",
-      "title": "Blue",
+      "title": "Blue Ocean",
       "date": "2024",
       "aspect": 1.5
     },
     {
       "src": "assets/img/business/entrance.jpg",
       "project": "business",
-      "title": "Entrance",
+      "title": "Back Door",
       "date": "2024",
       "aspect": 0.6667
     },
     {
       "src": "assets/img/business/foto1.jpg",
       "project": "business",
-      "title": "Open Floor",
+      "title": "IBM",
       "date": "2025",
       "aspect": 0.6667
     },
@@ -63,20 +51,20 @@
     {
       "src": "assets/img/business/interior.jpg",
       "project": "business",
-      "title": "Interior",
+      "title": "Construction Site",
       "date": "2025",
       "aspect": 1.5
     },
     {
       "src": "assets/img/business/maindoor.jpg",
-      "project": "business",
-      "title": "Main Door",
+      "project": "vectoralist",
+      "title": "Troyano",
       "date": "2024",
       "aspect": 0.6667
     },
     {
       "src": "assets/img/business/moqueta.jpg",
-      "project": "business",
+      "project": "device",
       "title": "Carpet",
       "date": "2024",
       "aspect": 1.5
@@ -90,14 +78,14 @@
     },
     {
       "src": "assets/img/business/room.jpg",
-      "project": "business",
-      "title": "Room",
+      "project": "device",
+      "title": "Hotel Room",
       "date": "2024",
       "aspect": 1.5
     },
     {
       "src": "assets/img/vectoralist/bill.jpg",
-      "project": "vectoralist",
+      "project": "device",
       "title": "Billboard",
       "date": "2024",
       "aspect": 0.6667
@@ -111,8 +99,8 @@
     },
     {
       "src": "assets/img/vectoralist/foto4.jpg",
-      "project": "vectoralist",
-      "title": "Signal II",
+      "project": "device",
+      "title": "Furniture 2",
       "date": "2024",
       "aspect": 1.5
     },
@@ -147,27 +135,27 @@
     {
       "src": "assets/img/vectoralist/pillar.jpg",
       "project": "vectoralist",
-      "title": "Pillar",
+      "title": "Economy Collumn",
       "date": "2024",
       "aspect": 0.6667
     },
     {
       "src": "assets/img/vectoralist/steel.jpg",
-      "project": "vectoralist",
+      "project": "business",
       "title": "Steel",
       "date": "2024",
       "aspect": 0.6667
     },
     {
       "src": "assets/img/vectoralist/truck.jpg",
-      "project": "vectoralist",
+      "project": "business",
       "title": "Truck I",
       "date": "2024",
       "aspect": 1.5
     },
     {
       "src": "assets/img/vectoralist/truck2.jpg",
-      "project": "vectoralist",
+      "project": "business",
       "title": "Truck II",
       "date": "2024",
       "aspect": 1.5
@@ -175,77 +163,77 @@
     {
       "src": "assets/img/vectoralist/wall.jpg",
       "project": "vectoralist",
-      "title": "Wall",
+      "title": "Black Mirror",
       "date": "2024",
       "aspect": 0.6667
     },
     {
       "src": "assets/img/vectoralist/xarc.jpg",
-      "project": "vectoralist",
+      "project": "device",
       "title": "Arc",
       "date": "2024",
       "aspect": 1.5
     },
     {
       "src": "assets/img/device/dscf0471.jpg",
-      "project": "device",
-      "title": "DSCF 0471",
+      "project": "business",
+      "title": "Chairman",
       "date": "2024",
       "aspect": 0.6667
     },
     {
       "src": "assets/img/device/dscf0533.jpg",
-      "project": "device",
-      "title": "DSCF 0533",
+      "project": "business",
+      "title": "Cross",
       "date": "2024",
       "aspect": 0.6667
     },
     {
       "src": "assets/img/device/dscf0594.jpg",
-      "project": "device",
-      "title": "DSCF 0594",
+      "project": "business",
+      "title": "CPU",
       "date": "2024",
       "aspect": 0.6667
     },
     {
       "src": "assets/img/device/dscf0920.jpg",
-      "project": "device",
-      "title": "DSCF 0920",
+      "project": "business",
+      "title": "Chairs And Hard Drives",
       "date": "2024",
       "aspect": 0.6667
     },
     {
       "src": "assets/img/device/dscf0927.jpg",
-      "project": "device",
-      "title": "DSCF 0927",
+      "project": "business",
+      "title": "Books and Hard Drives",
       "date": "2024",
       "aspect": 0.6667
     },
     {
       "src": "assets/img/device/dscf6553.jpg",
       "project": "device",
-      "title": "DSCF 6553",
+      "title": "Exp",
       "date": "2024",
       "aspect": 0.6667
     },
     {
       "src": "assets/img/device/dscf6582.jpg",
       "project": "device",
-      "title": "DSCF 6582",
+      "title": "Exp",
       "date": "2024",
       "aspect": 0.8
     },
     {
       "src": "assets/img/device/dscf6609.jpg",
       "project": "device",
-      "title": "DSCF 6609",
+      "title": "Backs",
       "date": "2024",
       "aspect": 1.5
     },
     {
       "src": "assets/img/device/dscf7128.jpg",
-      "project": "device",
-      "title": "DSCF 7128",
+      "project": "business",
+      "title": "Exp1",
       "date": "2024",
       "aspect": 0.6667
     },
@@ -266,7 +254,7 @@
     {
       "src": "assets/img/device/foto5.jpg",
       "project": "device",
-      "title": "Screen Burn",
+      "title": "Furniture 1",
       "date": "2024",
       "aspect": 1.5
     },
@@ -280,119 +268,84 @@
     {
       "src": "assets/img/device/medicine.jpg",
       "project": "device",
-      "title": "Medicine",
+      "title": "Mom",
       "date": "2024",
       "aspect": 1.5
     },
     {
       "src": "assets/img/device/shoes.jpg",
       "project": "device",
-      "title": "Shoes",
+      "title": "Mom",
       "date": "2024",
       "aspect": 1.5
     },
     {
       "src": "assets/img/device/tv.jpg",
       "project": "device",
-      "title": "TV",
+      "title": "Dad's fav",
       "date": "2024",
       "aspect": 1.5
     },
     {
-      "src": "assets/img/elsewhere/javierderojas.jpg",
-      "project": "elsewhere",
-      "title": "Self",
-      "date": "2024",
-      "aspect": 0.6667
-    },
-    {
       "src": "assets/img/elsewhere/london.jpg",
-      "project": "elsewhere",
+      "project": "device",
       "title": "London",
       "date": "2024",
       "aspect": 1.5
     },
     {
       "src": "assets/img/elsewhere/meinlondon.jpg",
-      "project": "elsewhere",
-      "title": "Me in London",
+      "project": "device",
+      "title": "London",
       "date": "2024",
       "aspect": 1.5
     },
     {
       "src": "assets/img/elsewhere/paris.jpg",
-      "project": "elsewhere",
+      "project": "device",
       "title": "Paris",
       "date": "2024",
       "aspect": 1.5
     },
     {
-      "src": "assets/img/print/colon.jpg",
-      "project": "print",
-      "title": "Colón",
-      "date": "2026",
-      "aspect": 1.25
-    },
-    {
-      "src": "assets/img/print/escalera.jpg",
-      "project": "print",
-      "title": "Escalera",
-      "date": "2024",
-      "aspect": 1.25
-    },
-    {
       "src": "assets/img/print/flexa.jpg",
-      "project": "print",
+      "project": "business",
       "title": "Flex A",
       "date": "2024",
       "aspect": 1.5
     },
     {
       "src": "assets/img/print/og2.jpg",
-      "project": "print",
+      "project": "device",
       "title": "OG II",
       "date": "2024",
       "aspect": 1.5
     },
     {
       "src": "assets/img/print/og3.jpg",
-      "project": "print",
+      "project": "device",
       "title": "OG III",
       "date": "2024",
       "aspect": 1.5
     },
     {
-      "src": "assets/img/print/poster_back.jpg",
-      "project": "print",
-      "title": "Poster Back",
-      "date": "2024",
-      "aspect": 1.7778
-    },
-    {
-      "src": "assets/img/print/postlap.jpg",
-      "project": "print",
-      "title": "Lap",
-      "date": "2024",
-      "aspect": 0.8
-    },
-    {
       "src": "assets/img/print/postpil.jpg",
-      "project": "print",
-      "title": "Pill",
+      "project": "vectoralist",
+      "title": "assets",
       "date": "2024",
       "aspect": 0.8
     },
     {
       "src": "assets/img/print/poststar.jpg",
-      "project": "print",
-      "title": "Star",
+      "project": "vectoralist",
+      "title": "assets_star",
       "date": "2024",
       "aspect": 0.8
     },
     {
       "src": "assets/img/print/postttucrtu.jpg",
-      "project": "print",
-      "title": "Ttucrtu",
+      "project": "vectoralist",
+      "title": "assets",
       "date": "2024",
       "aspect": 0.8
     }
