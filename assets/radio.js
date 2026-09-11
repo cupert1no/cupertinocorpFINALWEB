@@ -65,6 +65,11 @@
   var durs   = {};               // "relIdx:idx" -> duration seconds (filled as tracks load)
   var pendingSeek = saved.pos || 0;
   var openReq = 0;               // bumps whenever a release is picked (UI opens the sheet)
+  // False until content/audio.json has resolved (either swapped in or fell back
+  // for good on error). Pages use this to avoid painting the built-in placeholder
+  // catalog — which briefly used dscf0594.jpg for every "RADIO" release — before
+  // the real Sveltia data is in.
+  var catalogReady = false;
 
   function tracks() { return RELEASES[relIdx].tracks; }
   function cur() { return tracks()[idx]; }
@@ -162,7 +167,8 @@
         idx: idx, track: { title: t.title, artist: t.artist, art: t.art || RELEASES[relIdx].art },
         playing: !audio.paused,
         pos: audio.currentTime || 0, dur: audio.duration || durs[durKey()] || 0,
-        vol: vol, accent: accent, durs: localDurs(), openReq: openReq
+        vol: vol, accent: accent, durs: localDurs(), openReq: openReq,
+        ready: catalogReady
       };
     },
     subscribe: function (fn) { listeners.add(fn); return function () { listeners.delete(fn); }; },
@@ -208,7 +214,12 @@
       if (audio.paused && (audio.currentTime || 0) === 0) {
         try { audio.src = cur().src; } catch (e) {}
       }
-      emit();
     })
-    .catch(function () {});
+    .catch(function () {})
+    .then(function () {
+      // Runs after the try/catch above either way: the real catalog is in, or we're
+      // sticking with the built-in fallback for good. Either way pages can now render.
+      catalogReady = true;
+      emit();
+    });
 })();
