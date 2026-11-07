@@ -146,3 +146,49 @@ collections:
               - { name: title, label: Título, widget: string }
               - { name: artist, label: Artista, widget: string }
               - { name: src, label: "Archivo de audio (.mp3)", widget: file, media_folder: "/assets/audio", public_folder: "/assets/audio" }
+
+  # ============ EXPO ============
+  - name: expo
+    label: Expo
+    icon: museum
+    files:
+      - name: expo
+        label: "Exposición"
+        file: content/expo.json
+        description: "Página EXPO: texto de sala, pieza sonora y fotografías de la exposición."
+        fields:
+          - name: expo
+            label: Exposición
+            widget: object
+            fields:
+              - { name: titleA, label: "Título (línea 1)", widget: string }
+              - { name: titleB, label: "Título (línea 2)", widget: string }
+              - { name: place, label: Lugar, widget: string }
+              - { name: year, label: Año, widget: string }
+              - { name: kind, label: "Tipo de exposición", widget: string, required: false }
+              - { name: epigraph, label: Epígrafe, widget: text, required: false }
+              - { name: epigraphAuthor, label: "Autor del epígrafe", widget: string, required: false }
+              - name: text
+                label: "Texto de sala (párrafos)"
+                label_singular: Párrafo
+                widget: list
+                field: { name: paragraph, label: Párrafo, widget: text }
+              - { name: participationTitle, label: "Título de tu participación", widget: string }
+              - { name: participation, label: "Texto de tu participación", widget: text }
+              - name: audio
+                label: "Pieza sonora"
+                widget: object
+                fields:
+                  - { name: title, label: Título, widget: string }
+                  - { name: description, label: Descripción, widget: text }
+                  - { name: src, label: "Archivo de audio (.mp3)", widget: file, media_folder: "/assets/audio", public_folder: "/assets/audio" }
+                  - { name: duration, label: "Duración (segundos)", widget: number, value_type: int, hint: "Solo se usa hasta que carga el audio. 460 = 7:40" }
+              - name: photos
+                label: Fotografías
+                label_singular: Fotografía
+                widget: list
+                summary: "{{fields.title}} · {{fields.alt}}"
+                fields:
+                  - { name: src, label: Imagen, widget: image, media_folder: "/assets/img/expo", public_folder: "/assets/img/expo" }
+                  - { name: title, label: Título, widget: string }
+                  - { name: alt, label: "Descripción (texto alternativo)", widget: string }

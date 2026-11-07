@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "titleA": "Derivas en fuga",
+    "titleB": "Ilógicas de la función",
+    "place": "El Local · Delicias, Madrid",
+    "year": "2026",
+    "kind": "Exposición colectiva",
+    "epigraph": "Una máquina deseante se define únicamente por su funcionamiento, es decir por su formación, es decir por su producción.",
+    "epigraphAuthor": "Gilles Deleuze, Entre el capitalismo y la esquizofrenia",
+    "text": [
+      "En el sistema que habitamos —económico, técnico, afectivo— la funcionalidad se convierte en mandato: todo debe servir, adaptarse, producir un efecto. Ser útil es condición de existencia. No hay afuera del rendimiento. De la misma forma en la que su acepción matemática describe una relación de interdependencia entre dos elementos de valor, la forma en la que la organización social proyecta este concepto sobre los cuerpos determina el entendimiento colectivo de términos como identidad, pertenencia, desarrollo o bienestar. De una forma más explícita, la imperatividad de la función nos subordina al trabajo asalariado, la normatividad psíquica y la operatividad capitalista.",
+      "En Derivas en fuga / ilógicas de la función se genera un espacio limbo basado en dos escenarios específicos: la oficina y la clínica. De la misma forma en la que estos lugares comparten en la configuración de su arquitectura procesos de parcelación espacial y administración de los cuerpos, la distribución de la sala expositiva fuerza a que la interacción con las obras se produzca desde una experiencia individual."
+    ],
+    "participationTitle": "Javier de Rojas",
+    "participation": "Javier de Rojas presenta dos imágenes en las que los escenarios financieros aparecen como espacios de abandono. Lugares concebidos para la circulación frenética del capital, la toma de decisiones y la actividad permanente aparecen vacíos, suspendidos de su cometido, reducidos a los restos de su arquitectura y a las huellas de una actividad que ya no sucede, en una inquietante espera. La pieza sonora que acompaña el conjunto trabaja en una dirección similar: las grabaciones de sonidos de campo de estas mismas áreas se entremezclan con melodías sintéticas guiadas por una voz que narra el diario de un trabajador. Se dibuja así un paisaje mental que, en su apariencia distópica, explicita la cotidianidad que persigue a las personas que habitan estos ambientes.",
+    "audio": {
+      "title": "La oficina de las buenas intenciones",
+      "description": "Sonidos de campo de oficinas y entornos financieros, mezclados con melodías sintéticas y una voz que narra el diario de un trabajador.",
+      "src": "assets/audio/la-oficina-de-las-buenas-intenciones.mp3",
+      "duration": 460
+    },
+    "photos": [
+      { "src": "assets/img/expo/expo-001.jpg", "title": "Derivas en fuga", "alt": "Peana blanca con una credencial de personal externo sobre ella" },
+      { "src": "assets/img/expo/expo-002.jpg", "title": "Derivas en fuga", "alt": "Gran impresión negra con sillas de oficina apoyada en una esquina, sobre moqueta azul" },
+      { "src": "assets/img/expo/expo-003.jpg", "title": "Derivas en fuga", "alt": "La impresión negra con sillas vista desde otro ángulo, con texto vinilado en la pared" },
+      { "src": "assets/img/expo/expo-004.jpg", "title": "Derivas en fuga", "alt": "Panel blanco sobre patas metálicas y un cable de audio que cuelga de la pared" },
+      { "src": "assets/img/expo/expo-005.jpg", "title": "Derivas en fuga", "alt": "Monitor en la pared y una peana blanca sobre la moqueta azul" },
+      { "src": "assets/img/expo/expo-006.jpg", "title": "Derivas en fuga", "alt": "Peana con una pequeña credencial y texto vinilado invertido en la pared" },
+      { "src": "assets/img/expo/expo-007.jpg", "title": "Derivas en fuga", "alt": "Reproductor de audio colgado de un cable junto a texto vinilado" },
+      { "src": "assets/img/expo/expo-008.jpg", "title": "Derivas en fuga", "alt": "Vista general de la sala: fluorescente, monitor, peana y puerta" },
+      { "src": "assets/img/expo/expo-009.jpg", "title": "Derivas en fuga", "alt": "Auriculares sobre la moqueta azul" },
+      { "src": "assets/img/expo/expo-010.jpg", "title": "Derivas en fuga", "alt": "Caja inclinada en el suelo con la imagen de un interior de oficina en su cara" },
+      { "src": "assets/img/expo/expo-011.jpg", "title": "Derivas en fuga", "alt": "Caja gris con un asa apoyada sobre la moqueta azul" },
+      { "src": "assets/img/expo/expo-012.jpg", "title": "Derivas en fuga", "alt": "Ventana de la sala con texto vinilado invertido en la pared" }
+    ]
+  }
+}
