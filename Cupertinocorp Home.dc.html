@@ -21,12 +21,14 @@
   @keyframes mpeq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
   @keyframes mppulse{0%,100%{opacity:.45}50%{opacity:1}}
   @media(max-width:640px){.wordmark{text-align:center;}.wordmark>img{margin-left:auto;margin-right:auto;}.wordmark>div{margin-left:auto;margin-right:auto;}}
-  .bg-video{display:none;}
+  /* Vídeo de móvil: pantallas estrechas O dispositivos táctiles (aunque estén en horizontal o pidan «sitio de escritorio») */
+  .bg-video{display:block;}
   .bg-video-mobile{display:none;}
-  @media(max-width:640px){.bg-video-mobile{display:block;}}
-  @media(min-width:641px){.bg-video{display:block;}}
+  @media (max-width:640px), (hover:none) and (pointer:coarse){.bg-video-mobile{display:block;}.bg-video{display:none;}}
+  /* nav: las seis secciones caben en móvil sin scroll */
+  @media (max-width:640px){.cc-nav{overflow:visible!important;padding:5px!important;max-width:calc(100vw - 12px)!important;border-radius:14px!important;}.cc-nav>div{gap:0!important;}.cc-nav a{font-size:12px!important;padding:6px clamp(5px,2vw,9px)!important;border-radius:8px!important;}}
 </style>
-<script src="assets/radio.js"></script>
+<script src="assets/radio.js?v=3"></script>
 <script src="assets/page-transition.js"></script>
 </helmet>
 
@@ -41,7 +43,7 @@
   </div>
 
   <!-- ===== NAV ===== -->
-  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 10px 48px rgba(0,0,0,.22);border:none;">
+  <div class="cc-nav" style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 10px 48px rgba(0,0,0,.22);border:none;">
     <div style="display:flex;flex-wrap:nowrap;gap:6px;flex:none;white-space:nowrap;">
       <a href="Cupertinocorp Home.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:#0b0b0c;text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;background:var(--accent,#d0d0d2);">Inicio</a>
       <a href="Feed.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Feed</a>
@@ -136,7 +138,7 @@ class Component extends DCLogic {
   // downloads the heavy desktop clip (and vice-versa). Poster shows instantly.
   _maybeLoad(el, src, isMobile) {
     if (!el || el.dataset.ccLoaded) return;
-    const wantMobile = !window.matchMedia('(min-width:641px)').matches;
+    const wantMobile = window.matchMedia('(max-width:640px), (hover:none) and (pointer:coarse)').matches;
     if (isMobile !== wantMobile) return;
     el.dataset.ccLoaded = '1';
     const tryPlay = () => { const p = el.play(); if (p && p.catch) p.catch(() => {}); };
@@ -146,7 +148,8 @@ class Component extends DCLogic {
     // Si el clip de este tamaño falla (no existe, códec), usa el otro clip como respaldo.
     const fallback = isMobile ? 'assets/img/bg-index.mp4' : 'assets/img/bg-life-mobile-c.mp4';
     el.addEventListener('error', () => {
-      if (el.dataset.ccFallback) return;
+      // En móvil nunca caemos al vídeo de escritorio: mejor el póster que el clip equivocado.
+      if (isMobile || el.dataset.ccFallback) return;
       el.dataset.ccFallback = '1';
       el.src = fallback;
       try { el.load(); } catch (e) {}
@@ -167,7 +170,7 @@ class Component extends DCLogic {
 
   _watchViewport() {
     if (this._mq) return;
-    this._mq = window.matchMedia('(min-width:641px)');
+    this._mq = window.matchMedia('(max-width:640px), (hover:none) and (pointer:coarse)');
     this._mqHandler = () => {
       this._maybeLoad(this.mobileVid, 'assets/img/bg-life-mobile-c.mp4', true);
       this._maybeLoad(this.desktopVid, 'assets/img/bg-index.mp4', false);

@@ -8,6 +8,17 @@
     "hero": "assets/img/expo/expo-003.jpg",
     "epigraph": "Una máquina deseante se define únicamente por su funcionamiento, es decir por su formación, es decir por su producción.",
     "epigraphAuthor": "Gilles Deleuze, Entre el capitalismo y la esquizofrenia",
+    "curator": "Lara Uro",
+    "artists": [
+      {
+        "name": "Alvaro Soto",
+        "group": "Proyecto Locus"
+      },
+      {
+        "name": "Ana CSC",
+        "group": "Proyecto Locus"
+      }
+    ],
     "text": [
       "En el sistema que habitamos —económico, técnico, afectivo— la funcionalidad se convierte en mandato: todo debe servir, adaptarse, producir un efecto. Ser útil es condición de existencia. No hay afuera del rendimiento. De la misma forma en la que su acepción matemática describe una relación de interdependencia entre dos elementos de valor, la forma en la que la organización social proyecta este concepto sobre los cuerpos determina el entendimiento colectivo de términos como identidad, pertenencia, desarrollo o bienestar. De una forma más explícita, la imperatividad de la función nos subordina al trabajo asalariado, la normatividad psíquica y la operatividad capitalista.",
       "En Derivas en fuga / ilógicas de la función se genera un espacio limbo basado en dos escenarios específicos: la oficina y la clínica. De la misma forma en la que estos lugares comparten en la configuración de su arquitectura procesos de parcelación espacial y administración de los cuerpos, la distribución de la sala expositiva fuerza a que la interacción con las obras se produzca desde una experiencia individual."

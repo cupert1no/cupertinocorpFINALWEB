@@ -136,6 +136,8 @@
     .am-npvol{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.6);}
     .am-npvol input{flex:1;}
   }
+  /* nav: las seis secciones caben en móvil sin scroll */
+  @media (max-width:640px){.cc-nav{overflow:visible!important;padding:5px!important;max-width:calc(100vw - 12px)!important;border-radius:14px!important;}.cc-nav>div{gap:0!important;}.cc-nav a{font-size:12px!important;padding:6px clamp(5px,2vw,9px)!important;border-radius:8px!important;}}
 </style>
 <script src="assets/radio.js?v=3"></script>
 <script src="assets/page-transition.js"></script>
@@ -152,7 +154,7 @@
   </div>
 
   <!-- ===== NAV ===== -->
-  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 10px 48px rgba(0,0,0,.22);border:none;">
+  <div class="cc-nav" style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 10px 48px rgba(0,0,0,.22);border:none;">
     <div style="display:flex;flex-wrap:nowrap;gap:6px;flex:none;white-space:nowrap;">
       <a href="Cupertinocorp Home.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Inicio</a>
       <a href="Feed.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Feed</a>

@@ -171,6 +171,16 @@ collections:
               - { name: hero, label: "Imagen de portada", widget: image, required: false, media_folder: "/assets/img/expo", public_folder: "/assets/img/expo", hint: "Foto a sangre en la cabecera de EXPO. Si se deja vacío se usa la vista general de sala." }
               - { name: epigraph, label: Epígrafe, widget: text, required: false }
               - { name: epigraphAuthor, label: "Autor del epígrafe", widget: string, required: false }
+              - { name: curator, label: "Comisariado", widget: string, required: false }
+              - name: artists
+                label: "Artistas participantes"
+                label_singular: Artista
+                widget: list
+                required: false
+                summary: "{{fields.name}} {{fields.group}}"
+                fields:
+                  - { name: name, label: Nombre, widget: string }
+                  - { name: group, label: "Colectivo o proyecto (opcional)", widget: string, required: false }
               - name: text
                 label: "Texto de sala (párrafos)"
                 label_singular: Párrafo

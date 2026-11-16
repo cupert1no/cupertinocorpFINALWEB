@@ -11,117 +11,95 @@
 <helmet>
 <style>html,body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;}button,input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit;}</style>
 <style>
-  @keyframes mpeq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
-  @keyframes mppulse{0%,100%{opacity:.45}50%{opacity:1}}
+  :root{--am:#a8a8ae;--am2:rgba(235,235,245,.6);}
+  @keyframes mpin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @keyframes mpeq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+  .mp-eq{display:inline-flex;align-items:flex-end;gap:2px;height:12px;}
+  .mp-eq i{display:block;width:3px;height:12px;border-radius:1px;background:var(--am);transform-origin:bottom;animation:mpeq .85s ease-in-out infinite;animation-play-state:var(--ps,running);}
+  .mp-eq i:nth-child(2){animation-delay:.2s}.mp-eq i:nth-child(3){animation-delay:.4s}
+  .mp-ib{display:flex;align-items:center;justify-content:center;padding:6px;border:none;background:none;color:#fff;cursor:pointer;border-radius:8px;transition:opacity .2s,transform .12s;}
+  .mp-ib:hover{opacity:.75;}.mp-ib:active{transform:scale(.9);}
+  .mp-scrub{position:relative;height:18px;cursor:pointer;touch-action:none;}
+  .mp-scrub::before{content:"";position:absolute;left:0;right:0;top:50%;height:5px;margin-top:-2.5px;border-radius:3px;background:rgba(255,255,255,.22);}
+  .mp-sf{position:absolute;left:0;top:50%;height:5px;margin-top:-2.5px;border-radius:3px;background:rgba(255,255,255,.8);}
+  input[type=range].mpvol{-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:rgba(255,255,255,.22);outline:none;cursor:pointer;flex:1;}
+  input[type=range].mpvol::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:#fff;cursor:pointer;}
+  input[type=range].mpvol::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:#fff;border:none;cursor:pointer;}
+  .mp-pill{position:fixed;right:clamp(12px,3vw,28px);bottom:calc(14px + env(safe-area-inset-bottom));z-index:90;width:min(380px,calc(100vw - 24px));height:62px;display:flex;align-items:center;gap:10px;padding:0 8px;border-radius:15px;overflow:hidden;cursor:pointer;background:rgba(30,30,34,.66);backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);box-shadow:0 14px 40px rgba(0,0,0,.45);animation:mpin .4s ease both;}
+  .mp-pill img{flex:none;width:46px;height:46px;border-radius:7px;object-fit:cover;box-shadow:0 4px 12px rgba(0,0,0,.35);background:rgba(255,255,255,.06);}
+  .mp-tx{flex:1;min-width:0;}
+  .mp-t{font-size:15px;font-weight:500;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .mp-s{margin-top:1px;font-size:13px;color:var(--am2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .mp-line{position:absolute;left:0;bottom:0;height:2px;background:rgba(255,255,255,.7);}
+  .mp-back{position:fixed;inset:0;z-index:88;background:rgba(0,0,0,.45);transition:opacity .35s ease;}
+  .mp-sheet{position:fixed;z-index:91;right:clamp(12px,3vw,28px);bottom:0;width:min(420px,calc(100vw - 24px));max-height:min(88vh,780px);display:flex;flex-direction:column;border-radius:24px 24px 0 0;overflow:hidden;background:rgba(28,28,32,.8);backdrop-filter:blur(44px) saturate(180%);-webkit-backdrop-filter:blur(44px) saturate(180%);box-shadow:0 -20px 70px rgba(0,0,0,.5);transition:transform .5s cubic-bezier(.2,.85,.2,1);}
+  .mp-in{overflow-y:auto;padding:8px 26px calc(24px + env(safe-area-inset-bottom));}
+  .mp-art{width:min(100%,300px);aspect-ratio:1;margin:6px auto 0;border-radius:12px;overflow:hidden;background:rgba(255,255,255,.06);box-shadow:0 24px 60px rgba(0,0,0,.5);transition:transform .5s cubic-bezier(.3,1.3,.5,1);}
+  .mp-art img{display:block;width:100%;height:100%;object-fit:cover;}
+  .mp-row{display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px 8px;border-radius:8px;cursor:pointer;}
+  .mp-row:hover{background:rgba(255,255,255,.07);}
+  .mp-row.on .mp-rt{color:var(--am);}
+  .mp-rt{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .mp-ra{margin-top:1px;font-size:12px;color:var(--am2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  @media (max-width:760px){
+    .mp-pill{left:10px;right:10px;width:auto;}
+    .mp-sheet{left:0;right:0;width:100%;max-height:92vh;}
+  }
 </style>
-<script src="assets/radio.js"></script>
+<script src="assets/radio.js?v=3"></script>
 </helmet>
 
-<div style="display:contents;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<div style="display:contents;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#fff;">
 
-  <!-- ===== BACKDROP ===== -->
-  <div onClick="{{ close }}" style="position:fixed;inset:0;z-index:88;background:rgba(0,0,0,.5);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);transition:opacity .4s ease;opacity:{{ backdropOpacity }};pointer-events:{{ backdropPE }};border:none;"></div>
+  <div class="mp-back" onClick="{{ close }}" style="opacity:{{ backdropOpacity }};pointer-events:{{ backdropPE }};"></div>
 
-  <!-- ===== FLOATING RADIO BUTTON ===== -->
-  <button onClick="{{ toggleOpen }}" aria-label="Cupertino Radio" style="position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(56px,9vh,96px);z-index:90;width:60px;height:60px;border-radius:50%;background:rgba(20,20,24,.62);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 14px 40px rgba(0,0,0,.22);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .25s cubic-bezier(.2,.7,.2,1);border:none;" style-hover="transform:translateY(-2px) scale(1.04);">
-    <sc-if value="{{ playing }}" hint-placeholder-val="{{ true }}">
-      <div style="display:flex;align-items:flex-end;gap:3px;height:22px;">
-        <div style="width:3.5px;height:22px;border-radius:2px;background:{{ accent }};transform-origin:bottom;animation:mpeq .9s ease-in-out infinite;animation-play-state:{{ eqPlay }};"></div>
-        <div style="width:3.5px;height:22px;border-radius:2px;background:{{ accent }};transform-origin:bottom;animation:mpeq .9s ease-in-out infinite .18s;animation-play-state:{{ eqPlay }};"></div>
-        <div style="width:3.5px;height:22px;border-radius:2px;background:{{ accent }};transform-origin:bottom;animation:mpeq .9s ease-in-out infinite .36s;animation-play-state:{{ eqPlay }};"></div>
-        <div style="width:3.5px;height:22px;border-radius:2px;background:{{ accent }};transform-origin:bottom;animation:mpeq .9s ease-in-out infinite .54s;animation-play-state:{{ eqPlay }};"></div>
+  <!-- mini reproductor flotante -->
+  <div class="mp-pill" onClick="{{ toggleOpen }}" style="visibility:{{ pillVis }};">
+    <img src="{{ artSrc }}" alt="">
+    <div class="mp-tx"><div class="mp-t">{{ trackTitle }}</div><div class="mp-s">{{ trackArtist }}</div></div>
+    <button class="mp-ib" onClick="{{ toggleStop }}" aria-label="Reproducir o pausar"><sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><rect x="5.5" y="4" width="4.6" height="16" rx="1.3"></rect><rect x="13.9" y="4" width="4.6" height="16" rx="1.3"></rect></svg></sc-if><sc-if value="{{ paused }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M7.5 4.9v14.2c0 .8.9 1.3 1.6.9l11.3-7.1c.6-.4.6-1.4 0-1.8L9.1 4c-.7-.4-1.6.1-1.6.9z"></path></svg></sc-if></button>
+    <button class="mp-ib" onClick="{{ nextStop }}" aria-label="Siguiente"><svg viewBox="0 0 28 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M2 5.6v12.8c0 .8.9 1.3 1.6.8L13 13.1v5.3c0 .8.9 1.3 1.6.8l10.3-6.4c.6-.4.6-1.3 0-1.7L14.6 4.8c-.7-.4-1.6 0-1.6.8v5.3L3.6 4.8C2.9 4.3 2 4.8 2 5.6z"></path></svg></button>
+    <div class="mp-line" style="width:{{ progress }};"></div>
+  </div>
+
+  <!-- hoja de reproducción -->
+  <div class="mp-sheet" style="transform:translateY({{ sheetY }});" aria-hidden="{{ sheetHidden }}">
+    <div onClick="{{ close }}" style="flex:none;display:flex;justify-content:center;padding:11px 0 6px;cursor:pointer;"><div style="width:40px;height:5px;border-radius:3px;background:rgba(255,255,255,.3);"></div></div>
+    <div class="mp-in">
+      <div class="mp-art" style="transform:scale({{ artScale }});"><img src="{{ artSrc }}" alt=""></div>
+      <div style="margin-top:22px;">
+        <div style="font-size:21px;font-weight:600;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ trackTitle }}</div>
+        <div style="margin-top:2px;font-size:17px;color:var(--am);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ trackArtist }}</div>
       </div>
-    </sc-if>
-    <sc-if value="{{ paused }}" hint-placeholder-val="{{ false }}">
-      <span style="font-size:19px;color:#fff;opacity:.92;line-height:1;">♪</span>
-    </sc-if>
-  </button>
-
-  <!-- ===== SLIDE-UP SHEET ===== -->
-  <div style="position:fixed;z-index:91;right:clamp(12px,3vw,28px);bottom:0;width:min(440px,calc(100vw - 24px));max-height:min(84vh,760px);display:flex;flex-direction:column;border-radius:24px 24px 0 0;background:rgba(15,15,19,.74);backdrop-filter:blur(36px) saturate(180%);-webkit-backdrop-filter:blur(36px) saturate(180%);box-shadow:0 -24px 48px rgba(0,0,0,.22);color:#fff;transform:translateY({{ sheetY }});transition:transform .44s cubic-bezier(.22,.61,.27,1);overflow:hidden;border:none;">
-
-    <!-- handle -->
-    <div onClick="{{ close }}" style="flex:none;display:flex;justify-content:center;padding:11px 0 4px;cursor:pointer;">
-      <div style="width:38px;height:4px;border-radius:2px;background:rgba(255,255,255,.28);"></div>
-    </div>
-
-    <!-- header -->
-    <div style="flex:none;display:flex;align-items:center;justify-content:space-between;padding:6px 20px 14px;">
-      <span style="font:500 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px;">{{ releaseTitle }}</span>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span style="display:flex;align-items:center;gap:6px;font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.06em;opacity:.7;">
-          <sc-if value="{{ playing }}" hint-placeholder-val="{{ true }}"><span style="width:7px;height:7px;border-radius:50%;background:{{ accent }};animation:mppulse 1.4s infinite;"></span></sc-if>
-          {{ statusLabel }}
-        </span>
-        <button onClick="{{ close }}" aria-label="Cerrar" style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;">✕</button>
+      <div class="mp-scrub" style="margin-top:18px;" onPointerDown="{{ scrubDown }}"><div class="mp-sf" style="width:{{ progress }};"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:2px;font-size:12px;color:var(--am2);font-variant-numeric:tabular-nums;"><span>{{ posLabel }}</span><span>{{ remLabel }}</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-evenly;margin:14px 0 18px;">
+        <button class="mp-ib" onClick="{{ prev }}" aria-label="Anterior"><svg viewBox="0 0 28 24" width="34" height="34" fill="currentColor" aria-hidden="true" style="transform:scaleX(-1);"><path d="M2 5.6v12.8c0 .8.9 1.3 1.6.8L13 13.1v5.3c0 .8.9 1.3 1.6.8l10.3-6.4c.6-.4.6-1.3 0-1.7L14.6 4.8c-.7-.4-1.6 0-1.6.8v5.3L3.6 4.8C2.9 4.3 2 4.8 2 5.6z"></path></svg></button>
+        <button class="mp-ib" onClick="{{ toggle }}" aria-label="Reproducir o pausar"><sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="46" height="46" fill="currentColor" aria-hidden="true"><rect x="5.5" y="4" width="4.6" height="16" rx="1.3"></rect><rect x="13.9" y="4" width="4.6" height="16" rx="1.3"></rect></svg></sc-if><sc-if value="{{ paused }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="46" height="46" fill="currentColor" aria-hidden="true"><path d="M7.5 4.9v14.2c0 .8.9 1.3 1.6.9l11.3-7.1c.6-.4.6-1.4 0-1.8L9.1 4c-.7-.4-1.6.1-1.6.9z"></path></svg></sc-if></button>
+        <button class="mp-ib" onClick="{{ next }}" aria-label="Siguiente"><svg viewBox="0 0 28 24" width="34" height="34" fill="currentColor" aria-hidden="true"><path d="M2 5.6v12.8c0 .8.9 1.3 1.6.8L13 13.1v5.3c0 .8.9 1.3 1.6.8l10.3-6.4c.6-.4.6-1.3 0-1.7L14.6 4.8c-.7-.4-1.6 0-1.6.8v5.3L3.6 4.8C2.9 4.3 2 4.8 2 5.6z"></path></svg></button>
       </div>
-    </div>
-
-    <!-- now playing -->
-    <div style="flex:none;display:flex;align-items:center;gap:16px;padding:2px 20px 16px;">
-      <div style="width:72px;height:72px;border-radius:14px;overflow:hidden;flex:none;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);box-shadow:0 14px 34px rgba(0,0,0,.5);">
-        <img src="{{ artSrc }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div style="flex:1;min-width:0;">
-        <div style="font:500 18px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ trackTitle }}</div>
-        <div style="font:400 12px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.55;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ trackArtist }}</div>
-      </div>
-    </div>
-
-    <!-- progress -->
-    <div style="flex:none;padding:0 20px;">
-      <div onClick="{{ seek }}" style="position:relative;height:5px;border-radius:3px;background:rgba(255,255,255,.16);cursor:pointer;">
-        <div style="position:absolute;left:0;top:0;bottom:0;width:{{ progress }};background:{{ accent }};border-radius:3px;transition:width .15s linear;"></div>
-        <div style="position:absolute;top:50%;left:{{ progress }};width:12px;height:12px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 3px rgba(0,0,0,.3);transition:left .15s linear;"></div>
-      </div>
-      <div style="display:flex;justify-content:space-between;margin-top:8px;font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.55;">
-        <span>{{ posLabel }}</span><span>{{ durLabel }}</span>
-      </div>
-    </div>
-
-    <!-- transport -->
-    <div style="flex:none;display:flex;align-items:center;justify-content:center;gap:30px;padding:14px 20px 16px;">
-      <button onClick="{{ prev }}" style="background:none;border:none;color:#fff;font-size:15px;cursor:pointer;opacity:.85;">◀◀</button>
-      <button onClick="{{ toggle }}" style="width:58px;height:58px;border-radius:50%;background:linear-gradient(145deg,#f2f2f4,#c4c4c8 48%,#9a9a9e);color:#0b0b0c;border:1px solid rgba(255,255,255,.5);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,.45),inset 0 1px 1px rgba(255,255,255,.7);">{{ playGlyph }}</button>
-      <button onClick="{{ next }}" style="background:none;border:none;color:#fff;font-size:15px;cursor:pointer;opacity:.85;">▶▶</button>
-    </div>
-
-    <!-- volume -->
-    <div style="flex:none;display:flex;align-items:center;gap:12px;padding:0 20px 16px;">
-      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="opacity:.45;flex:none;"><path d="M4 9v6h4l5 4V5L8 9H4z"></path><path d="M16.5 8.5a5 5 0 0 1 0 7"></path></svg>
-      <div onPointerDown="{{ volDown }}" style="position:relative;flex:1;height:16px;display:flex;align-items:center;cursor:pointer;touch-action:none;">
-        <div style="position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:4px;border-radius:2px;background:rgba(255,255,255,.18);"></div>
-        <div style="position:absolute;left:0;top:50%;transform:translateY(-50%);height:4px;width:{{ volPct }};background:rgba(255,255,255,.7);border-radius:2px;"></div>
-        <div style="position:absolute;top:50%;left:{{ volPct }};width:14px;height:14px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 1px 4px rgba(0,0,0,.4);"></div>
-      </div>
-      <span style="font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.45;width:30px;text-align:right;">{{ volLabel }}</span>
-    </div>
-
-    <!-- library -->
-    <div style="flex:1;min-height:0;overflow-y:auto;border-top:1px solid rgba(255,255,255,.1);padding:14px 14px 4px;">
-      <div style="font:500 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.06em;opacity:.45;padding:0 6px 8px;">{{ libLabel }}</div>
-      <div style="display:flex;flex-direction:column;gap:1px;">
+      <div style="display:flex;align-items:center;gap:12px;color:var(--am2);"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M4 9.2h3.2l4.4-3.8c.5-.4 1.2 0 1.2.6v12c0 .6-.7 1-1.2.6l-4.4-3.8H4c-.6 0-1-.4-1-1v-3.6c0-.6.4-1 1-1z"></path></svg><input type="range" class="mpvol" min="0" max="1" step="0.02" value="{{ vol }}" onInput="{{ setVol }}" aria-label="Volumen"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3.5 9.2h2.8l4-3.6c.4-.4 1.1-.1 1.1.5v11.8c0 .6-.7.9-1.1.5l-4-3.6H3.5z" fill="currentColor" stroke="none"></path><path d="M15 9a4.2 4.2 0 0 1 0 6"></path><path d="M17.8 6.4a8 8 0 0 1 0 11.2"></path></svg></div>
+      <div style="margin:22px 0 8px;font-size:13px;font-weight:600;color:var(--am2);">{{ libLabel }}</div>
+      <div>
         <sc-for list="{{ songs }}" as="s" hint-placeholder-count="3">
-          <div onClick="{{ s.onSel }}" style="position:relative;display:flex;align-items:center;gap:13px;padding:11px 12px;border-radius:11px;cursor:pointer;">
-            <sc-if value="{{ s.active }}" hint-placeholder-val="{{ false }}">
-              <div style="position:absolute;inset:0;border-radius:11px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);"></div>
-            </sc-if>
-            <span style="position:relative;width:16px;text-align:center;font:500 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.4;">{{ s.glyph }}</span>
-            <div style="position:relative;flex:1;min-width:0;">
-              <div style="font:500 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ s.title }}</div>
-              <div style="font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.5;margin-top:3px;">{{ s.artist }}</div>
+          <div class="{{ s.cls }}" onClick="{{ s.onSel }}">
+            <div style="display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--am2);font-variant-numeric:tabular-nums;">
+              <sc-if value="{{ s.isCur }}" hint-placeholder-val="{{ false }}"><span class="mp-eq" style="--ps:{{ eqPlay }};"><i></i><i></i><i></i></span></sc-if>
+              <sc-if value="{{ s.notCur }}" hint-placeholder-val="{{ true }}"><span>{{ s.n }}</span></sc-if>
             </div>
-            <span style="position:relative;font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.45;">{{ s.durLabel }}</span>
+            <div style="min-width:0;"><div class="mp-rt">{{ s.title }}</div><div class="mp-ra">{{ s.artist }}</div></div>
+            <div style="font-size:13px;color:var(--am2);font-variant-numeric:tabular-nums;">{{ s.durLabel }}</div>
           </div>
         </sc-for>
       </div>
+      <a href="Audio.dc.html" style="display:block;margin-top:16px;padding:12px;border-radius:12px;text-align:center;font-size:15px;font-weight:600;text-decoration:none;color:#0b0b0c;background:var(--am);">Ver todos los sonidos</a>
     </div>
-
   </div>
 
 </div>
+
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{ &quot;$preview&quot;: { &quot;width&quot;: 460, &quot;height&quot;: 820 }, &quot;autoSheetOnPlay&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; } }">
+<script type="text/x-dc" data-dc-script data-props="{ &quot;$preview&quot;: { &quot;width&quot;: 460, &quot;height&quot;: 820 } }">
 class Component extends DCLogic {
   state = { open: false, tick: 0 };
 
@@ -129,20 +107,7 @@ class Component extends DCLogic {
     var self = this;
     function attach(r) {
       self.radio = r;
-      self._seenOpenReq = r.getState().openReq;
-      self.unsub = r.subscribe(function () {
-        var st = r.getState();
-        // A release was picked from a catalog → slide the sheet up on mobile (where the
-        // inline player is hidden). openReq is a monotonic counter bumped on every pick.
-        // Flag it here, then actually flip `open` in componentDidUpdate: the pick fires
-        // inside the host page's React click batch, where a synchronous open from this
-        // child subscription can be coalesced away before it commits.
-        if (st.openReq > self._seenOpenReq) {
-          self._seenOpenReq = st.openReq;
-          if (window.innerWidth <= 760) self._pendingOpen = true;
-        }
-        self.setState(function (s) { return { tick: s.tick + 1 }; });
-      });
+      self.unsub = r.subscribe(function () { self.setState(function (s) { return { tick: s.tick + 1 }; }); });
       self.forceUpdate();
     }
     if (window.__ccRadio) attach(window.__ccRadio);
@@ -152,14 +117,6 @@ class Component extends DCLogic {
     this._key = function (e) { if (e.key === 'Escape' && self.state.open) self.setState({ open: false }); };
     window.addEventListener('keydown', this._key);
   }
-  componentDidUpdate() {
-    // A catalog pick asked to surface the sheet (mobile). Committing this in a fresh
-    // render — after the host's click batch has flushed — makes the open reliable.
-    if (this._pendingOpen) {
-      this._pendingOpen = false;
-      if (!this.state.open) this.setState({ open: true });
-    }
-  }
   componentWillUnmount() {
     if (this.unsub) this.unsub();
     if (this._iv) clearInterval(this._iv);
@@ -167,81 +124,67 @@ class Component extends DCLogic {
   }
 
   fmt(s) { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
-
   toggleOpen = () => this.setState(s => ({ open: !s.open }));
   close = () => this.setState({ open: false });
 
-  fracFrom(e) {
-    var r = e.currentTarget.getBoundingClientRect();
-    return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
-  }
-
-  // Pointer-drag volume: works for mouse AND touch (touch-action:none on the track
-  // stops the sheet from scrolling instead of adjusting volume).
-  volDown = (e) => {
+  scrubDown = (e) => {
     var r = this.radio; if (!r) return;
-    var rect = e.currentTarget.getBoundingClientRect();
-    var apply = (x) => r.setVol(Math.min(1, Math.max(0, (x - rect.left) / rect.width)));
-    apply(e.clientX);
-    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (err) {}
-    var move = (ev) => { ev.preventDefault(); apply(ev.clientX); };
-    var up = () => {
-      window.removeEventListener('pointermove', move);
-      window.removeEventListener('pointerup', up);
-      window.removeEventListener('pointercancel', up);
-    };
-    window.addEventListener('pointermove', move);
+    var el = (e.target && e.target.closest && e.target.closest('.mp-scrub')) || e.currentTarget;
+    var f = function (x) { var b = el.getBoundingClientRect(); r.seekFraction((x - b.left) / b.width); };
+    f(e.clientX);
+    var mv = function (ev) { f(ev.clientX); };
+    var up = function () { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); };
+    window.addEventListener('pointermove', mv);
     window.addEventListener('pointerup', up);
-    window.addEventListener('pointercancel', up);
   };
 
   renderVals() {
     var r = this.radio;
-    var st = r ? r.getState()
-                : { idx: 0, track: { title: 'First Iota', artist: 'Purelink', art: 'assets/img/device/dscf0594.jpg' }, playing: false, pos: 0, dur: 0, vol: 0.8, accent: 'Silver', durs: {}, release: { title: 'Cupertino Radio · Vol. 001', type: 'RADIO', count: 3 } };
-    var rel = st.release || { title: 'Cupertino Radio', type: 'RADIO', count: 0 };
-    var accent = r ? r.accentHex() : '#d0d0d2';
-    var cat = r ? r.catalog : [st.track];
+    var st = r ? r.getState() : null;
+    var ready = !!(st && st.ready);
+    var rel = ready ? (st.release || {}) : {};
+    var cat = ready ? (r.catalog || []) : [];
+    var track = ready ? (st.track || {}) : {};
+    var idx = ready ? st.idx : 0;
+    var playing = !!(ready && st.playing);
+    var dur = ready ? st.dur : 0, pos = ready ? st.pos : 0;
+    var durs = ready ? (st.durs || {}) : {};
+    var vol = ready ? st.vol : 0.8;
+    var self = this;
 
-    var songs = cat.map((t, i) => ({
-      title: t.title, artist: t.artist,
-      durLabel: st.durs[i] ? this.fmt(st.durs[i]) : (i === st.idx ? this.fmt(st.dur) : '—:—'),
-      active: i === st.idx,
-      glyph: (i === st.idx && st.playing) ? '▮' : String(i + 1).padStart(2, '0'),
-      onSel: () => r && r.select(i, true),
-    }));
-
-    var accentOpts = (r ? r.accents : ['Silver', 'Nothing red', 'None']).map(name => ({
-      name: name,
-      color: r ? r.accentHexOf(name) : '#d0d0d2',
-      ring: name === st.accent ? '#ffffff' : 'rgba(255,255,255,0.18)',
-      onSel: () => r && r.setAccent(name),
-    }));
-
+    var songs = cat.map(function (t, i) {
+      var isCur = i === idx;
+      return {
+        n: i + 1, title: t.title, artist: t.artist || '',
+        durLabel: durs[i] ? self.fmt(durs[i]) : (isCur && dur ? self.fmt(dur) : ''),
+        isCur: isCur, notCur: !isCur, cls: 'mp-row' + (isCur ? ' on' : ''),
+        onSel: function () { if (r) { if (isCur) r.toggle(); else r.select(i, true); } },
+      };
+    });
+    var open = this.state.open;
     return {
-      open: this.state.open,
-      releaseTitle: rel.title.toUpperCase(),
-      libLabel: rel.type + ' · ' + rel.count + (rel.count === 1 ? ' PISTA' : ' PISTAS'),
-      playing: st.playing, paused: !st.playing,
-      eqPlay: st.playing ? 'running' : 'paused',
-      accent: accent,
-      statusLabel: st.playing ? 'EN EL AIRE' : 'EN PAUSA',
-      artSrc: st.track.art,
-      trackTitle: st.track.title, trackArtist: st.track.artist,
-      posLabel: this.fmt(st.pos), durLabel: this.fmt(st.dur),
-      progress: (st.dur ? Math.min(100, st.pos / st.dur * 100) : 0) + '%',
-      playGlyph: st.playing ? '❚❚' : '▶',
-      vol: st.vol, volPct: Math.round(st.vol * 100) + '%', volLabel: Math.round(st.vol * 100) + '',
-      songs: songs, accentOpts: accentOpts,
-      sheetY: this.state.open ? '0%' : '108%',
-      backdropOpacity: this.state.open ? 1 : 0,
-      backdropPE: this.state.open ? 'auto' : 'none',
+      pillVis: ready ? 'visible' : 'hidden',
+      sheetHidden: open ? 'false' : 'true',
+      playing: playing, paused: !playing,
+      eqPlay: playing ? 'running' : 'paused',
+      artSrc: track.art || '',
+      trackTitle: track.title || '', trackArtist: track.artist || rel.artist || '',
+      libLabel: (rel.title || '') + (rel.count ? ' · ' + rel.count + (rel.count === 1 ? ' canción' : ' canciones') : ''),
+      posLabel: this.fmt(pos), remLabel: '-' + this.fmt(Math.max(0, dur - pos)),
+      progress: (dur ? Math.min(100, pos / dur * 100) : 0) + '%',
+      vol: vol, songs: songs,
+      sheetY: open ? '0%' : '108%',
+      artScale: playing ? '1' : '0.86',
+      backdropOpacity: open ? 1 : 0,
+      backdropPE: open ? 'auto' : 'none',
       toggleOpen: this.toggleOpen, close: this.close,
-      toggle: () => r && r.toggle(),
-      next: () => r && r.next(true),
-      prev: () => r && r.prev(true),
-      seek: (e) => r && r.seekFraction(this.fracFrom(e)),
-      volDown: this.volDown,
+      toggle: function () { if (r) r.toggle(); },
+      next: function () { if (r) r.next(true); },
+      prev: function () { if (!r) return; if (pos > 3) r.seekFraction(0); else r.prev(true); },
+      toggleStop: function (e) { e.stopPropagation(); if (r) r.toggle(); },
+      nextStop: function (e) { e.stopPropagation(); if (r) r.next(true); },
+      scrubDown: this.scrubDown,
+      setVol: function (e) { if (r) r.setVol(parseFloat(e.currentTarget.value)); },
     };
   }
 }

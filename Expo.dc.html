@@ -28,17 +28,23 @@
   .ex-fig{break-inside:avoid;margin:0 0 clamp(32px,4.4vw,64px);cursor:zoom-in;}
   .ex-fig img{display:block;width:100%;height:auto;border-radius:3px;background:#141417;transition:opacity .35s ease;}
   .ex-fig:hover img{opacity:.82;}
-  @media(max-width:860px){.ex-sec{grid-template-columns:minmax(0,1fr);gap:20px;}}
+  .ex-cr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:8px 24px;padding:18px 0;box-shadow:inset 0 .5px 0 rgba(255,255,255,.14);}
+  .ex-cr:last-child{box-shadow:inset 0 .5px 0 rgba(255,255,255,.14),inset 0 -.5px 0 rgba(255,255,255,.14);}
+  .ex-crk{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.42);padding-top:4px;}
+  .ex-crv{font-size:clamp(17px,1.5vw,21px);line-height:1.4;letter-spacing:-.01em;color:#fff;}
+  .ex-crv small{margin-left:10px;font-size:13px;letter-spacing:0;color:rgba(255,255,255,.5);}
+  @media(max-width:860px){.ex-sec{grid-template-columns:minmax(0,1fr);gap:20px;}.ex-cr{grid-template-columns:minmax(0,1fr);}}
   @media(max-width:620px){.ex-gal{columns:1;}}
+  /* nav: las seis secciones caben en móvil sin scroll */
+  @media (max-width:640px){.cc-nav{overflow:visible!important;padding:5px!important;max-width:calc(100vw - 12px)!important;border-radius:14px!important;}.cc-nav>div{gap:0!important;}.cc-nav a{font-size:12px!important;padding:6px clamp(5px,2vw,9px)!important;border-radius:8px!important;}}
 </style>
-<script src="assets/radio.js"></script>
 <script src="assets/page-transition.js"></script>
 </helmet>
 
 <div style="--accent:{{ accent }};position:relative;min-height:100dvh;background:#0b0b0d;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#fff;overflow-x:hidden;">
 
   <!-- ===== NAV ===== -->
-  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 10px 48px rgba(0,0,0,.22);border:none;">
+  <div class="cc-nav" style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 10px 48px rgba(0,0,0,.22);border:none;">
     <div style="display:flex;flex-wrap:nowrap;gap:6px;flex:none;white-space:nowrap;">
       <a href="Cupertinocorp Home.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Inicio</a>
       <a href="Feed.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Feed</a>
@@ -56,7 +62,7 @@
     </sc-if>
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,13,.45) 0%,rgba(11,11,13,0) 26%,rgba(11,11,13,.08) 55%,rgba(11,11,13,.82) 88%,#0b0b0d 100%);"></div>
     <div style="position:absolute;left:clamp(18px,5vw,64px);right:clamp(18px,5vw,64px);bottom:clamp(30px,5vw,68px);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px;animation:rise .9s cubic-bezier(.2,.7,.2,1) .15s both;">
-      <h1 style="margin:0;font:400 clamp(36px,6.2vw,100px)/1 -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.03em;color:rgba(255,255,255,.9);">{{ titleA }}<span style="display:block;color:rgba(255,255,255,.42);">{{ titleB }}</span></h1>
+      <h1 style="margin:0;font:400 clamp(36px,6.2vw,100px)/1 -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.03em;color:rgba(255,255,255,.9);">{{ titleA }}<span style="display:block;">{{ titleB }}</span></h1>
       <sc-if value="{{ hasAudio }}" hint-placeholder-val="{{ true }}">
         <button onClick="{{ toggle }}" aria-label="{{ playAria }}" style="flex:none;display:flex;align-items:center;gap:14px;padding:9px 20px 9px 9px;border:none;border-radius:999px;background:rgba(20,20,24,.38);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);color:#fff;cursor:pointer;transition:transform .25s cubic-bezier(.2,.7,.2,1);" style-hover="transform:translateY(-2px);">
           <span style="width:36px;height:36px;border-radius:50%;background:var(--accent,#d0d0d2);color:#0b0b0c;display:flex;align-items:center;justify-content:center;font:400 12.5px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;">{{ playGlyph }}</span>
@@ -82,6 +88,28 @@
       </sc-for>
     </div>
   </section>
+
+  <!-- ===== FICHA: comisariado y artistas ===== -->
+  <sc-if value="{{ hasCredits }}" hint-placeholder-val="{{ true }}">
+    <section class="ex-sec" style="position:relative;z-index:1;padding-top:clamp(56px,7vw,96px);">
+      <div class="ex-label">Ficha</div>
+      <div class="ex-body">
+        <sc-if value="{{ hasCurator }}" hint-placeholder-val="{{ true }}">
+          <div class="ex-cr"><div class="ex-crk">Comisariado</div><div class="ex-crv">{{ curator }}</div></div>
+        </sc-if>
+        <sc-if value="{{ hasArtists }}" hint-placeholder-val="{{ true }}">
+          <div class="ex-cr">
+            <div class="ex-crk">Artistas participantes</div>
+            <div>
+              <sc-for list="{{ artists }}" as="a" hint-placeholder-count="2">
+                <div class="ex-crv" style="margin-bottom:6px;">{{ a.name }}<small>{{ a.group }}</small></div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+  </sc-if>
 
   <!-- ===== LA OBRA (participación + pieza sonora) ===== -->
   <section class="ex-sec" style="position:relative;z-index:1;">
@@ -152,7 +180,6 @@
   </sc-if>
 
 </div>
-<dc-import name="MiniPlayer" hint-size="0,0"></dc-import>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{
   &quot;accent&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;Silver&quot;, &quot;options&quot;: [&quot;Silver&quot;, &quot;Nothing red&quot;, &quot;None&quot;], &quot;tsType&quot;: &quot;string&quot; }
@@ -247,6 +274,10 @@ class Component extends DCLogic {
       epigraph: x.epigraph || '', epigraphAuthor: x.epigraphAuthor || '',
       paragraphs: (x.text || []).map(t => ({ t })),
       partTitle: x.participationTitle || '',
+      curator: x.curator || '', hasCurator: !!x.curator,
+      artists: (x.artists || []).map(a => ({ name: a.name || '', group: a.group || '' })),
+      hasArtists: !!(x.artists && x.artists.length),
+      hasCredits: !!(x.curator || (x.artists && x.artists.length)),
       participation: x.participation || '',
       hasAudio: !!audio.src,
       audioTitle: audio.title || '', audioDesc: audio.description || '',
