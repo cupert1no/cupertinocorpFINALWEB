@@ -96,7 +96,10 @@
       <div class="ex-label">Ficha</div>
       <div class="ex-body">
         <sc-if value="{{ hasCurator }}" hint-placeholder-val="{{ true }}">
-          <div class="ex-cr"><div class="ex-crk">Comisariado</div><div class="ex-crv">{{ curator }}</div></div>
+          <div class="ex-cr"><div class="ex-crk">{{ curatorLabel }}</div><div class="ex-crv">{{ curator }}</div></div>
+        </sc-if>
+        <sc-if value="{{ showTextAuthor }}" hint-placeholder-val="{{ true }}">
+          <div class="ex-cr"><div class="ex-crk">Texto de sala</div><div class="ex-crv">{{ textAuthor }}</div></div>
         </sc-if>
         <sc-if value="{{ hasArtists }}" hint-placeholder-val="{{ true }}">
           <div class="ex-cr">
@@ -147,6 +150,9 @@
   <!-- ===== VISTAS DE SALA ===== -->
   <div style="position:relative;z-index:1;padding:clamp(88px,11vw,160px) clamp(18px,5vw,64px) clamp(80px,9vw,140px);">
     <div class="ex-label" style="margin-bottom:clamp(26px,3vw,44px);">Vistas de sala</div>
+    <sc-if value="{{ hasPhotoCredit }}" hint-placeholder-val="{{ true }}">
+      <div style="margin:calc(-1 * clamp(14px,1.6vw,26px)) 0 clamp(26px,3vw,44px);font:400 12px/1.5 -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:rgba(255,255,255,.5);">Fotografías: {{ photoCredit }}</div>
+    </sc-if>
     <div class="ex-gal">
       <sc-for list="{{ photos }}" as="g" hint-placeholder-count="6">
         <figure class="ex-fig" onClick="{{ g.onOpen }}">
@@ -276,9 +282,12 @@ class Component extends DCLogic {
       paragraphs: (x.text || []).map(t => ({ t })),
       partTitle: x.participationTitle || '',
       curator: x.curator || '', hasCurator: !!x.curator,
+      photoCredit: x.photoCredit || '', hasPhotoCredit: !!x.photoCredit,
+      textAuthor: x.textAuthor || '', showTextAuthor: !!x.textAuthor && x.textAuthor !== x.curator,
+      curatorLabel: (x.textAuthor && x.textAuthor === x.curator) ? 'Comisariado y texto de sala' : 'Comisariado',
       artists: (x.artists || []).map(a => ({ name: a.name || '', group: a.group || '' })),
       hasArtists: !!(x.artists && x.artists.length),
-      hasCredits: !!(x.curator || (x.artists && x.artists.length)),
+      hasCredits: !!(x.curator || x.textAuthor || (x.artists && x.artists.length)),
       participation: x.participation || '',
       hasAudio: !!audio.src,
       audioTitle: audio.title || '', audioDesc: audio.description || '',

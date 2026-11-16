@@ -172,6 +172,7 @@ collections:
               - { name: epigraph, label: Epígrafe, widget: text, required: false }
               - { name: epigraphAuthor, label: "Autor del epígrafe", widget: string, required: false }
               - { name: curator, label: "Comisariado", widget: string, required: false }
+              - { name: textAuthor, label: "Autor/a del texto de sala", widget: string, required: false }
               - name: artists
                 label: "Artistas participantes"
                 label_singular: Artista
@@ -188,6 +189,7 @@ collections:
                 field: { name: paragraph, label: Párrafo, widget: text }
               - { name: participationTitle, label: "Título de tu participación", widget: string }
               - { name: participation, label: "Texto de tu participación", widget: text }
+              - { name: photoCredit, label: "Autoría de las fotografías", widget: string, required: false, hint: "Se muestra bajo «Vistas de sala»." }
               - name: audio
                 label: "Pieza sonora"
                 widget: object
