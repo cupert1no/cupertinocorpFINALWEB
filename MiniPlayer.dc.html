@@ -32,8 +32,11 @@
   .mp-s{margin-top:1px;font-size:13px;color:var(--am2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .mp-line{position:absolute;left:0;bottom:0;height:2px;background:rgba(255,255,255,.7);}
   .mp-back{position:fixed;inset:0;z-index:88;background:rgba(0,0,0,.45);transition:opacity .35s ease;}
-  .mp-sheet{position:fixed;z-index:91;right:clamp(12px,3vw,28px);bottom:0;width:min(420px,calc(100vw - 24px));max-height:min(88vh,780px);display:flex;flex-direction:column;border-radius:24px 24px 0 0;overflow:hidden;background:rgba(28,28,32,.8);backdrop-filter:blur(44px) saturate(180%);-webkit-backdrop-filter:blur(44px) saturate(180%);box-shadow:0 -20px 70px rgba(0,0,0,.5);transition:transform .5s cubic-bezier(.2,.85,.2,1);}
-  .mp-in{overflow-y:auto;padding:8px 26px calc(24px + env(safe-area-inset-bottom));}
+  .mp-sheet{position:fixed;z-index:91;right:clamp(12px,3vw,28px);bottom:0;width:min(420px,calc(100vw - 24px));max-height:min(88vh,780px);max-height:min(calc(100dvh - 24px),780px);display:flex;flex-direction:column;border-radius:24px 24px 0 0;overflow:hidden;background:rgba(28,28,32,.8);backdrop-filter:blur(44px) saturate(180%);-webkit-backdrop-filter:blur(44px) saturate(180%);box-shadow:0 -20px 70px rgba(0,0,0,.5);transition:transform .5s cubic-bezier(.2,.85,.2,1);}
+  .mp-in{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:8px 26px calc(24px + env(safe-area-inset-bottom));}
+  .mp-hd{position:relative;flex:none;display:flex;justify-content:center;align-items:center;height:44px;cursor:pointer;touch-action:none;}
+  .mp-hd span{width:40px;height:5px;border-radius:3px;background:rgba(255,255,255,.3);}
+  .mp-x{position:absolute;right:10px;top:6px;width:32px;height:32px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;background:rgba(255,255,255,.12);}
   .mp-art{width:min(100%,300px);aspect-ratio:1;margin:6px auto 0;border-radius:12px;overflow:hidden;background:rgba(255,255,255,.06);box-shadow:0 24px 60px rgba(0,0,0,.5);transition:transform .5s cubic-bezier(.3,1.3,.5,1);}
   .mp-art img{display:block;width:100%;height:100%;object-fit:cover;}
   .mp-row{display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px 8px;border-radius:8px;cursor:pointer;}
@@ -43,7 +46,7 @@
   .mp-ra{margin-top:1px;font-size:12px;color:var(--am2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   @media (max-width:760px){
     .mp-pill{left:10px;right:10px;width:auto;}
-    .mp-sheet{left:0;right:0;width:100%;max-height:92vh;}
+    .mp-sheet{left:0;right:0;width:100%;max-height:92vh;max-height:calc(100dvh - 12px);}
   }
 </style>
 <script src="assets/radio.js?v=3"></script>
@@ -64,7 +67,9 @@
 
   <!-- hoja de reproducción -->
   <div class="mp-sheet" style="transform:translateY({{ sheetY }});" aria-hidden="{{ sheetHidden }}">
-    <div onClick="{{ close }}" style="flex:none;display:flex;justify-content:center;padding:11px 0 6px;cursor:pointer;"><div style="width:40px;height:5px;border-radius:3px;background:rgba(255,255,255,.3);"></div></div>
+    <div class="mp-hd" onPointerDown="{{ sheetDown }}" onClick="{{ close }}"><span></span>
+      <button class="mp-x" onClick="{{ closeStop }}" aria-label="Cerrar reproductor"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+    </div>
     <div class="mp-in">
       <div class="mp-art" style="transform:scale({{ artScale }});"><img src="{{ artSrc }}" alt=""></div>
       <div style="margin-top:22px;">
@@ -126,6 +131,13 @@ class Component extends DCLogic {
   fmt(s) { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
   toggleOpen = () => this.setState(s => ({ open: !s.open }));
   close = () => this.setState({ open: false });
+  closeStop = (e) => { e.stopPropagation(); this.setState({ open: false }); };
+  // Deslizar hacia abajo desde el asa cierra la hoja
+  sheetDown = (e) => {
+    var y0 = e.clientY, self = this;
+    var up = function (ev) { window.removeEventListener('pointerup', up); if (ev.clientY - y0 > 50) self.setState({ open: false }); };
+    window.addEventListener('pointerup', up);
+  };
 
   scrubDown = (e) => {
     var r = this.radio; if (!r) return;
@@ -177,7 +189,7 @@ class Component extends DCLogic {
       artScale: playing ? '1' : '0.86',
       backdropOpacity: open ? 1 : 0,
       backdropPE: open ? 'auto' : 'none',
-      toggleOpen: this.toggleOpen, close: this.close,
+      toggleOpen: this.toggleOpen, close: this.close, closeStop: this.closeStop, sheetDown: this.sheetDown,
       toggle: function () { if (r) r.toggle(); },
       next: function () { if (r) r.next(true); },
       prev: function () { if (!r) return; if (pos > 3) r.seekFraction(0); else r.prev(true); },

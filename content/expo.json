@@ -11,12 +11,16 @@
     "curator": "Lara Uro",
     "artists": [
       {
-        "name": "Alvaro Soto",
-        "group": "Proyecto Locus"
+        "name": "Álvaro Soto",
+        "group": ""
       },
       {
         "name": "Ana CSC",
         "group": "Proyecto Locus"
+      },
+      {
+        "name": "Javier de Rojas",
+        "group": ""
       }
     ],
     "text": [
