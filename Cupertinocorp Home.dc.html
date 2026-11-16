@@ -4,14 +4,13 @@
 <meta charset="utf-8">
 <style>html,body{background:#0b0b0d;margin:0;}@view-transition{navigation:auto;}::view-transition-old(root),::view-transition-new(root){animation-duration:.34s;}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html,body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;}button,input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit;}</style>
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;600;900&family=Geist+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>html,body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;}button,input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit;}</style>
 <style>
   *{box-sizing:border-box;}
   html,body{margin:0;background:#0b0b0d;}
@@ -31,7 +30,7 @@
 <script src="assets/page-transition.js"></script>
 </helmet>
 
-<div style="--accent:{{ accent }};--glass:{{ glass }};--grid:{{ grid }};position:relative;min-height:100dvh;display:flex;flex-direction:column;background:#0b0b0d;font-family:'Geist Mono',ui-monospace,monospace;color:#fff;overflow-x:hidden;">
+<div style="--accent:{{ accent }};--glass:{{ glass }};--grid:{{ grid }};position:relative;min-height:100dvh;display:flex;flex-direction:column;background:#0b0b0d;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#fff;overflow-x:hidden;">
 
   <!-- fixed photographic backdrop -->
   <div style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;background:#0b0b0d;">
@@ -42,14 +41,14 @@
   </div>
 
   <!-- ===== NAV ===== -->
-  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);">
+  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 10px 48px rgba(0,0,0,.22);border:none;">
     <div style="display:flex;flex-wrap:nowrap;gap:6px;flex:none;white-space:nowrap;">
-      <a href="Cupertinocorp Home.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:#0b0b0c;text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;background:var(--accent,#d0d0d2);">HOME</a>
-      <a href="Feed.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">FEED</a>
-      <a href="Photography.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">IMAGES</a>
-      <a href="Audio.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">SOUNDS</a>
-      <a href="Expo.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">EXPO</a>
-      <a href="Blog.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">BLOG</a>
+      <a href="Cupertinocorp Home.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:#0b0b0c;text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;background:var(--accent,#d0d0d2);">Inicio</a>
+      <a href="Feed.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Feed</a>
+      <a href="Photography.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Imágenes</a>
+      <a href="Audio.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Sonidos</a>
+      <a href="Expo.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Expo</a>
+      <a href="Blog.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Blog</a>
     </div>
   </div>
 
@@ -61,22 +60,22 @@
       <!-- wordmark + intro -->
       <div class="wordmark" style="flex:1 1 440px;min-width:min(100%,440px);align-self:center;animation:fadein .6s ease both;">
         <img src="assets/img/logo-trim.png" alt="Cupertino Corp" style="display:block;width:clamp(230px,42vw,400px);height:auto;filter:drop-shadow(0 14px 40px rgba(0,0,0,.55));">
-        <div style="width:clamp(230px,42vw,400px);font:400 clamp(11px,2.6vw,13px) 'Geist Mono';letter-spacing:.18em;opacity:.6;margin-top:clamp(14px,2vh,22px);line-height:1.5;">CUPERTINOCORP, AN ALIAS BY JAVIER DE ROJAS</div>
+        <div style="width:clamp(230px,42vw,400px);font:400 clamp(11px,2.6vw,13px) -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.06em;opacity:.6;margin-top:clamp(14px,2vh,22px);line-height:1.5;">CUPERTINOCORP, UN ALIAS DE JAVIER DE ROJAS</div>
       </div>
 
       <!-- radio + NOW column -->
       <div style="flex:0 1 360px;min-width:min(100%,320px);align-self:center;display:flex;flex-direction:column;gap:clamp(12px,1.6vw,20px);">
 
       <!-- NOW -->
-      <div style="padding:20px 22px;border-radius:18px;color:#fff;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.14);box-shadow:0 16px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);animation:fadein .6s ease .2s both;">
-        <div style="font-family:'Doto';font-weight:900;font-size:14px;letter-spacing:.2em;margin-bottom:16px;">NOW</div>
+      <div style="padding:20px 22px;border-radius:18px;color:#fff;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 16px 48px rgba(0,0,0,.22);animation:fadein .6s ease .2s both;border:none;">
+        <div style="font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:600;font-size:14px;letter-spacing:.06em;margin-bottom:16px;">AHORA</div>
         <div style="display:flex;flex-direction:column;gap:12px;">
-          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">ESCUCHANDO</span><span style="font:400 13px 'Geist Mono';flex:1;">{{ now.escuchando }}</span></div>
-          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">LEYENDO</span><span style="font:400 13px 'Geist Mono';flex:1;">{{ now.leyendo }}</span></div>
-          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">VIENDO</span><span style="font:400 13px 'Geist Mono';flex:1;">{{ now.viendo }}</span></div>
-          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">TRABAJANDO</span><span style="font:400 13px 'Geist Mono';flex:1;opacity:.8;">{{ now.trabajando }}</span></div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.45;letter-spacing:.04em;">ESCUCHANDO</span><span style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;flex:1;">{{ now.escuchando }}</span></div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.45;letter-spacing:.04em;">LEYENDO</span><span style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;flex:1;">{{ now.leyendo }}</span></div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.45;letter-spacing:.04em;">VIENDO</span><span style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;flex:1;">{{ now.viendo }}</span></div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span style="width:104px;font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.45;letter-spacing:.04em;">TRABAJANDO</span><span style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;flex:1;opacity:.8;">{{ now.trabajando }}</span></div>
         </div>
-        <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);font:400 10px 'Geist Mono';opacity:.4;letter-spacing:.12em;">ACTUALIZADO · {{ now.actualizado }}</div>
+        <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.4;letter-spacing:.04em;">ACTUALIZADO · {{ now.actualizado }}</div>
       </div>
 
       </div>
@@ -89,7 +88,7 @@
   <div style="position:relative;z-index:1;margin-top:auto;padding:0 clamp(18px,5vw,64px) clamp(28px,4vh,40px);">
     <!-- footer -->
     <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:flex-start;align-items:center;margin-top:clamp(36px,6vh,64px);padding-top:22px;border-top:1px solid rgba(255,255,255,.12);">
-      <span style="font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">I AM <a href="Lab.dc.html" title="" style="color:inherit;text-decoration:none;cursor:default;transition:color .5s ease,text-shadow .5s ease;" onMouseOver="this.style.color='#ff3b30';this.style.textShadow='0 0 12px rgba(255,59,48,.7)';" onMouseOut="this.style.color='inherit';this.style.textShadow='none';">NOTHING</a> AND EVERYTHING</span>
+      <span style="font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.45;letter-spacing:.04em;">I am <a href="Lab.dc.html" title="" style="color:inherit;text-decoration:none;cursor:default;transition:color .5s ease,text-shadow .5s ease;" onMouseOver="this.style.color='#ff3b30';this.style.textShadow='0 0 12px rgba(255,59,48,.7)';" onMouseOut="this.style.color='inherit';this.style.textShadow='none';">nothing</a> and everything</span>
     </div>
   </div>
 
@@ -140,9 +139,30 @@ class Component extends DCLogic {
     const wantMobile = !window.matchMedia('(min-width:641px)').matches;
     if (isMobile !== wantMobile) return;
     el.dataset.ccLoaded = '1';
+    const tryPlay = () => { const p = el.play(); if (p && p.catch) p.catch(() => {}); };
+    // Reintenta en cuanto el vídeo puede reproducirse (play() justo tras load() a veces se pierde).
+    el.addEventListener('canplay', tryPlay, { once: true });
+    el.addEventListener('loadeddata', tryPlay, { once: true });
+    // Si el clip de este tamaño falla (no existe, códec), usa el otro clip como respaldo.
+    const fallback = isMobile ? 'assets/img/bg-index.mp4' : 'assets/img/bg-life-mobile-c.mp4';
+    el.addEventListener('error', () => {
+      if (el.dataset.ccFallback) return;
+      el.dataset.ccFallback = '1';
+      el.src = fallback;
+      try { el.load(); } catch (e) {}
+      tryPlay();
+    }, { once: true });
+    // Si el navegador bloquea el autoplay (p. ej. ahorro de batería en iOS), arranca al primer toque.
+    if (!this._kick) {
+      this._kick = () => {
+        [this.mobileVid, this.desktopVid].forEach((v) => { if (v && v.src && v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } });
+      };
+      window.addEventListener('pointerdown', this._kick, { once: true, passive: true });
+      document.addEventListener('visibilitychange', () => { if (!document.hidden && this._kick) this._kick(); });
+    }
     el.src = src;
     try { el.load(); } catch (e) {}
-    el.play().catch(() => {});
+    tryPlay();
   }
 
   _watchViewport() {

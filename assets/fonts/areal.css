@@ -1,0 +1,17 @@
+/* ABC Areal (Dinamo) — tipografía de toda la web. Uso bajo licencia de Javier de Rojas. */
+@font-face{font-family:'ABC Areal';src:url('ABCAreal-Regular.woff2') format('woff2');font-weight:100 400;font-style:normal;font-display:swap;}
+@font-face{font-family:'ABC Areal';src:url('ABCAreal-RegularItalic.woff2') format('woff2');font-weight:100 400;font-style:italic;font-display:swap;}
+@font-face{font-family:'ABC Areal';src:url('ABCAreal-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap;}
+@font-face{font-family:'ABC Areal';src:url('ABCAreal-Bold.woff2') format('woff2');font-weight:600 900;font-style:normal;font-display:swap;}
+@font-face{font-family:'ABC Areal Mono';src:url('ABCArealMono-Regular.woff2') format('woff2');font-weight:100 400;font-style:normal;font-display:swap;}
+@font-face{font-family:'ABC Areal Mono';src:url('ABCArealMono-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap;}
+@font-face{font-family:'ABC Areal Mono';src:url('ABCArealMono-Bold.woff2') format('woff2');font-weight:600 900;font-style:normal;font-display:swap;}
+@font-face{font-family:'ABC Areal Semi Mono';src:url('ABCArealSemiMono-Regular.woff2') format('woff2');font-weight:100 400;font-style:normal;font-display:swap;}
+@font-face{font-family:'ABC Areal Semi Mono';src:url('ABCArealSemiMono-Medium.woff2') format('woff2');font-weight:500 900;font-style:normal;font-display:swap;}
+/* cifras de ancho fijo para tiempos y contadores */
+html{font-variant-numeric:tabular-nums;}
+/* en macOS el texto claro sobre fondo oscuro se ve más grueso; esto lo afina */
+html,body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;}
+/* familia por defecto y herencia en controles (evita Arial/Times en botones y textos sin estilo) */
+body{font-family:'ABC Areal',system-ui,-apple-system,sans-serif;font-weight:400;}
+button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}

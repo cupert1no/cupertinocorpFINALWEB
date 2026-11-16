@@ -3,14 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>html,body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;}button,input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit;}</style>
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;600;900&amp;family=Geist+Mono:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>html,body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;}button,input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit;}</style>
 <style>
   *{box-sizing:border-box;}
   html,body{margin:0;background:#0b0b0d;overscroll-behavior:none;}
@@ -24,7 +23,7 @@
 <script src="assets/page-transition.js"></script>
 </helmet>
 
-<div data-screen-label="Lab" onPointerMove="{{ onMove }}" onPointerDown="{{ onDown }}" onPointerLeave="{{ onLeave }}" style="--lab:{{ lab }};position:fixed;inset:0;overflow:hidden;background:#0b0b0d;color:#fff;font-family:'Geist Mono',ui-monospace,monospace;touch-action:none;">
+<div data-screen-label="Lab" onPointerMove="{{ onMove }}" onPointerDown="{{ onDown }}" onPointerLeave="{{ onLeave }}" style="--lab:{{ lab }};position:fixed;inset:0;overflow:hidden;background:#0b0b0d;color:#fff;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;touch-action:none;">
 
   <!-- render surface -->
   <canvas ref="{{ canvasRef }}" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></canvas>
@@ -45,14 +44,14 @@
   
 
   <!-- ===== NAV ===== -->
-  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:rgba(20,20,24,.5);backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);">
+  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:rgba(20,20,24,.5);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 10px 48px rgba(0,0,0,.22);border:none;">
     <div style="display:flex;flex-wrap:nowrap;gap:6px;flex:none;white-space:nowrap;">
-      <a href="Cupertinocorp Home.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">HOME</a>
-      <a href="Feed.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">FEED</a>
-      <a href="Photography.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">IMAGES</a>
-      <a href="Audio.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">SOUNDS</a>
-      <a href="Expo.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">EXPO</a>
-      <a href="Blog.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">BLOG</a>
+      <a href="Cupertinocorp Home.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Inicio</a>
+      <a href="Feed.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Feed</a>
+      <a href="Photography.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Imágenes</a>
+      <a href="Audio.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Sonidos</a>
+      <a href="Expo.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Expo</a>
+      <a href="Blog.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Blog</a>
     </div>
   </div>
 
@@ -124,7 +123,7 @@ class Component extends DCLogic {
   }
 
   _fieldWord() {
-    const words = ['I', 'AM', 'NOTHING', 'AND', 'EVERYTHING'];
+    const words = ['SOY', 'NADA', 'Y', 'TODO'];
     return words[(this._wi || 0) % words.length];
   }
 
@@ -137,10 +136,10 @@ class Component extends DCLogic {
     c.clearRect(0, 0, w, h);
     const word = this._fieldWord();
     let fs = Math.min(h * 0.42, 300);
-    c.font = '900 ' + fs + "px 'Doto','Geist Mono',monospace";
+    c.font = '600 ' + fs + "px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif";
     let tw = c.measureText(word).width;
     const maxW = w * 0.86;
-    if (tw > maxW) { fs = fs * maxW / tw; c.font = '900 ' + fs + "px 'Doto','Geist Mono',monospace"; }
+    if (tw > maxW) { fs = fs * maxW / tw; c.font = '600 ' + fs + "px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif"; }
     c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#fff';
     c.fillText(word, w / 2, h / 2);
     const data = c.getImageData(0, 0, w, h).data;
@@ -210,7 +209,7 @@ class Component extends DCLogic {
       scan: this.props.scanlines ?? true,
       canvasRef: this._canvasRef,
       onMove: this._onMove, onDown: this._onDown, onLeave: this._onLeave,
-      hint: 'DRAG TO DISTURB · CLICK TO DETONATE',
+      hint: 'ARRASTRA PARA PERTURBAR · CLIC PARA DETONAR',
       fpsRef: (el) => { this.fpsRef = el; },
       resRef: (el) => { this.resRef = el; if (el && this.W) el.textContent = this.W + '×' + this.H; },
       ptrRef: (el) => { this.ptrRef = el; },

@@ -4,14 +4,13 @@
 <meta charset="utf-8">
 <style>html,body{background:#0b0b0d;margin:0;}@view-transition{navigation:auto;}::view-transition-old(root),::view-transition-new(root){animation-duration:.34s;}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html,body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;}button,input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit;}</style>
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;600;900&family=Geist+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>html,body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;}button,input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit;}</style>
 <style>
   *{box-sizing:border-box;}
   html,body{margin:0;background:#0b0b0d;}
@@ -25,7 +24,7 @@
 <script src="assets/page-transition.js"></script>
 </helmet>
 
-<div style="position:relative;min-height:100dvh;background:#0b0b0d;font-family:'Geist Mono',ui-monospace,monospace;color:#fff;overflow-x:hidden;">
+<div style="position:relative;min-height:100dvh;background:#0b0b0d;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#fff;overflow-x:hidden;">
 
   <!-- ambient grid + glow -->
   <div style="position:fixed;top:0;left:0;width:100%;height:100lvh;z-index:0;pointer-events:none;">
@@ -36,31 +35,29 @@
   <div style="position:fixed;top:-20%;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(closest-side,rgba(255,255,255,.06),transparent);pointer-events:none;z-index:0;"></div>
 
   <!-- ===== NAV ===== -->
-  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);">
+  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 10px 48px rgba(0,0,0,.22);border:none;">
     <div style="display:flex;flex-wrap:nowrap;gap:6px;flex:none;white-space:nowrap;">
-      <a href="Cupertinocorp Home.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">HOME</a>
-      <a href="Feed.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">FEED</a>
-      <a href="Photography.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:#0b0b0c;text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;background:var(--accent,#d0d0d2);">IMAGES</a>
-      <a href="Audio.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">SOUNDS</a>
-      <a href="Expo.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">EXPO</a>
-      <a href="Blog.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">BLOG</a>
+      <a href="Cupertinocorp Home.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Inicio</a>
+      <a href="Feed.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Feed</a>
+      <a href="Photography.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:#0b0b0c;text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;background:var(--accent,#d0d0d2);">Imágenes</a>
+      <a href="Audio.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Sonidos</a>
+      <a href="Expo.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Expo</a>
+      <a href="Blog.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Blog</a>
     </div>
   </div>
 
   <!-- ===== HEADER ===== -->
   <div style="position:relative;z-index:1;padding:108px clamp(18px,5vw,64px) 0;">
     <div style="display:flex;align-items:baseline;gap:16px;">
-      <h1 style="margin:0;font:300 16px 'Geist Mono';letter-spacing:.38em;opacity:.82;">IMAGES</h1>
-      <span style="flex:1;height:1px;background:rgba(255,255,255,.12);"></span>
-      <span style="font:400 10px 'Geist Mono';letter-spacing:.2em;opacity:.34;">{{ countLabel }}</span>
+      <h1 style="margin:0;font:600 clamp(28px,3.2vw,44px)/1.05 -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.02em;">Imágenes</h1>
     </div>
   </div>
 
   <!-- ===== FILTER BAR ===== -->
   <div style="position:sticky;top:80px;z-index:40;padding:26px clamp(18px,5vw,64px) 14px;">
-    <div style="display:inline-flex;flex-wrap:nowrap;align-items:center;gap:6px;padding:7px;border-radius:15px;background:rgba(20,20,24,.5);backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.13);box-shadow:0 10px 40px rgba(0,0,0,.45);max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;vertical-align:top;">
+    <div style="display:inline-flex;flex-wrap:nowrap;align-items:center;gap:6px;padding:7px;border-radius:15px;background:rgba(20,20,24,.5);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 10px 40px rgba(0,0,0,.45);max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;vertical-align:top;border:none;">
       <sc-for list="{{ chips }}" as="c" hint-placeholder-count="6">
-        <button onClick="{{ c.onSel }}" style="position:relative;flex:none;background:none;border:none;cursor:pointer;font:500 11px 'Geist Mono';letter-spacing:.13em;padding:9px 15px;border-radius:9px;white-space:nowrap;color:{{ c.color }};background:{{ c.bg }};">{{ c.label }}</button>
+        <button onClick="{{ c.onSel }}" style="position:relative;flex:none;background:none;border:none;cursor:pointer;font:500 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.04em;padding:8px 14px;border-radius:9px;white-space:nowrap;color:{{ c.color }};background:{{ c.bg }};">{{ c.label }}</button>
       </sc-for>
     </div>
   </div>
@@ -74,8 +71,8 @@
             <div onClick="{{ g.onOpen }}" style="border-radius:6px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,255,255,.08);position:relative;background:#141417;">
               <img src="{{ g.src }}" alt="{{ g.title }}" loading="lazy" onLoad="{{ g.onLoad }}" ref="{{ g.ref }}" style="display:block;width:100%;aspect-ratio:{{ g.aspect }};object-fit:cover;background:#141417;transition:opacity .55s ease,transform .5s cubic-bezier(.2,.7,.2,1);" style-hover="transform:scale(1.04);">
               <div style="position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 11px;background:linear-gradient(transparent,rgba(0,0,0,.72));opacity:0;transition:opacity .2s;" style-hover="opacity:1;">
-                <span style="font:500 10px 'Geist Mono';letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ g.title }}</span>
-                <span style="font:400 9px 'Geist Mono';opacity:.6;letter-spacing:.1em;flex:none;">{{ g.code }}</span>
+                <span style="font:500 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ g.title }}</span>
+                <span style="font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.6;letter-spacing:.04em;flex:none;">{{ g.code }}</span>
               </div>
             </div>
           </sc-for>
@@ -86,13 +83,13 @@
 
   <!-- ===== FULLSCREEN VIEWER ===== -->
   <sc-if value="{{ viewerOpen }}" hint-placeholder-val="{{ false }}">
-    <div style="position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;background:rgba(8,8,10,.78);backdrop-filter:blur(30px) saturate(130%);-webkit-backdrop-filter:blur(30px) saturate(130%);animation:fadein .25s ease both;">
+    <div style="position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;background:rgba(8,8,10,.78);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);animation:fadein .25s ease both;border:none;">
       <!-- viewer top bar -->
       <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px clamp(16px,4vw,40px);border-bottom:1px solid rgba(255,255,255,.1);">
-        <div style="flex:1;font:500 11px 'Geist Mono';letter-spacing:.16em;opacity:.6;">{{ vProject }}</div>
+        <div style="flex:1;font:500 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.06em;opacity:.6;">{{ vProject }}</div>
         <div style="flex:none;display:flex;align-items:center;gap:14px;">
           <button onClick="{{ vPrev }}" style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);color:#fff;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;">◀</button>
-          <div style="font:400 11px 'Geist Mono';letter-spacing:.1em;opacity:.5;min-width:64px;text-align:center;">{{ vCounter }}</div>
+          <div style="font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.04em;opacity:.5;min-width:64px;text-align:center;">{{ vCounter }}</div>
           <button onClick="{{ vNext }}" style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);color:#fff;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;">▶</button>
         </div>
         <div style="flex:1;display:flex;justify-content:flex-end;">
@@ -105,9 +102,9 @@
       </div>
       <!-- viewer info -->
       <div style="flex:none;display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline;padding:16px clamp(16px,4vw,40px) max(20px,env(safe-area-inset-bottom));border-top:1px solid rgba(255,255,255,.1);background:rgba(12,12,14,.5);">
-        <span style="font-family:'Doto';font-weight:600;font-size:20px;letter-spacing:.03em;">{{ vTitle }}</span>
-        <span style="font:400 11px 'Geist Mono';opacity:.5;letter-spacing:.1em;">{{ vDate }}</span>
-        <span style="flex:1;min-width:200px;font:300 12px/1.6 'Geist Mono';opacity:.55;max-width:680px;">{{ vDesc }}</span>
+        <span style="font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:600;font-size:20px;letter-spacing:.01em;">{{ vTitle }}</span>
+        <span style="font:400 11px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.5;letter-spacing:.04em;">{{ vDate }}</span>
+        <span style="flex:1;min-width:200px;font:400 12px/1.6 -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.55;max-width:680px;">{{ vDesc }}</span>
       </div>
     </div>
   </sc-if>
@@ -200,7 +197,7 @@ class Component extends DCLogic {
     const shown = this.shownList;
 
     const projEntries = projects ? Object.entries(projects).sort((a, b) => a[1].order - b[1].order) : [];
-    const chips = [{ key: 'all', label: 'ALL' }, ...projEntries.map(([k, p]) => ({ key: k, label: p.label.toUpperCase() }))]
+    const chips = [{ key: 'all', label: 'Todo' }, ...projEntries.map(([k, p]) => ({ key: k, label: p.label }))]
       .map(c => ({
         label: c.label,
         onSel: () => this.setFilter(c.key),

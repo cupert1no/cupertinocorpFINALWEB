@@ -5,6 +5,7 @@
     "place": "El Local · Delicias, Madrid",
     "year": "2026",
     "kind": "Exposición colectiva",
+    "hero": "assets/img/expo/expo-003.jpg",
     "epigraph": "Una máquina deseante se define únicamente por su funcionamiento, es decir por su formación, es decir por su producción.",
     "epigraphAuthor": "Gilles Deleuze, Entre el capitalismo y la esquizofrenia",
     "text": [
@@ -20,18 +21,66 @@
       "duration": 460
     },
     "photos": [
-      { "src": "assets/img/expo/expo-001.jpg", "title": "Derivas en fuga", "alt": "Peana blanca con una credencial de personal externo sobre ella" },
-      { "src": "assets/img/expo/expo-002.jpg", "title": "Derivas en fuga", "alt": "Gran impresión negra con sillas de oficina apoyada en una esquina, sobre moqueta azul" },
-      { "src": "assets/img/expo/expo-003.jpg", "title": "Derivas en fuga", "alt": "La impresión negra con sillas vista desde otro ángulo, con texto vinilado en la pared" },
-      { "src": "assets/img/expo/expo-004.jpg", "title": "Derivas en fuga", "alt": "Panel blanco sobre patas metálicas y un cable de audio que cuelga de la pared" },
-      { "src": "assets/img/expo/expo-005.jpg", "title": "Derivas en fuga", "alt": "Monitor en la pared y una peana blanca sobre la moqueta azul" },
-      { "src": "assets/img/expo/expo-006.jpg", "title": "Derivas en fuga", "alt": "Peana con una pequeña credencial y texto vinilado invertido en la pared" },
-      { "src": "assets/img/expo/expo-007.jpg", "title": "Derivas en fuga", "alt": "Reproductor de audio colgado de un cable junto a texto vinilado" },
-      { "src": "assets/img/expo/expo-008.jpg", "title": "Derivas en fuga", "alt": "Vista general de la sala: fluorescente, monitor, peana y puerta" },
-      { "src": "assets/img/expo/expo-009.jpg", "title": "Derivas en fuga", "alt": "Auriculares sobre la moqueta azul" },
-      { "src": "assets/img/expo/expo-010.jpg", "title": "Derivas en fuga", "alt": "Caja inclinada en el suelo con la imagen de un interior de oficina en su cara" },
-      { "src": "assets/img/expo/expo-011.jpg", "title": "Derivas en fuga", "alt": "Caja gris con un asa apoyada sobre la moqueta azul" },
-      { "src": "assets/img/expo/expo-012.jpg", "title": "Derivas en fuga", "alt": "Ventana de la sala con texto vinilado invertido en la pared" }
+      {
+        "src": "assets/img/expo/expo-001.jpg",
+        "title": "Derivas en fuga",
+        "alt": "Peana blanca con una credencial de personal externo sobre ella"
+      },
+      {
+        "src": "assets/img/expo/expo-002.jpg",
+        "title": "Derivas en fuga",
+        "alt": "Gran impresión negra con sillas de oficina apoyada en una esquina, sobre moqueta azul"
+      },
+      {
+        "src": "assets/img/expo/expo-003.jpg",
+        "title": "Derivas en fuga",
+        "alt": "La impresión negra con sillas vista desde otro ángulo, con texto vinilado en la pared"
+      },
+      {
+        "src": "assets/img/expo/expo-004.jpg",
+        "title": "Derivas en fuga",
+        "alt": "Panel blanco sobre patas metálicas y un cable de audio que cuelga de la pared"
+      },
+      {
+        "src": "assets/img/expo/expo-005.jpg",
+        "title": "Derivas en fuga",
+        "alt": "Monitor en la pared y una peana blanca sobre la moqueta azul"
+      },
+      {
+        "src": "assets/img/expo/expo-006.jpg",
+        "title": "Derivas en fuga",
+        "alt": "Peana con una pequeña credencial y texto vinilado invertido en la pared"
+      },
+      {
+        "src": "assets/img/expo/expo-007.jpg",
+        "title": "Derivas en fuga",
+        "alt": "Reproductor de audio colgado de un cable junto a texto vinilado"
+      },
+      {
+        "src": "assets/img/expo/expo-008.jpg",
+        "title": "Derivas en fuga",
+        "alt": "Vista general de la sala: fluorescente, monitor, peana y puerta"
+      },
+      {
+        "src": "assets/img/expo/expo-009.jpg",
+        "title": "Derivas en fuga",
+        "alt": "Auriculares sobre la moqueta azul"
+      },
+      {
+        "src": "assets/img/expo/expo-010.jpg",
+        "title": "Derivas en fuga",
+        "alt": "Caja inclinada en el suelo con la imagen de un interior de oficina en su cara"
+      },
+      {
+        "src": "assets/img/expo/expo-011.jpg",
+        "title": "Derivas en fuga",
+        "alt": "Caja gris con un asa apoyada sobre la moqueta azul"
+      },
+      {
+        "src": "assets/img/expo/expo-012.jpg",
+        "title": "Derivas en fuga",
+        "alt": "Ventana de la sala con texto vinilado invertido en la pared"
+      }
     ]
   }
 }

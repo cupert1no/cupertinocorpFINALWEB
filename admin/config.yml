@@ -133,19 +133,21 @@ collections:
             summary: "{{fields.type}} · {{fields.title}} ({{fields.year}})"
             fields:
               - { name: id, label: ID, widget: string, hint: "identificador único, p.ej. costa-sur" }
-              - { name: type, label: Tipo, widget: select, options: ["RADIO", "EP", "LP", "SINGLE"], default: "EP" }
+              - { name: type, label: Tipo, widget: select, options: ["RADIO", "EP", "LP", "SINGLE", "PIEZA SONORA"], default: "EP" }
               - { name: title, label: Título, widget: string }
               - { name: year, label: Año, widget: string }
               - { name: art, label: Portada, widget: image }
-          - name: tracks
-            label: Pistas
-            label_singular: Pista
-            widget: list
-            summary: "{{fields.title}} — {{fields.artist}}"
-            fields:
-              - { name: title, label: Título, widget: string }
-              - { name: artist, label: Artista, widget: string }
-              - { name: src, label: "Archivo de audio (.mp3)", widget: file, media_folder: "/assets/audio", public_folder: "/assets/audio" }
+              - { name: artist, label: "Artista (opcional)", widget: string, required: false, hint: "Si lo dejas vacío se usa el de las pistas" }
+              - { name: description, label: "Descripción (opcional)", widget: text, required: false }
+              - name: tracks
+                label: Pistas
+                label_singular: Pista
+                widget: list
+                summary: "{{fields.title}} — {{fields.artist}}"
+                fields:
+                  - { name: title, label: Título, widget: string }
+                  - { name: artist, label: Artista, widget: string }
+                  - { name: src, label: "Archivo de audio (.mp3)", widget: file, media_folder: "/assets/audio", public_folder: "/assets/audio" }
 
   # ============ EXPO ============
   - name: expo
@@ -166,6 +168,7 @@ collections:
               - { name: place, label: Lugar, widget: string }
               - { name: year, label: Año, widget: string }
               - { name: kind, label: "Tipo de exposición", widget: string, required: false }
+              - { name: hero, label: "Imagen de portada", widget: image, required: false, media_folder: "/assets/img/expo", public_folder: "/assets/img/expo", hint: "Foto a sangre en la cabecera de EXPO. Si se deja vacío se usa la vista general de sala." }
               - { name: epigraph, label: Epígrafe, widget: text, required: false }
               - { name: epigraphAuthor, label: "Autor del epígrafe", widget: string, required: false }
               - name: text

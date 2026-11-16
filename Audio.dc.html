@@ -4,14 +4,13 @@
 <meta charset="utf-8">
 <style>html,body{background:#0b0b0d;margin:0;}@view-transition{navigation:auto;}::view-transition-old(root),::view-transition-new(root){animation-duration:.34s;}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html,body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;}button,input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit;}</style>
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;600;900&family=Geist+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>html,body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;}button,input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit;}</style>
 <style>
   *{box-sizing:border-box;}
   html,body{margin:0;background:#0b0b0d;}
@@ -23,17 +22,126 @@
   input[type=range].vol{-webkit-appearance:none;appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,.2);outline:none;cursor:pointer;}
   input[type=range].vol::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:#fff;cursor:pointer;}
   input[type=range].vol::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:#fff;border:none;cursor:pointer;}
-  @media (max-width:760px){ .cc-inline-player{display:none!important;} }
-  @media (min-width:761px){ button[aria-label="Cupertino Radio"]{display:none!important;} }
   .bg-video{display:none;}
   .bg-video-mobile{display:block;}
   @media(min-width:641px){.bg-video{display:block;}.bg-video-mobile{display:none;}}
+
+  /* ===== Sonidos · estética Apple Music ===== */
+  :root{--am:#a8a8ae;--am2:rgba(235,235,245,.6);--am3:rgba(235,235,245,.3);}
+  @keyframes amfade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @keyframes amin{from{opacity:0}to{opacity:1}}
+  @keyframes ameq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+  .am-main{position:relative;z-index:1;width:100%;max-width:1180px;margin:0 auto;padding:108px clamp(18px,4.5vw,56px) 40px;}
+  .am-view{animation:amfade .38s cubic-bezier(.2,.7,.2,1) both;}
+  .am-h1{margin:0 0 30px;font-weight:700;font-size:clamp(30px,3.4vw,40px);line-height:1.05;letter-spacing:-.025em;}
+  .am-sec{margin:0 0 14px;font-weight:600;font-size:20px;letter-spacing:-.015em;}
+  .am-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(184px,1fr));gap:30px 22px;}
+  .am-card{min-width:0;cursor:pointer;}
+  .am-art{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.06);box-shadow:0 12px 34px rgba(0,0,0,.38);}
+  .am-art img{display:block;width:100%;height:100%;object-fit:cover;transition:filter .3s ease,transform .6s cubic-bezier(.2,.7,.2,1);}
+  .am-card:hover .am-art img{filter:brightness(.72);transform:scale(1.03);}
+  .am-cardplay{position:absolute;left:10px;bottom:10px;width:40px;height:40px;border-radius:50%;border:none;padding:0;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;background:rgba(40,40,44,.55);backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);opacity:0;transform:scale(.9);transition:opacity .2s ease,transform .2s ease,background .2s ease;}
+  .am-cardplay:hover{background:var(--am);color:#0b0b0c;}
+  .am-card:hover .am-cardplay{opacity:1;transform:none;}
+  @media (hover:none){.am-cardplay{opacity:1;transform:none;}}
+  .am-badge{position:absolute;right:10px;top:10px;height:26px;padding:0 8px;border-radius:13px;display:flex;align-items:center;background:rgba(20,20,22,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+  .am-ct{margin-top:9px;font-size:14px;font-weight:500;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .am-cs{margin-top:2px;font-size:13px;color:var(--am2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .am-eq{display:inline-flex;align-items:flex-end;gap:2px;height:12px;}
+  .am-eq i{display:block;width:3px;height:12px;border-radius:1px;background:var(--am);transform-origin:bottom;animation:ameq .85s ease-in-out infinite;animation-play-state:var(--ps,running);}
+  .am-eq i:nth-child(2){animation-delay:.2s}.am-eq i:nth-child(3){animation-delay:.4s}
+  .am-back{display:inline-flex;align-items:center;gap:2px;margin:0 0 24px -4px;padding:4px;border:none;background:none;color:var(--am);font-size:16px;cursor:pointer;}
+  .am-head{display:flex;align-items:flex-end;gap:clamp(24px,3.5vw,40px);margin-bottom:30px;}
+  .am-hart{flex:none;width:clamp(210px,24vw,280px);aspect-ratio:1;border-radius:12px;overflow:hidden;background:rgba(255,255,255,.06);box-shadow:0 24px 64px rgba(0,0,0,.55);}
+  .am-hart img{display:block;width:100%;height:100%;object-fit:cover;}
+  .am-hinfo{flex:1;min-width:0;}
+  .am-htitle{margin:0;font-weight:700;font-size:clamp(24px,2.6vw,32px);line-height:1.1;letter-spacing:-.02em;}
+  .am-hartist{margin-top:4px;font-size:clamp(20px,2.1vw,26px);line-height:1.2;letter-spacing:-.015em;color:var(--am);}
+  .am-hmeta{margin-top:8px;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--am2);}
+  .am-hdesc{margin:14px 0 0;max-width:560px;font-size:13px;line-height:1.55;color:rgba(235,235,245,.72);}
+  .am-btns{display:flex;gap:12px;margin-top:22px;}
+  .am-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 22px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;background:var(--am);color:#0b0b0c;transition:filter .2s;}
+  .am-btn:hover{filter:brightness(1.1);}
+  .am-btn.alt{background:rgba(255,255,255,.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+  .am-list{display:flex;flex-direction:column;}
+  .am-row{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:12px;min-height:50px;padding:6px 12px;border-radius:8px;cursor:pointer;transition:background .15s;}
+  .am-row:hover{background:rgba(255,255,255,.07);}
+  .am-num{display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--am2);font-variant-numeric:tabular-nums;}
+  .am-hp{display:none;color:#fff;}
+  .am-row:hover .am-n{display:none;}.am-row:hover .am-hp{display:flex;}
+  .am-rtt{font-size:14px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .am-row.on .am-rtt{color:var(--am);}
+  .am-rta{margin-top:2px;font-size:12px;color:var(--am2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .am-rd{font-size:13px;color:var(--am2);font-variant-numeric:tabular-nums;}
+  .am-row + .am-row{box-shadow:inset 0 .5px 0 rgba(255,255,255,.08);}
+  .am-foot{margin:18px 12px 0;font-size:13px;color:var(--am2);}
+  .am-ib{display:flex;align-items:center;justify-content:center;padding:6px;border:none;background:none;color:#fff;cursor:pointer;border-radius:8px;transition:opacity .2s,transform .12s;}
+  .am-ib:hover{opacity:.75;}.am-ib:active{transform:scale(.9);}
+  .am-scrub{position:relative;height:16px;cursor:pointer;touch-action:none;}
+  .am-scrub::before{content:"";position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;border-radius:2px;background:rgba(255,255,255,.22);}
+  .am-sf{position:absolute;left:0;top:50%;height:4px;margin-top:-2px;border-radius:2px;background:rgba(255,255,255,.78);}
+  /* barra inferior (escritorio) */
+  .am-dock{position:sticky;bottom:0;z-index:60;margin-top:auto;padding:12px 16px 8px;pointer-events:none;}
+  .am-dock > *{pointer-events:auto;}
+  .am-bar{position:relative;margin:0 auto;pointer-events:auto;width:min(1080px,100%);height:56px;display:grid;grid-template-columns:1fr minmax(0,560px) 1fr;align-items:center;gap:16px;padding:0 14px;border-radius:14px;background:rgba(30,30,34,.6);backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);box-shadow:0 18px 50px rgba(0,0,0,.42);animation:amin .4s ease both;}
+  .am-tr{display:flex;align-items:center;gap:10px;}
+  .am-lcd{position:relative;display:flex;align-items:center;gap:10px;height:42px;border-radius:8px;overflow:hidden;background:rgba(255,255,255,.07);}
+  .am-lcd img{flex:none;width:42px;height:42px;object-fit:cover;display:block;}
+  .am-lcdtx{flex:1;min-width:0;padding:0 56px 6px 4px;text-align:center;}
+  .am-lcdt{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .am-lcds{margin-top:1px;font-size:12px;color:var(--am2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .am-lcdtime{position:absolute;bottom:5px;font-size:10px;color:var(--am2);font-variant-numeric:tabular-nums;}
+  .am-lcdtime.l{left:50px;}.am-lcdtime.r{right:8px;}
+  .am-lcd .am-scrub{position:absolute;left:42px;right:0;top:0;bottom:0;height:auto;z-index:2;}
+  .am-lcd .am-scrub::before,.am-lcd .am-sf{top:auto;bottom:0;height:3px;margin:0;border-radius:0;transition:height .15s;}
+  .am-lcd .am-scrub:hover::before,.am-lcd .am-scrub:hover .am-sf{height:6px;}
+  .am-lcd .am-sf{background:rgba(255,255,255,.65);}
+  .am-volw{display:flex;align-items:center;justify-content:flex-end;gap:8px;color:var(--am2);}
+  .am-volw input{width:110px;}
+  /* mini reproductor + reproductor a pantalla completa (móvil) */
+  .am-mini,.am-np{display:none;}
+  @media (max-width:760px){
+    .am-main{padding-top:96px;}
+    .am-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px;}
+    .am-head{flex-direction:column;align-items:center;text-align:center;gap:20px;}
+    .am-hart{width:min(66vw,290px);}
+    .am-hdesc{margin-left:auto;margin-right:auto;}
+    .am-btns{width:100%;}
+    .am-btn,.am-btn.alt{flex:1;height:46px;border-radius:12px;background:rgba(255,255,255,.1);color:var(--am);font-size:16px;}
+    .am-row{padding:6px 4px;}
+    .am-foot{margin-left:4px;}
+    .am-bar{display:none;}
+    .am-dock{padding:16px 10px calc(10px + env(safe-area-inset-bottom));}
+    .am-mini{display:flex;position:relative;pointer-events:auto;height:62px;align-items:center;gap:10px;padding:0 8px;border-radius:15px;overflow:hidden;cursor:pointer;background:rgba(32,32,36,.66);backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);box-shadow:0 14px 40px rgba(0,0,0,.45);animation:amin .4s ease both;}
+    .am-mini img{flex:none;width:46px;height:46px;border-radius:7px;object-fit:cover;box-shadow:0 4px 12px rgba(0,0,0,.35);}
+    .am-minitx{flex:1;min-width:0;}
+    .am-minit{font-size:15px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .am-minis{margin-top:1px;font-size:13px;color:var(--am2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .am-minip{position:absolute;left:0;bottom:0;height:2px;background:rgba(255,255,255,.7);}
+    .am-np{display:block;position:fixed;inset:0;z-index:80;overflow:hidden;background:#141416;transition:transform .5s cubic-bezier(.2,.85,.2,1);}
+    .am-npbg{position:absolute;inset:-25%;width:150%;height:150%;object-fit:cover;filter:blur(70px) saturate(1.5) brightness(.6);}
+    .am-npov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.55));}
+    .am-npin{position:relative;height:100%;display:flex;flex-direction:column;padding:calc(10px + env(safe-area-inset-top)) 28px calc(26px + env(safe-area-inset-bottom));}
+    .am-nph{display:flex;justify-content:center;padding:6px 0 14px;cursor:pointer;touch-action:none;}
+    .am-nph span{width:40px;height:5px;border-radius:3px;background:rgba(255,255,255,.4);}
+    .am-npart{width:min(100%,48dvh);aspect-ratio:1;margin:auto auto 0;border-radius:12px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.55);transition:transform .55s cubic-bezier(.3,1.3,.5,1);touch-action:none;}
+    .am-npart img{display:block;width:100%;height:100%;object-fit:cover;}
+    .am-npinfo{margin-top:auto;padding-top:26px;}
+    .am-npt{font-size:21px;font-weight:600;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .am-npa{margin-top:2px;font-size:19px;color:rgba(255,255,255,.62);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .am-np .am-scrub{margin-top:18px;height:22px;}
+    .am-np .am-scrub::before,.am-np .am-sf{height:6px;margin-top:-3px;border-radius:3px;}
+    .am-nptimes{display:flex;justify-content:space-between;margin-top:2px;font-size:12px;color:rgba(255,255,255,.55);font-variant-numeric:tabular-nums;}
+    .am-npctl{display:flex;align-items:center;justify-content:space-evenly;margin:20px 0 24px;}
+    .am-npvol{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.6);}
+    .am-npvol input{flex:1;}
+  }
 </style>
-<script src="assets/radio.js"></script>
+<script src="assets/radio.js?v=3"></script>
 <script src="assets/page-transition.js"></script>
 </helmet>
 
-<div style="--accent:{{ accent }};--glass:{{ glass }};--grid:{{ grid }};position:relative;min-height:100dvh;display:flex;flex-direction:column;background:#0b0b0d;font-family:'Geist Mono',ui-monospace,monospace;color:#fff;overflow-x:hidden;">
+<div style="--accent:{{ accent }};--glass:{{ glass }};--grid:{{ grid }};position:relative;min-height:100dvh;display:flex;flex-direction:column;background:#0b0b0d;font-family:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#fff;overflow-x:clip;">
 
   <!-- fixed backdrop -->
   <div style="position:fixed;top:0;left:0;width:100%;height:100lvh;z-index:0;">
@@ -44,108 +152,146 @@
   </div>
 
   <!-- ===== NAV ===== -->
-  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);">
+  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;width:max-content;max-width:calc(100vw - 28px);display:flex;flex-wrap:nowrap;align-items:center;overflow-x:auto;padding:7px 8px;border-radius:16px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 10px 48px rgba(0,0,0,.22);border:none;">
     <div style="display:flex;flex-wrap:nowrap;gap:6px;flex:none;white-space:nowrap;">
-      <a href="Cupertinocorp Home.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">HOME</a>
-      <a href="Feed.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">FEED</a>
-      <a href="Photography.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">IMAGES</a>
-      <a href="Audio.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:#0b0b0c;text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;background:var(--accent,#d0d0d2);">SOUNDS</a>
-      <a href="Expo.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">EXPO</a>
-      <a href="Blog.dc.html" style="font:500 11px 'Geist Mono';letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">BLOG</a>
+      <a href="Cupertinocorp Home.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Inicio</a>
+      <a href="Feed.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Feed</a>
+      <a href="Photography.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Imágenes</a>
+      <a href="Audio.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:#0b0b0c;text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;background:var(--accent,#d0d0d2);">Sonidos</a>
+      <a href="Expo.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Expo</a>
+      <a href="Blog.dc.html" style="font:400 13px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:rgba(255,255,255,.55);text-decoration:none;padding:6px 11px;border-radius:9px;white-space:nowrap;">Blog</a>
     </div>
   </div>
 
-  <!-- ===== HEADER ===== -->
-  <div style="position:relative;z-index:1;padding:108px clamp(18px,5vw,64px) 0;">
-    <div style="display:flex;align-items:baseline;gap:16px;">
-      <h1 style="margin:0;font:300 16px 'Geist Mono';letter-spacing:.38em;opacity:.82;">SOUNDS</h1>
-      <span style="flex:1;height:1px;background:rgba(255,255,255,.12);"></span>
-      <span style="font:400 10px 'Geist Mono';letter-spacing:.2em;opacity:.34;">{{ countLabel }}</span>
-    </div>
-  </div>
+  <!-- ===== SONIDOS (estilo Apple Music) ===== -->
+  <main class="am-main">
 
-  <!-- ===== BODY: catalog + player ===== -->
-  <div style="position:relative;z-index:1;width:100%;max-width:1280px;margin:0 auto;padding:clamp(32px,5vh,52px) clamp(18px,5vw,64px) clamp(56px,10vh,110px);">
-    <div style="display:flex;flex-wrap:wrap;gap:clamp(14px,2vw,24px);align-items:flex-start;">
-
-      <!-- CATALOG -->
-      <div style="flex:1 1 440px;min-width:min(100%,320px);">
-        <div style="font:500 11px 'Geist Mono';letter-spacing:.16em;opacity:.5;margin-bottom:14px;">CATÁLOGO</div>
-        <div style="display:flex;flex-direction:column;gap:8px;">
+    <!-- biblioteca -->
+    <sc-if value="{{ isLibrary }}" hint-placeholder-val="{{ true }}">
+      <div class="am-view">
+        <h1 class="am-h1">Sonidos</h1>
+        <div class="am-sec">Lanzamientos</div>
+        <div class="am-grid">
           <sc-for list="{{ releases }}" as="r" hint-placeholder-count="4">
-            <div onClick="{{ r.onSel }}" style="position:relative;display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:14px;cursor:{{ r.cursor }};background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border:1px {{ r.borderStyle }} rgba(255,255,255,{{ r.borderOpacity }});box-shadow:0 10px 36px rgba(0,0,0,.36);opacity:{{ r.opacity }};transition:border-color .3s,transform .3s;" style-hover="transform:translateY(-2px);">
-              <sc-if value="{{ r.active }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:2px;background:var(--accent,#d0d0d2);"></div></sc-if>
-              <div style="width:54px;height:54px;border-radius:11px;overflow:hidden;flex:none;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);">{{ r.thumb }}</div>
-              <div style="flex:1;min-width:0;">
-                <div style="font:500 15px 'Geist Mono';letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.title }}</div>
-                <div style="display:flex;align-items:center;gap:9px;margin-top:6px;">
-                  <span style="font:500 9px 'Geist Mono';letter-spacing:.14em;border:1px solid rgba(255,255,255,.18);border-radius:4px;padding:2px 6px;opacity:.7;">{{ r.type }}</span>
-                  <span style="font:400 11px 'Geist Mono';opacity:.45;">{{ r.year }}</span>
-                  <span style="font:400 11px 'Geist Mono';opacity:.4;">{{ r.countLabel }}</span>
-                </div>
+            <div class="am-card" onClick="{{ r.open }}">
+              <div class="am-art">
+                <img src="{{ r.art }}" alt="" loading="lazy">
+                <sc-if value="{{ r.showPause }}" hint-placeholder-val="{{ false }}"><div class="am-badge"><span class="am-eq" style="--ps:{{ r.eqPlay }};"><i></i><i></i><i></i></span></div></sc-if>
+                <button class="am-cardplay" aria-label="Reproducir" onClick="{{ r.play }}">
+                  <sc-if value="{{ r.showPause }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><rect x="5.5" y="4" width="4.6" height="16" rx="1.3"></rect><rect x="13.9" y="4" width="4.6" height="16" rx="1.3"></rect></svg></sc-if>
+                  <sc-if value="{{ r.showPlay }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M7.5 4.9v14.2c0 .8.9 1.3 1.6.9l11.3-7.1c.6-.4.6-1.4 0-1.8L9.1 4c-.7-.4-1.6.1-1.6.9z"></path></svg></sc-if>
+                </button>
               </div>
-              <span style="flex:none;font-size:16px;opacity:.4;">{{ r.chevron }}</span>
+              <div class="am-ct">{{ r.title }}</div>
+              <div class="am-cs">{{ r.sub }}</div>
             </div>
           </sc-for>
         </div>
       </div>
+    </sc-if>
 
-      <!-- PLAYER -->
-      <div class="cc-inline-player" style="flex:0 1 400px;min-width:min(100%,300px);position:sticky;top:96px;padding:24px;border-radius:20px;background:var(--glass,rgba(20,20,24,.5));backdrop-filter:blur(30px) saturate(140%);-webkit-backdrop-filter:blur(30px) saturate(140%);border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 64px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.1);">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
-          <span style="font:500 11px 'Geist Mono';letter-spacing:.18em;opacity:.6;">{{ panelLabel }}</span>
-          <span style="font-family:'Doto';font-weight:900;font-size:12px;letter-spacing:.16em;opacity:.5;">▦</span>
+    <!-- álbum -->
+    <sc-if value="{{ isAlbum }}" hint-placeholder-val="{{ false }}">
+      <div class="am-view">
+        <button class="am-back" onClick="{{ back }}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>Sonidos</button>
+        <div class="am-head">
+          <div class="am-hart"><img src="{{ alArt }}" alt=""></div>
+          <div class="am-hinfo">
+            <h1 class="am-htitle">{{ alTitle }}</h1>
+            <div class="am-hartist">{{ alArtist }}</div>
+            <div class="am-hmeta">{{ alMeta }}</div>
+            <sc-if value="{{ hasDesc }}" hint-placeholder-val="{{ false }}"><p class="am-hdesc">{{ alDesc }}</p></sc-if>
+            <div class="am-btns">
+              <button class="am-btn" onClick="{{ playAlbum }}"><sc-if value="{{ albumPlaying }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><rect x="5.5" y="4" width="4.6" height="16" rx="1.3"></rect><rect x="13.9" y="4" width="4.6" height="16" rx="1.3"></rect></svg></sc-if><sc-if value="{{ albumPaused }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M7.5 4.9v14.2c0 .8.9 1.3 1.6.9l11.3-7.1c.6-.4.6-1.4 0-1.8L9.1 4c-.7-.4-1.6.1-1.6.9z"></path></svg></sc-if>{{ playAlbumLabel }}</button>
+              <sc-if value="{{ canShuffle }}" hint-placeholder-val="{{ false }}"><button class="am-btn alt" onClick="{{ shuffleAlbum }}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h3.2c2 0 3.2 1 4.3 2.8l3 5.4c1 1.8 2.3 2.8 4.3 2.8H21"></path><path d="M3 17h3.2c1.6 0 2.7-.6 3.6-1.8"></path><path d="M14.2 8.8c.9-1.2 2-1.8 3.6-1.8H21"></path><path d="M18.5 4.5 21 7l-2.5 2.5"></path><path d="M18.5 14.5 21 17l-2.5 2.5"></path></svg>Aleatorio</button></sc-if>
+            </div>
+          </div>
         </div>
-        <div style="position:relative;width:100%;aspect-ratio:1;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 50px rgba(0,0,0,.5);">
-          {{ artEl }}
-        </div>
-        <div style="margin-top:18px;">
-          <div style="font:500 17px 'Geist Mono';letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ relTitle }}</div>
-          <div style="font:400 11px 'Geist Mono';opacity:.5;letter-spacing:.1em;margin-top:5px;">{{ relMeta }}</div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:1px;margin-top:14px;max-height:148px;overflow-y:auto;">
+        <div class="am-list">
           <sc-for list="{{ trackRows }}" as="t" hint-placeholder-count="3">
-            <div onClick="{{ t.onSel }}" style="position:relative;display:flex;align-items:center;gap:12px;padding:9px 10px;border-radius:8px;cursor:pointer;opacity:{{ t.opacity }};">
-              <sc-if value="{{ t.active }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;border-radius:8px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);"></div></sc-if>
-              <span style="position:relative;font:500 10px 'Geist Mono';opacity:.5;width:18px;">{{ t.n }}</span>
-              <span style="position:relative;flex:1;font:500 13px 'Geist Mono';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ t.title }}</span>
-              <span style="position:relative;font:400 10px 'Geist Mono';opacity:.45;">{{ t.durLabel }}</span>
+            <div class="{{ t.cls }}" onClick="{{ t.onSel }}">
+              <div class="am-num">
+                <sc-if value="{{ t.isCur }}" hint-placeholder-val="{{ false }}"><span class="am-eq" style="--ps:{{ t.eqPlay }};"><i></i><i></i><i></i></span></sc-if>
+                <sc-if value="{{ t.notCur }}" hint-placeholder-val="{{ true }}"><span class="am-n">{{ t.n }}</span><span class="am-hp"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M7.5 4.9v14.2c0 .8.9 1.3 1.6.9l11.3-7.1c.6-.4.6-1.4 0-1.8L9.1 4c-.7-.4-1.6.1-1.6.9z"></path></svg></span></sc-if>
+              </div>
+              <div style="min-width:0;">
+                <div class="am-rtt">{{ t.title }}</div>
+                <sc-if value="{{ t.showArtist }}" hint-placeholder-val="{{ false }}"><div class="am-rta">{{ t.artist }}</div></sc-if>
+              </div>
+              <div class="am-rd">{{ t.durLabel }}</div>
             </div>
           </sc-for>
         </div>
-        <div style="margin-top:14px;">
-          <div onClick="{{ seek }}" style="position:relative;height:4px;border-radius:2px;background:rgba(255,255,255,.18);cursor:pointer;">
-            <div style="position:absolute;left:0;top:0;bottom:0;width:{{ progress }};background:var(--accent,#d0d0d2);border-radius:2px;transition:width .15s linear;"></div>
-            <div style="position:absolute;top:50%;left:{{ progress }};width:11px;height:11px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 3px rgba(0,0,0,.3);transition:left .15s linear;"></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;margin-top:9px;font:400 11px 'Geist Mono';opacity:.6;">
-            <span>{{ posLabel }}</span><span>{{ durLabel }}</span>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:28px;margin-top:16px;opacity:{{ transportOpacity }};transition:opacity .3s ease;">
-          <button onClick="{{ prev }}" style="background:none;border:none;color:#fff;font-size:14px;cursor:pointer;opacity:.85;">◀◀</button>
-          <button onClick="{{ toggle }}" style="width:56px;height:56px;border-radius:50%;background:var(--accent,#d0d0d2);color:#0b0b0c;border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;">{{ playGlyph }}</button>
-          <button onClick="{{ next }}" style="background:none;border:none;color:#fff;font-size:14px;cursor:pointer;opacity:.85;">▶▶</button>
-        </div>
-        <div style="display:flex;align-items:center;gap:11px;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="opacity:.45;flex:none;"><path d="M4 9v6h4l5 4V5L8 9H4z"></path><path d="M16.5 8.5a5 5 0 0 1 0 7"></path></svg>
-          <input type="range" class="vol" min="0" max="1" step="0.02" value="{{ vol }}" onInput="{{ setVol }}" style="flex:1;">
-          <span style="font:400 10px 'Geist Mono';opacity:.45;width:30px;text-align:right;">{{ volLabel }}</span>
-        </div>
+        <div class="am-foot">{{ alFoot }}</div>
       </div>
+    </sc-if>
 
+  </main>
+
+  <!-- ===== REPRODUCTOR ===== -->
+  <div class="am-dock">
+  <sc-if value="{{ hasTrack }}" hint-placeholder-val="{{ true }}">
+    <!-- escritorio: barra inferior -->
+    <div class="am-bar">
+      <div class="am-tr">
+        <sc-if value="{{ canShuffleCur }}" hint-placeholder-val="{{ false }}"><button class="am-ib" onClick="{{ shuffleCur }}" aria-label="Aleatorio" style="color:var(--am2);"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h3.2c2 0 3.2 1 4.3 2.8l3 5.4c1 1.8 2.3 2.8 4.3 2.8H21"></path><path d="M3 17h3.2c1.6 0 2.7-.6 3.6-1.8"></path><path d="M14.2 8.8c.9-1.2 2-1.8 3.6-1.8H21"></path><path d="M18.5 4.5 21 7l-2.5 2.5"></path><path d="M18.5 14.5 21 17l-2.5 2.5"></path></svg></button></sc-if>
+        <button class="am-ib" onClick="{{ prev }}" aria-label="Anterior"><svg viewBox="0 0 28 24" width="24" height="24" fill="currentColor" aria-hidden="true" style="transform:scaleX(-1);"><path d="M2 5.6v12.8c0 .8.9 1.3 1.6.8L13 13.1v5.3c0 .8.9 1.3 1.6.8l10.3-6.4c.6-.4.6-1.3 0-1.7L14.6 4.8c-.7-.4-1.6 0-1.6.8v5.3L3.6 4.8C2.9 4.3 2 4.8 2 5.6z"></path></svg></button>
+        <button class="am-ib" onClick="{{ toggle }}" aria-label="Reproducir o pausar"><sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><rect x="5.5" y="4" width="4.6" height="16" rx="1.3"></rect><rect x="13.9" y="4" width="4.6" height="16" rx="1.3"></rect></svg></sc-if><sc-if value="{{ paused }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M7.5 4.9v14.2c0 .8.9 1.3 1.6.9l11.3-7.1c.6-.4.6-1.4 0-1.8L9.1 4c-.7-.4-1.6.1-1.6.9z"></path></svg></sc-if></button>
+        <button class="am-ib" onClick="{{ next }}" aria-label="Siguiente"><svg viewBox="0 0 28 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M2 5.6v12.8c0 .8.9 1.3 1.6.8L13 13.1v5.3c0 .8.9 1.3 1.6.8l10.3-6.4c.6-.4.6-1.3 0-1.7L14.6 4.8c-.7-.4-1.6 0-1.6.8v5.3L3.6 4.8C2.9 4.3 2 4.8 2 5.6z"></path></svg></button>
+      </div>
+      <div class="am-lcd">
+        <img src="{{ curArt }}" alt="">
+        <div class="am-lcdtx">
+          <div class="am-lcdt">{{ curTitle }}</div>
+          <div class="am-lcds">{{ curSub }}</div>
+        </div>
+        <span class="am-lcdtime l">{{ posLabel }}</span><span class="am-lcdtime r">{{ remLabel }}</span>
+        <div class="am-scrub" onPointerDown="{{ scrubDown }}"><div class="am-sf" style="width:{{ progress }};"></div></div>
+      </div>
+      <div class="am-volw"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M4 9.2h3.2l4.4-3.8c.5-.4 1.2 0 1.2.6v12c0 .6-.7 1-1.2.6l-4.4-3.8H4c-.6 0-1-.4-1-1v-3.6c0-.6.4-1 1-1z"></path></svg><input type="range" class="vol" min="0" max="1" step="0.02" value="{{ vol }}" onInput="{{ setVol }}" aria-label="Volumen"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3.5 9.2h2.8l4-3.6c.4-.4 1.1-.1 1.1.5v11.8c0 .6-.7.9-1.1.5l-4-3.6H3.5z" fill="currentColor" stroke="none"></path><path d="M15 9a4.2 4.2 0 0 1 0 6"></path><path d="M17.8 6.4a8 8 0 0 1 0 11.2"></path></svg></div>
     </div>
+
+    <!-- móvil: mini reproductor -->
+    <div class="am-mini" onClick="{{ openNp }}">
+      <img src="{{ curArt }}" alt="">
+      <div class="am-minitx"><div class="am-minit">{{ curTitle }}</div><div class="am-minis">{{ curArtist }}</div></div>
+      <button class="am-ib" onClick="{{ toggleStop }}" aria-label="Reproducir o pausar"><sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><rect x="5.5" y="4" width="4.6" height="16" rx="1.3"></rect><rect x="13.9" y="4" width="4.6" height="16" rx="1.3"></rect></svg></sc-if><sc-if value="{{ paused }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M7.5 4.9v14.2c0 .8.9 1.3 1.6.9l11.3-7.1c.6-.4.6-1.4 0-1.8L9.1 4c-.7-.4-1.6.1-1.6.9z"></path></svg></sc-if></button>
+      <button class="am-ib" onClick="{{ nextStop }}" aria-label="Siguiente"><svg viewBox="0 0 28 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M2 5.6v12.8c0 .8.9 1.3 1.6.8L13 13.1v5.3c0 .8.9 1.3 1.6.8l10.3-6.4c.6-.4.6-1.3 0-1.7L14.6 4.8c-.7-.4-1.6 0-1.6.8v5.3L3.6 4.8C2.9 4.3 2 4.8 2 5.6z"></path></svg></button>
+      <div class="am-minip" style="width:{{ progress }};"></div>
+    </div>
+
+  </sc-if>
   </div>
+
+  <sc-if value="{{ hasTrack }}" hint-placeholder-val="{{ true }}">
+    <!-- móvil: reproduciendo (pantalla completa) -->
+    <div class="am-np" style="transform:{{ npT }};" aria-hidden="{{ npHidden }}">
+      <img class="am-npbg" src="{{ curArt }}" alt="">
+      <div class="am-npov"></div>
+      <div class="am-npin">
+        <div class="am-nph" onPointerDown="{{ npDown }}" onClick="{{ closeNp }}" aria-label="Cerrar"><span></span></div>
+        <div class="am-npart" onPointerDown="{{ npDown }}" style="transform:scale({{ npScale }});"><img src="{{ curArt }}" alt=""></div>
+        <div class="am-npinfo"><div class="am-npt">{{ curTitle }}</div><div class="am-npa">{{ curArtist }}</div></div>
+        <div class="am-scrub" onPointerDown="{{ scrubDown }}"><div class="am-sf" style="width:{{ progress }};"></div></div>
+        <div class="am-nptimes"><span>{{ posLabel }}</span><span>{{ remLabel }}</span></div>
+        <div class="am-npctl">
+          <button class="am-ib" onClick="{{ prev }}" aria-label="Anterior"><svg viewBox="0 0 28 24" width="36" height="36" fill="currentColor" aria-hidden="true" style="transform:scaleX(-1);"><path d="M2 5.6v12.8c0 .8.9 1.3 1.6.8L13 13.1v5.3c0 .8.9 1.3 1.6.8l10.3-6.4c.6-.4.6-1.3 0-1.7L14.6 4.8c-.7-.4-1.6 0-1.6.8v5.3L3.6 4.8C2.9 4.3 2 4.8 2 5.6z"></path></svg></button>
+          <button class="am-ib" onClick="{{ toggle }}" aria-label="Reproducir o pausar"><sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor" aria-hidden="true"><rect x="5.5" y="4" width="4.6" height="16" rx="1.3"></rect><rect x="13.9" y="4" width="4.6" height="16" rx="1.3"></rect></svg></sc-if><sc-if value="{{ paused }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor" aria-hidden="true"><path d="M7.5 4.9v14.2c0 .8.9 1.3 1.6.9l11.3-7.1c.6-.4.6-1.4 0-1.8L9.1 4c-.7-.4-1.6.1-1.6.9z"></path></svg></sc-if></button>
+          <button class="am-ib" onClick="{{ next }}" aria-label="Siguiente"><svg viewBox="0 0 28 24" width="36" height="36" fill="currentColor" aria-hidden="true"><path d="M2 5.6v12.8c0 .8.9 1.3 1.6.8L13 13.1v5.3c0 .8.9 1.3 1.6.8l10.3-6.4c.6-.4.6-1.3 0-1.7L14.6 4.8c-.7-.4-1.6 0-1.6.8v5.3L3.6 4.8C2.9 4.3 2 4.8 2 5.6z"></path></svg></button>
+        </div>
+        <div class="am-npvol"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M4 9.2h3.2l4.4-3.8c.5-.4 1.2 0 1.2.6v12c0 .6-.7 1-1.2.6l-4.4-3.8H4c-.6 0-1-.4-1-1v-3.6c0-.6.4-1 1-1z"></path></svg><input type="range" class="vol" min="0" max="1" step="0.02" value="{{ vol }}" onInput="{{ setVol }}" aria-label="Volumen"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3.5 9.2h2.8l4-3.6c.4-.4 1.1-.1 1.1.5v11.8c0 .6-.7.9-1.1.5l-4-3.6H3.5z" fill="currentColor" stroke="none"></path><path d="M15 9a4.2 4.2 0 0 1 0 6"></path><path d="M17.8 6.4a8 8 0 0 1 0 11.2"></path></svg></div>
+      </div>
+    </div>
+  </sc-if>
 
   <!-- ===== FOOTER (full width) ===== -->
-  <div style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.12);margin-top:auto;">
-    <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;padding:22px clamp(18px,5vw,64px) clamp(40px,7vh,72px);">
-      <span style="font:400 10px 'Geist Mono';opacity:.45;letter-spacing:.12em;">I AM <a href="Lab.dc.html" title="" style="color:inherit;text-decoration:none;cursor:default;transition:color .5s ease,text-shadow .5s ease;" onMouseOver="this.style.color='#ff3b30';this.style.textShadow='0 0 12px rgba(255,59,48,.7)';" onMouseOut="this.style.color='inherit';this.style.textShadow='none';">NOTHING</a> AND EVERYTHING</span>
+  <div style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.12);">
+    <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;padding:8px clamp(18px,5vw,64px) 10px;">
+      <span style="font:400 10px -apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;opacity:.4;letter-spacing:.04em;">I am <a href="Lab.dc.html" title="" style="color:inherit;text-decoration:none;cursor:default;transition:color .5s ease,text-shadow .5s ease;" onMouseOver="this.style.color='#ff3b30';this.style.textShadow='0 0 12px rgba(255,59,48,.7)';" onMouseOut="this.style.color='inherit';this.style.textShadow='none';">nothing</a> and everything</span>
     </div>
   </div>
 
 </div>
-<dc-import name="MiniPlayer" hint-size="0,0"></dc-import>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{
   &quot;$preview&quot;: { &quot;width&quot;: 1400, &quot;height&quot;: 900 },
@@ -154,28 +300,126 @@
   &quot;gridLines&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
 }">
 class Component extends DCLogic {
-  state = { tick: 0 };
+  state = { tick: 0, open: null, np: false };
+  durs = {};
 
   componentDidMount() {
     const attach = (r) => {
       this.radio = r;
-      this.unsub = r.subscribe(() => this.setState(s => ({ tick: s.tick + 1 })));
+      this.unsub = r.subscribe(() => { this.onEngine(); this.bump(); });
+      this.onEngine();
       this.forceUpdate();
     };
     if (window.__ccRadio) attach(window.__ccRadio);
     else this._iv = setInterval(() => { if (window.__ccRadio) { clearInterval(this._iv); this._iv = null; attach(window.__ccRadio); } }, 60);
+
+    this._pop = () => this.syncHash();
+    window.addEventListener('popstate', this._pop);
+    // Espacio = reproducir / pausar (como en Apple Music)
+    this._key = (e) => {
+      if (e.code !== 'Space' || e.repeat) return;
+      const tg = (e.target && e.target.tagName) || '';
+      if (/INPUT|TEXTAREA|SELECT|BUTTON/.test(tg)) return;
+      e.preventDefault();
+      if (this.radio) this.radio.toggle();
+    };
+    window.addEventListener('keydown', this._key);
+    this._mq = window.matchMedia('(min-width:761px)');
+    this._mqf = () => { if (this._mq.matches && this.state.np) this.closeNp(); };
+    if (this._mq.addEventListener) this._mq.addEventListener('change', this._mqf);
   }
-  componentWillUnmount() { if (this.unsub) this.unsub(); if (this._iv) clearInterval(this._iv); }
+  componentWillUnmount() {
+    if (this.unsub) this.unsub();
+    if (this._iv) clearInterval(this._iv);
+    window.removeEventListener('popstate', this._pop);
+    window.removeEventListener('keydown', this._key);
+    if (this._mq && this._mq.removeEventListener) this._mq.removeEventListener('change', this._mqf);
+    document.body.style.overflow = '';
+  }
+
+  bump() { this.setState(s => ({ tick: s.tick + 1 })); }
+
+  onEngine() {
+    const r = this.radio;
+    if (!r || !r.getState().ready) return;
+    if (!this._hashed) { this._hashed = true; this.syncHash(); }
+    (r.releases || []).forEach(rel => (rel.tracks || []).forEach(t => this.probe(t.src)));
+  }
+
+  // Lee la duración de cada pista (solo metadatos) para la lista de canciones.
+  probe(src) {
+    if (!src || src in this.durs) return;
+    this.durs[src] = 0;
+    try {
+      const a = new Audio();
+      a.preload = 'metadata';
+      a.onloadedmetadata = () => { this.durs[src] = a.duration || 0; this.bump(); };
+      a.src = src;
+    } catch (e) {}
+  }
 
   fmt(s) {
     s = Math.max(0, Math.floor(s || 0));
     return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
   }
 
-  selectRelease = (i) => { if (this.radio) this.radio.selectRelease(i, false); };
-  selectTrack = (i) => { if (this.radio) this.radio.select(i, true); };
+  // ----- navegación biblioteca ⇄ álbum (con #id en la URL y botón atrás) -----
+  syncHash() {
+    const id = decodeURIComponent((location.hash || '').slice(1));
+    const ok = this.radio && this.radio.getState().ready;
+    const i = (id && ok) ? this.radio.releases.findIndex(r => r.id === id) : -1;
+    this.setState({ open: i >= 0 ? i : null });
+  }
+  openAlbum(i) {
+    const r = this.radio && this.radio.releases[i];
+    if (!r) return;
+    history.pushState({ am: 1 }, '', '#' + encodeURIComponent(r.id));
+    this.setState({ open: i });
+    window.scrollTo(0, 0);
+  }
+  back = () => {
+    if (history.state && history.state.am) history.back();
+    else { history.replaceState(null, '', location.pathname + location.search); this.setState({ open: null }); }
+    window.scrollTo(0, 0);
+  };
 
-  parseDur(s) { const p = String(s).split(':'); return (+p[0] || 0) * 60 + (+p[1] || 0); }
+  // ----- reproducción -----
+  playAt(ri, ti) {
+    const eng = this.radio;
+    if (!eng) return;
+    if (eng.getState().relIdx !== ri) eng.selectRelease(ri, false);
+    if (eng.getState().idx === ti) eng.play();
+    else eng.select(ti, true);
+  }
+  shuffleIn(ri) {
+    const eng = this.radio;
+    const r = eng && eng.releases[ri];
+    if (!r || !r.tracks || !r.tracks.length) return;
+    const n = r.tracks.length, st = eng.getState();
+    let k = Math.floor(Math.random() * n);
+    if (n > 1 && st.relIdx === ri && k === st.idx) k = (k + 1) % n;
+    this.playAt(ri, k);
+  }
+  scrubDown = (e) => {
+    const eng = this.radio;
+    if (!eng) return;
+    e.stopPropagation();
+    const el = (e.target && e.target.closest && e.target.closest('.am-scrub')) || e.currentTarget;
+    const f = (x) => { const b = el.getBoundingClientRect(); eng.seekFraction((x - b.left) / b.width); };
+    f(e.clientX);
+    const mv = (ev) => f(ev.clientX);
+    const up = () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); };
+    window.addEventListener('pointermove', mv);
+    window.addEventListener('pointerup', up);
+  };
+  openNp = () => { document.body.style.overflow = 'hidden'; this.setState({ np: true }); };
+  closeNp = () => { document.body.style.overflow = ''; this.setState({ np: false }); };
+  // Deslizar hacia abajo cierra la pantalla de reproducción
+  npDown = (e) => {
+    const y0 = e.clientY;
+    const up = (ev) => { window.removeEventListener('pointerup', up); if (ev.clientY - y0 > 60) this.closeNp(); };
+    window.addEventListener('pointerup', up);
+  };
 
   renderVals() {
     const accentMap = { 'Silver': '#d0d0d2', 'Nothing red': '#ff3b30', 'None': 'rgba(255,255,255,0.88)' };
@@ -184,62 +428,99 @@ class Component extends DCLogic {
     const glass = tintMap[this.props.glassTint] ?? 'rgba(20,20,24,0.5)';
     const grid = (this.props.gridLines ?? true) ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0)';
 
-    // Mientras el motor de radio no está listo del todo — ni siquiera existe
-    // window.__ccRadio, ni ha terminado de cargar content/audio.json — no
-    // pintamos ningún release: así nunca se ve el catálogo de repuesto
-    // integrado en radio.js (con su imagen fija dscf0594.jpg) antes de que
-    // llegue el catálogo real de Sveltia.
+    // No pintamos nada hasta que el motor de radio haya cargado content/audio.json,
+    // para no enseñar nunca el catálogo de repuesto de radio.js.
     const eng = this.radio;
     const st = eng ? eng.getState() : null;
     const ready = !!(st && st.ready);
-    const cats = ready ? eng.releases : [];
-    const tks = ready ? eng.catalog : [];
-    const { relIdx = 0, idx = 0, playing = false, pos = 0, dur = 0, vol = 0.8, durs = {} } = st || {};
-    const curRel = ready ? ((st && st.release) || cats[relIdx] || null) : null;
+    const rels = ready ? eng.releases.map(r => Object.assign({}, r, { tracks: Array.isArray(r.tracks) ? r.tracks : [] })) : [];
+    const { relIdx = 0, idx = 0, playing = false, pos = 0, dur = 0, vol = 0.8 } = st || {};
+    const eqPlay = playing ? 'running' : 'paused';
 
-    const imgArt = (src, fontPx) => src ? React.createElement('img', { src: src, alt: '', style: { width: '100%', height: '100%', objectFit: 'cover' } }) : null;
+    const artistOf = (r) => {
+      if (!r) return '';
+      if (r.artist) return r.artist;
+      const s = new Set((r.tracks || []).map(t => t.artist).filter(Boolean));
+      return s.size === 1 ? [...s][0] : 'Varios artistas';
+    };
+    const typeName = (t) => {
+      const k = String(t || '').toUpperCase();
+      const m = { RADIO: 'Radio', EP: 'EP', LP: 'Álbum', ALBUM: 'Álbum', SINGLE: 'Sencillo', 'PIEZA SONORA': 'Pieza sonora' };
+      return m[k] || (t ? t.charAt(0).toUpperCase() + t.slice(1).toLowerCase() : '');
+    };
 
-    const releases = cats.map((r, i) => ({
-      type: r.type, title: r.title, year: r.year,
-      countLabel: '· ' + r.count + (r.count === 1 ? ' PISTA' : ' PISTAS'),
-      active: i === relIdx,
-      opacity: 1, cursor: 'pointer', borderStyle: 'solid',
-      borderOpacity: i === relIdx ? '0.28' : '0.13',
-      chevron: (i === relIdx && playing) ? '▮' : '›',
-      thumb: imgArt(r.art, 9),
-      onSel: () => this.selectRelease(i),
-    }));
+    const releases = rels.map((r, i) => {
+      const isCur = i === relIdx;
+      return {
+        art: r.art, title: r.title, sub: artistOf(r),
+        isCur, eqPlay, showPause: isCur && playing, showPlay: !(isCur && playing),
+        open: () => this.openAlbum(i),
+        play: (e) => { e.stopPropagation(); if (isCur) eng.toggle(); else this.playAt(i, 0); },
+      };
+    });
 
-    const trackRows = tks.map((t, i) => ({
-      n: String(i + 1).padStart(2, '0'), title: t.title,
-      durLabel: durs[i] ? this.fmt(durs[i]) : (i === idx ? this.fmt(dur) : '—:—'),
-      active: i === idx, opacity: i === idx ? 1 : 0.62,
-      onSel: () => this.selectTrack(i),
-    }));
+    const oi = this.state.open;
+    const al = (oi != null && rels[oi]) ? rels[oi] : null;
+    const alArtist = artistOf(al);
+    const alCur = !!al && oi === relIdx;
+    const tracksOf = al ? al.tracks : [];
+    const trackRows = tracksOf.map((t, i) => {
+      const isCur = alCur && i === idx;
+      const d = this.durs[t.src] || (isCur ? dur : 0);
+      return {
+        n: i + 1, title: t.title, artist: t.artist,
+        showArtist: !!t.artist && t.artist !== alArtist,
+        durLabel: d ? this.fmt(d) : '',
+        isCur, notCur: !isCur, eqPlay,
+        cls: 'am-row' + (isCur ? ' on' : ''),
+        onSel: () => { if (isCur) eng.toggle(); else this.playAt(oi, i); },
+      };
+    });
+    const n = tracksOf.length;
+    const allKnown = n > 0 && tracksOf.every(t => this.durs[t.src]);
+    const mins = Math.max(1, Math.round(tracksOf.reduce((s, t) => s + (this.durs[t.src] || 0), 0) / 60));
+    const alFoot = n ? (n + (n === 1 ? ' canción' : ' canciones') + (allKnown ? ', ' + mins + (mins === 1 ? ' minuto' : ' minutos') : '')) : '';
 
-    const live = cats.length;
+    const rc = rels[relIdx] || null;
+    const ct = (rc && rc.tracks[idx]) || (st && st.track) || null;
+    const curArtist = ct ? (ct.artist || artistOf(rc)) : '';
+    const np = this.state.np;
 
     return {
       accent, glass, grid,
-      releases, trackRows,
-      countLabel: live ? (String(live).padStart(2, '0') + (live === 1 ? ' RELEASE' : ' RELEASES')) : '— RELEASES',
-      statusLabel: playing ? 'ON AIR' : 'EN PAUSA',
-      playing,
-      panelLabel: playing ? 'REPRODUCIENDO' : 'EN COLA',
-      artEl: curRel ? imgArt(curRel.art, 13) : null,
-      relTitle: curRel ? curRel.title : '',
-      relMeta: curRel ? (curRel.type + ' · ' + curRel.year) : '',
-      posLabel: this.fmt(pos),
-      durLabel: this.fmt(dur),
+      isLibrary: ready && !al, isAlbum: !!al,
+      releases,
+      alArt: al ? al.art : '', alTitle: al ? al.title : '', alArtist,
+      alMeta: al ? [typeName(al.type), al.year].filter(Boolean).join(' · ').toUpperCase() : '',
+      alDesc: al ? (al.description || '') : '', hasDesc: !!(al && al.description),
+      albumPlaying: alCur && playing, albumPaused: !(alCur && playing),
+      playAlbumLabel: (alCur && playing) ? 'Pausa' : 'Reproducir',
+      playAlbum: () => { if (alCur) eng.toggle(); else this.playAt(oi, 0); },
+      shuffleAlbum: () => this.shuffleIn(oi),
+      canShuffle: n > 1,
+      canShuffleCur: !!(rc && rc.tracks.length > 1),
+      back: this.back,
+      trackRows, alFoot,
+
+      hasTrack: ready && !!ct,
+      playing, paused: !playing,
+      curArt: rc ? rc.art : '', curTitle: ct ? ct.title : '', curArtist,
+      curSub: curArtist + (rc ? ' — ' + rc.title : ''),
+      posLabel: this.fmt(pos), remLabel: '-' + this.fmt(Math.max(0, dur - pos)),
       progress: (Math.min(100, dur ? (pos / dur) * 100 : 0)) + '%',
-      playGlyph: playing ? '❚❚' : '▶',
-      transportOpacity: 1,
-      vol, volLabel: Math.round(vol * 100) + '',
+      vol,
       toggle: () => { if (eng) eng.toggle(); },
       next: () => { if (eng) eng.next(true); },
-      prev: () => { if (eng) eng.prev(true); },
-      seek: (e) => { if (!eng) return; const b = e.currentTarget.getBoundingClientRect(); eng.seekFraction((e.clientX - b.left) / b.width); },
+      prev: () => { if (!eng) return; if (pos > 3) eng.seekFraction(0); else eng.prev(true); },
+      toggleStop: (e) => { e.stopPropagation(); if (eng) eng.toggle(); },
+      nextStop: (e) => { e.stopPropagation(); if (eng) eng.next(true); },
+      shuffleCur: () => this.shuffleIn(relIdx),
+      scrubDown: this.scrubDown,
       setVol: (e) => eng && eng.setVol(parseFloat(e.currentTarget.value)),
+      openNp: this.openNp, closeNp: this.closeNp, npDown: this.npDown,
+      npT: np ? 'translateY(0)' : 'translateY(100%)',
+      npVis: np ? 'visible' : 'hidden', npHidden: np ? 'false' : 'true',
+      npScale: playing ? '1' : '0.84',
       muteRef: (el) => { if (el) { el.muted = true; el.defaultMuted = true; el.volume = 0; } },
     };
   }

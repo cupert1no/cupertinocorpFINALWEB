@@ -81,7 +81,22 @@
   audio.src = cur().src;
 
   var listeners = new Set();
-  function emit() { listeners.forEach(function (fn) { try { fn(); } catch (e) {} }); }
+  var msKey = '';
+  function mediaSession() {
+    if (!('mediaSession' in navigator)) return;
+    var ms = navigator.mediaSession;
+    try { ms.playbackState = audio.paused ? 'paused' : 'playing'; } catch (e) {}
+    var r = RELEASES[relIdx], t = cur(), key = relIdx + ':' + idx + ':' + t.src;
+    if (key === msKey || typeof MediaMetadata === 'undefined') return;
+    msKey = key;
+    try {
+      ms.metadata = new MediaMetadata({
+        title: t.title || '', artist: t.artist || r.artist || '', album: r.title || '',
+        artwork: r.art ? [{ src: new URL(r.art, location.href).href, sizes: '1024x1024' }] : []
+      });
+    } catch (e) {}
+  }
+  function emit() { mediaSession(); listeners.forEach(function (fn) { try { fn(); } catch (e) {} }); }
 
   var lastSave = 0;
   function persist(force) {
@@ -107,9 +122,37 @@
   audio.addEventListener('timeupdate', function () { persist(false); emit(); });
   audio.addEventListener('play',  function () { persist(true); emit(); });
   audio.addEventListener('pause', function () { persist(true); emit(); });
-  audio.addEventListener('ended', function () { loadIdx(idx + 1, true); });
+  audio.addEventListener('ended', function () {
+    var r = RELEASES[relIdx];
+    if (idx + 1 < r.tracks.length || String(r.type).toUpperCase() === 'RADIO') loadIdx(idx + 1, true);
+    else loadIdx(0, false);
+  });
   window.addEventListener('pagehide', function () { persist(true); });
   window.addEventListener('beforeunload', function () { persist(true); });
+
+  // Algunos servidores (p. ej. `python3 -m http.server`) no admiten peticiones Range,
+  // y entonces el navegador no puede saltar dentro de la canción (vuelve al 0:00).
+  // Lo detectamos una vez y, si hace falta, cargamos la pista como blob, que sí admite saltos.
+  var rangeOk = null;
+  function withSeek(tt) {
+    var src = audio.currentSrc || audio.src;
+    if (!src || src.indexOf('blob:') === 0 || rangeOk === true) { audio.currentTime = tt; return; }
+    var go = function () {
+      if (rangeOk) { audio.currentTime = tt; return; }
+      var wasPlaying = !audio.paused;
+      fetch(src).then(function (r) { return r.blob(); }).then(function (b) {
+        if ((audio.currentSrc || audio.src) !== src) return;   // la pista cambió mientras tanto
+        pendingSeek = tt;
+        audio.src = URL.createObjectURL(b);
+        if (wasPlaying) audio.play().catch(noop);
+      }).catch(function () { audio.currentTime = tt; });
+    };
+    if (rangeOk === false) { go(); return; }
+    fetch(src, { headers: { Range: 'bytes=0-0' } })
+      .then(function (r) { rangeOk = (r.status === 206); })
+      .catch(function () { rangeOk = true; })
+      .then(go);
+  }
 
   function loadIdx(i, play) {
     var t = tracks();
@@ -150,7 +193,11 @@
   }
 
   function relMeta(r) {
-    return { id: r.id, type: r.type, title: r.title, year: r.year, art: r.art, count: r.tracks.length };
+    return {
+      id: r.id, type: r.type, title: r.title, year: r.year, art: r.art, count: r.tracks.length,
+      artist: r.artist || '', description: r.description || '',
+      tracks: r.tracks.map(function (t) { return { title: t.title, artist: t.artist, src: t.src }; })
+    };
   }
 
   var api = {
@@ -182,7 +229,10 @@
     prev:   function (play) { loadIdx(idx - 1, play !== false); },
     seekFraction: function (f) {
       var d = audio.duration || 0;
-      if (d) { audio.currentTime = Math.max(0, Math.min(1, f)) * d; persist(true); emit(); }
+      if (!d) return;
+      var tt = Math.max(0, Math.min(1, f)) * d;
+      withSeek(tt);
+      persist(true); emit();
     },
     setVol: function (v) { vol = Math.max(0, Math.min(1, v)); audio.volume = vol; persist(true); emit(); },
     setAccent: function (a) { if (ACCENTS[a]) { accent = a; persist(true); emit(); } }
@@ -194,6 +244,15 @@
 
   window.__ccRadio = api;
 
+  if ('mediaSession' in navigator) {
+    var h = {
+      play: function () { api.play(); }, pause: function () { api.pause(); },
+      nexttrack: function () { api.next(true); }, previoustrack: function () { api.prev(true); },
+      seekto: function (d) { var du = audio.duration || 0; if (du && d && typeof d.seekTime === 'number') api.seekFraction(d.seekTime / du); }
+    };
+    Object.keys(h).forEach(function (k) { try { navigator.mediaSession.setActionHandler(k, h[k]); } catch (e) {} });
+  }
+
   // Load the editable catalog and hot-swap it in. Falls back silently to the
   // built-in RELEASES above if the file is missing or malformed.
   fetch('content/audio.json', { cache: 'no-store' })
@@ -203,6 +262,7 @@
       var next = d.releases.map(function (r) {
         return {
           id: r.id, type: r.type, title: r.title, year: String(r.year || ''), art: r.art,
+          artist: r.artist || '', description: r.description || '',
           tracks: (r.tracks || []).map(function (t) { return { title: t.title, artist: t.artist, src: t.src }; })
         };
       }).filter(function (r) { return r.tracks.length; });

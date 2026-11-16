@@ -23,6 +23,22 @@
           "src": "assets/audio/boards-of-canada-age-of-capricorn.mp3"
         }
       ]
+    },
+    {
+      "id": "la-oficina-de-las-buenas-intenciones",
+      "type": "PIEZA SONORA",
+      "title": "La oficina de las buenas intenciones",
+      "artist": "Javier de Rojas",
+      "year": "2026",
+      "art": "assets/img/expo/expo-011-cover.jpg",
+      "description": "Pieza sonora de la exposición colectiva Derivas en fuga / Ilógicas de la función (El Local, Delicias, Madrid, 2026). Grabaciones de campo de oficinas y entornos financieros se mezclan con melodías sintéticas y una voz que narra el diario de un trabajador.",
+      "tracks": [
+        {
+          "title": "La oficina de las buenas intenciones",
+          "artist": "Javier de Rojas",
+          "src": "assets/audio/la-oficina-de-las-buenas-intenciones.mp3"
+        }
+      ]
     }
   ]
 }
